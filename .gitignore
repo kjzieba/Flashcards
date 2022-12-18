@@ -1,0 +1,29 @@
+# Default ignored files
+/shelf/
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+# dependencies
+/.pnp
+/.idea
+/.mvn
+/mvnw
+/mvnw.cmd
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+/target
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
