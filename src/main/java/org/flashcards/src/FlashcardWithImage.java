@@ -7,11 +7,12 @@ public class FlashcardWithImage extends Flashcard {
     protected byte[] imageQuestion;
     protected String imageDescription;
 
-    public FlashcardWithImage(byte[] imageQuestion, String imageDescription, String answer, State flashcardState) {
-        super(answer, flashcardState);
+    public FlashcardWithImage(String answer, byte[] imageQuestion, String imageDescription) {
+        super(answer);
         this.imageQuestion = imageQuestion;
         this.imageDescription = imageDescription;
     }
+
 
     public byte[] getImageQuestion() {
         return imageQuestion;

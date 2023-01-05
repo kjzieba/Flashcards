@@ -6,10 +6,11 @@ public class FlashcardWithText extends Flashcard {
 
     protected String textQuestion;
 
-    public FlashcardWithText(String textQuestion, String answer, State flashcardState) {
-        super(answer, flashcardState);
+    public FlashcardWithText(String answer, String textQuestion) {
+        super(answer);
         this.textQuestion = textQuestion;
     }
+
 
     public String getTextQuestion() {
         return textQuestion;

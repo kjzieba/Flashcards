@@ -11,8 +11,8 @@ import java.nio.file.Files;
 public class FlashcardWithImageCreator implements FlashcardCreator {
 
     @Override
-    public Flashcard createFlashcard(State flashcardState, String... args) {
-        return new FlashcardWithImage(imageToBytesArray(args[0]), args[1], args[2], flashcardState);
+    public Flashcard createFlashcard(String... args) {
+        return new FlashcardWithImage(args[0], imageToBytesArray(args[2]), args[3]);
     }
 
     public byte[] imageToBytesArray(String image) {

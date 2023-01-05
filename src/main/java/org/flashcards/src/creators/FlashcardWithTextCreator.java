@@ -7,8 +7,8 @@ import org.flashcards.src.states.State;
 public class FlashcardWithTextCreator implements FlashcardCreator {
 
     @Override
-    public Flashcard createFlashcard(State flashcardState, String... args) {
-        return new FlashcardWithText(args[0], args[1], flashcardState);
+    public Flashcard createFlashcard(String... args) {
+        return new FlashcardWithText(args[0], args[2]);
     }
 
 }

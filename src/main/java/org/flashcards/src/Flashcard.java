@@ -1,5 +1,6 @@
 package org.flashcards.src;
 
+import org.flashcards.src.states.NormalState;
 import org.flashcards.src.states.State;
 
 public abstract class Flashcard implements State {
@@ -7,9 +8,10 @@ public abstract class Flashcard implements State {
     protected String answer;
     protected State flashcardState;
 
-    protected Flashcard(String answer, State flashcardState){
+
+    protected Flashcard(String answer){
         this.answer = answer;
-        this.flashcardState = flashcardState;
+        this.flashcardState = new NormalState();
     }
 
     public String getAnswer() {
