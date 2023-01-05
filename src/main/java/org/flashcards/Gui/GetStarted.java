@@ -30,7 +30,7 @@ public class GetStarted extends JPanel {
 
     private void addGetStartedButton() {
         getStartedButton = new JButton("Get started");
-        getStartedButton.setBackground(new java.awt.Color(0, 0, 0));
+//        getStartedButton.setBackground(new java.awt.Color(0, 0, 0));
         getStartedButton.setFont(new Font("Arbutus", Font.PLAIN, 14));
         getStartedButton.setBounds(398, 321, 152, 47);
         add(getStartedButton);
@@ -41,7 +41,7 @@ public class GetStarted extends JPanel {
 
     private void addSettingsButton() {
         settingsButton = new JButton("Settings");
-        settingsButton.setBackground(new java.awt.Color(0, 0, 0));
+//        settingsButton.setBackground(new java.awt.Color(0, 0, 0));
         settingsButton.setFont(new Font("Arbutus", Font.PLAIN, 14));
         settingsButton.setBounds(398, 404, 152, 47);
         add(settingsButton);

@@ -10,6 +10,12 @@ import java.io.IOException;
 public class GUInitializer extends JFrame implements Initializer {
     private final GetStarted getStarted;
     private final Menu menu;
+    private final Add add;
+    private final Edit edit;
+    private final ChooseMode chooseMode;
+    private final LearnMode learnMode;
+    private final TestMode testMode;
+    private final FlashCardsMode flashCardsMode;
 
     public GUInitializer() {
 
@@ -33,6 +39,13 @@ public class GUInitializer extends JFrame implements Initializer {
 
         getStarted = new GetStarted(this);
         menu = new Menu(this);
+        add = new Add(this);
+        edit = new Edit(this);
+        chooseMode = new ChooseMode(this);
+        learnMode = new LearnMode(this);
+        testMode = new TestMode(this);
+        flashCardsMode = new FlashCardsMode(this);
+
 
         setTitle("Flashcards");
         add(getStarted);
@@ -57,6 +70,43 @@ public class GUInitializer extends JFrame implements Initializer {
                 pack();
                 menu.setVisible(true);
             }
+            case Add -> {
+                menu.setVisible(false);
+                setContentPane(add);
+                pack();
+                add.setVisible(true);
+            }
+            case Edit -> {
+                add.setVisible(false);
+                setContentPane(edit);
+                pack();
+                edit.setVisible(true);
+            }
+            case ChooseMode -> {
+                edit.setVisible(false);
+                setContentPane(chooseMode);
+                pack();
+                chooseMode.setVisible(true);
+            }
+            case LearnMode -> {
+                chooseMode.setVisible(false);
+                setContentPane(learnMode);
+                pack();
+                learnMode.setVisible(true);
+            }
+            case TestMode -> {
+                chooseMode.setVisible(false);
+                setContentPane(testMode);
+                pack();
+                testMode.setVisible(true);
+            }
+            case FlashCardsMode -> {
+                chooseMode.setVisible(false);
+                setContentPane(flashCardsMode);
+                pack();
+                flashCardsMode.setVisible(true);
+            }
+
         }
     }
 
@@ -71,11 +121,10 @@ public class GUInitializer extends JFrame implements Initializer {
         Add,
         Edit,
         ChooseMode,
-        FlashCards,
-        Learn,
-        Test,
-        Result,
-
+        FlashCardsMode,
+        LearnMode,
+        TestMode,
+        Result
     }
 
     public static void changeFont(String path) {
