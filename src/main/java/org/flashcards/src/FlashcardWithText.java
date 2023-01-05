@@ -22,6 +22,6 @@ public class FlashcardWithText extends Flashcard {
 
     @Override
     public void action() {
-
+        this.flashcardState.action();
     }
 }

@@ -32,6 +32,6 @@ public class FlashcardWithImage extends Flashcard {
 
     @Override
     public void action() {
-
+        this.flashcardState.action();
     }
 }
