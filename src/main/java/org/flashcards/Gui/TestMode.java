@@ -1,5 +1,7 @@
 package org.flashcards.Gui;
 
+import org.flashcards.Gui.Components.ButtonComponents;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,12 +17,7 @@ public class TestMode extends JPanel {
     }
 
     private void getBackButton() {
-        JButton backButton = new JButton();
-        backButton.setIcon(new ImageIcon("src/main/resources/img/backButton.png"));
-        backButton.setBounds(13, 12, 30, 30);
-        backButton.setBorderPainted(false);
-        backButton.setContentAreaFilled(false);
-        backButton.setFocusPainted(false);
+        JButton backButton = new ButtonComponents().backButtonComponent(13,12);
         backButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.ChooseMode);
         });

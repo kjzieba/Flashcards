@@ -1,5 +1,7 @@
 package org.flashcards.Gui;
 
+import org.flashcards.Gui.Components.ButtonComponents;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -18,12 +20,7 @@ public class ChooseMode extends JPanel {
     }
 
     private void getBackButton() {
-        JButton backButton = new JButton();
-        backButton.setIcon(new ImageIcon("src/main/resources/img/backButton.png"));
-        backButton.setBounds(13, 12, 30, 30);
-        backButton.setBorderPainted(false);
-        backButton.setContentAreaFilled(false);
-        backButton.setFocusPainted(false);
+        JButton backButton = new ButtonComponents().backButtonComponent(13,12);
         backButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Menu);
         });
@@ -31,35 +28,26 @@ public class ChooseMode extends JPanel {
     }
 
     private void getFlashCardsButton() {
-        JButton addTextButton = new JButton("flashcards");
-        addTextButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        addTextButton.setBounds(149, 47, 210, 65);
-
-        addTextButton.addActionListener(e -> {
+        JButton flashcardsButton = new ButtonComponents().bigButtonComponent("flashcards", 149, 47);
+        flashcardsButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.FlashCardsMode);
         });
-        add(addTextButton);
+        add(flashcardsButton);
     }
 
     private void getLearnButton() {
-        JButton addButton = new JButton("learn");
-        addButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        addButton.setBounds(392, 47, 210, 65);
-
-        addButton.addActionListener(e -> {
+        JButton learnButton = new ButtonComponents().bigButtonComponent("learn", 392, 47);
+        learnButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.LearnMode);
         });
-        add(addButton);
+        add(learnButton);
     }
 
     private void getTestButton() {
-        JButton addButton = new JButton("test");
-        addButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        addButton.setBounds(635, 47, 210, 65);
-
-        addButton.addActionListener(e -> {
+        JButton testButton = new ButtonComponents().bigButtonComponent("test", 635, 47);
+        testButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.TestMode);
         });
-        add(addButton);
+        add(testButton);
     }
 }
