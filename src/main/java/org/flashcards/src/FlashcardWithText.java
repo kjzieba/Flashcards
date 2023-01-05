@@ -1,13 +1,11 @@
-package org.flashcards.Backend;
-
-import org.flashcards.Backend.enums.FlashcardStates;
+package org.flashcards.src;
 
 public class FlashcardWithText extends Flashcard {
 
     protected String textQuestion;
 
-    public FlashcardWithText(String textQuestion, String answer, FlashcardStates state) {
-        super(answer, state);
+    public FlashcardWithText(String textQuestion, String answer, State flashcardState) {
+        super(answer, flashcardState);
         this.textQuestion = textQuestion;
     }
 
@@ -17,5 +15,10 @@ public class FlashcardWithText extends Flashcard {
 
     public void setTextQuestion(String textQuestion) {
         this.textQuestion = textQuestion;
+    }
+
+    @Override
+    public void action() {
+
     }
 }

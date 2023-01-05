@@ -1,8 +1,8 @@
-package org.flashcards.Backend.creators;
+package org.flashcards.src.creators;
 
-import org.flashcards.Backend.Flashcard;
-import org.flashcards.Backend.FlashcardWithImage;
-import org.flashcards.Backend.enums.FlashcardStates;
+import org.flashcards.src.Flashcard;
+import org.flashcards.src.FlashcardWithImage;
+import org.flashcards.src.State;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,8 +11,8 @@ import java.nio.file.Files;
 public class FlashcardWithImageCreator implements FlashcardCreator {
 
     @Override
-    public Flashcard createFlashcard(FlashcardStates state, String... args) {
-        return new FlashcardWithImage(imageToBytesArray(args[0]), args[1], args[2], state);
+    public Flashcard createFlashcard(State flashcardState, String... args) {
+        return new FlashcardWithImage(imageToBytesArray(args[0]), args[1], args[2], flashcardState);
     }
 
     public byte[] imageToBytesArray(String image) {

@@ -1,13 +1,12 @@
-package org.flashcards.Backend;
-
-import org.flashcards.Backend.enums.FlashcardStates;
+package org.flashcards.src;
 
 public class FlashcardWithImage extends Flashcard {
 
     protected byte[] imageQuestion;
     protected String imageDescription;
-    public FlashcardWithImage(byte[] imageQuestion, String imageDescription, String answer, FlashcardStates state) {
-        super(answer, state);
+
+    public FlashcardWithImage(byte[] imageQuestion, String imageDescription, String answer, State flashcardState) {
+        super(answer, flashcardState);
         this.imageQuestion = imageQuestion;
         this.imageDescription = imageDescription;
     }
@@ -26,5 +25,10 @@ public class FlashcardWithImage extends Flashcard {
 
     public void setImageDescription(String imageDescription) {
         this.imageDescription = imageDescription;
+    }
+
+    @Override
+    public void action() {
+
     }
 }
