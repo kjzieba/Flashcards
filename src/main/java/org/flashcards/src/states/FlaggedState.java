@@ -1,4 +1,4 @@
-package org.flashcards.src;
+package org.flashcards.src.states;
 
 public class FlaggedState implements State{
 

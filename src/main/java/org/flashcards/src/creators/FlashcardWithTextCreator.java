@@ -2,7 +2,7 @@ package org.flashcards.src.creators;
 
 import org.flashcards.src.Flashcard;
 import org.flashcards.src.FlashcardWithText;
-import org.flashcards.src.State;
+import org.flashcards.src.states.State;
 
 public class FlashcardWithTextCreator implements FlashcardCreator {
 

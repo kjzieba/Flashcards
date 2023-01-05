@@ -1,5 +1,7 @@
 package org.flashcards.src;
 
+import org.flashcards.src.states.State;
+
 public class FlashcardWithText extends Flashcard {
 
     protected String textQuestion;

@@ -1,6 +1,8 @@
 package org.flashcards.src;
 
-public abstract class Flashcard implements State{
+import org.flashcards.src.states.State;
+
+public abstract class Flashcard implements State {
 
     protected String answer;
     protected State flashcardState;
@@ -30,4 +32,5 @@ public abstract class Flashcard implements State{
     public void action() {
         this.flashcardState.action();
     }
+
 }

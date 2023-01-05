@@ -2,7 +2,7 @@ package org.flashcards.src.creators;
 
 import org.flashcards.src.Flashcard;
 import org.flashcards.src.FlashcardWithImage;
-import org.flashcards.src.State;
+import org.flashcards.src.states.State;
 
 import java.io.File;
 import java.io.IOException;
