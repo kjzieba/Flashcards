@@ -7,25 +7,15 @@ public class AllFlashcards {
     ArrayList<FlashcardRepository> allFlashcards = new ArrayList<>();
 
 
-    public FlashcardRepository queryFromAll(String title) {
-        for(FlashcardRepository repository : allFlashcards){
-            if(repository.getTitle()==title){
-                return repository;
-            }
-        }
-        return null;
+    public FlashcardRepository queryFromAll(FlashcardRepository flashcardRepository) {
+        return allFlashcards.get(allFlashcards.indexOf(flashcardRepository));
     }
 
     public void addToAll(FlashcardRepository flashcardRepo) {
         allFlashcards.add(flashcardRepo);
     }
 
-    public void deleteFromAll(String title) {
-        for(FlashcardRepository repository : allFlashcards){
-            if(repository.getTitle()==title){
-                allFlashcards.remove(repository);
-                break;
-            }
-        }
+    public void deleteFromAll(FlashcardRepository flashcardRepository) {
+        allFlashcards.remove(flashcardRepository);
     }
 }
