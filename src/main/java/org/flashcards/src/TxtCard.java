@@ -1,13 +1,11 @@
 package org.flashcards.src;
 
-import org.flashcards.src.states.State;
-
-public class FlashcardWithText extends Flashcard {
+public class TxtCard extends Card {
 
     protected String textQuestion;
 
-    public FlashcardWithText(String answer, String textQuestion) {
-        super(answer);
+    public TxtCard(Long id, String answer, String textQuestion) {
+        super(id, answer);
         this.textQuestion = textQuestion;
     }
 

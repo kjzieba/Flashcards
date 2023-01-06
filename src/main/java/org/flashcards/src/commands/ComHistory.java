@@ -2,7 +2,7 @@ package org.flashcards.src.commands;
 
 import java.util.Stack;
 
-public class CommandHistory {
+public class ComHistory {
     private final Stack<Command> history = new Stack<>();
 
     public void push(Command command) {
@@ -13,5 +13,11 @@ public class CommandHistory {
         return history.pop();
     }
 
-    public boolean isEmpty() { return history.isEmpty(); }
+    public Command peek() {
+        return history.peek();
+    }
+
+    public boolean isEmpty() {
+        return history.isEmpty();
+    }
 }

@@ -1,14 +1,12 @@
 package org.flashcards.src;
 
-import org.flashcards.src.states.State;
-
-public class FlashcardWithImage extends Flashcard {
+public class ImgCard extends Card {
 
     protected byte[] imageQuestion;
     protected String imageDescription;
 
-    public FlashcardWithImage(String answer, byte[] imageQuestion, String imageDescription) {
-        super(answer);
+    public ImgCard(Long id, String answer, byte[] imageQuestion, String imageDescription) {
+        super(id, answer);
         this.imageQuestion = imageQuestion;
         this.imageDescription = imageDescription;
     }

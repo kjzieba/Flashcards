@@ -1,18 +1,18 @@
 package org.flashcards.src.commands;
 
-import org.flashcards.src.FlashcardWithImage;
+import org.flashcards.src.ImgCard;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-public class ChangeImgQuestion implements Command{
+public class ChgImg implements Command {
+    private final ComHistory history;
+    private final ImgCard flashcard;
+    private final String newImage;
 
-    FlashcardWithImage flashcard;
-
-    String newImage;
-
-    public ChangeImgQuestion(FlashcardWithImage flashcard, String newImage) {
+    public ChgImg(ComHistory history, ImgCard flashcard, String newImage) {
+        this.history = history;
         this.flashcard = flashcard;
         this.newImage = newImage;
     }
@@ -20,12 +20,9 @@ public class ChangeImgQuestion implements Command{
     @Override
     public void execute() {
         flashcard.setImageQuestion(imageToBytesArray(newImage));
+        history.push(this);
     }
 
-    @Override
-    public void undo() {
-
-    }
 
     public byte[] imageToBytesArray(String image) {
         File imgPath = new File(image);
