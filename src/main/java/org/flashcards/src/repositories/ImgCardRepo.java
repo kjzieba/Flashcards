@@ -9,7 +9,7 @@ public class ImgCardRepo implements CardsRepo{
 
     protected String title;
 
-    ArrayList<ImgCard> flashcards = new ArrayList<>();
+    public ArrayList<ImgCard> flashcards = new ArrayList<>();
 
 
     public ImgCard queryFromRepo(Long id) {
@@ -25,9 +25,9 @@ public class ImgCardRepo implements CardsRepo{
         flashcards.add(flashcard);
     }
 
-    public ImgCard deleteFromRepo(ImgCard flashcard) {
+    public ImgCard deleteFromRepo(Long id) {
 
-        return flashcards.remove(flashcards.indexOf(flashcard));
+        return flashcards.remove(flashcards.indexOf(id));
     }
 
     public ImgCard deleteLastFromRepo() {
@@ -40,5 +40,15 @@ public class ImgCardRepo implements CardsRepo{
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "ImgCardRepo{" +
+                "title='" + title + '\'' +
+                ", flashcards=" + flashcards +
+                '}';
     }
 }

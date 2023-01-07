@@ -22,4 +22,14 @@ public class TxtCard extends Card {
     public void action() {
         this.flashcardState.action();
     }
+
+    @Override
+    public String toString() {
+        return "TxtCard{" +
+                "textQuestion='" + textQuestion + '\'' +
+                ", id=" + id +
+                ", answer='" + answer + '\'' +
+                ", flashcardState=" + flashcardState +
+                '}';
+    }
 }

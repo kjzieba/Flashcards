@@ -6,17 +6,17 @@ import org.flashcards.src.repositories.TxtCardRepo;
 public class DelTxtCard implements Command{
     private final ComHistory history;
     private final TxtCardRepo txtCardRepo;
-    private final TxtCard flashcard;
+    private final Long cardId;
 
-    public DelTxtCard(ComHistory history, TxtCardRepo txtCardRepo, TxtCard flashcard) {
+    public DelTxtCard(ComHistory history, TxtCardRepo txtCardRepo, Long cardId) {
         this.history = history;
         this.txtCardRepo = txtCardRepo;
-        this.flashcard = flashcard;
+        this.cardId = cardId;
     }
 
     @Override
     public void execute() {
-        txtCardRepo.deleteFromRepo(flashcard);
+        txtCardRepo.deleteFromRepo(cardId);
         history.push(this);
     }
 }

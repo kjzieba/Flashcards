@@ -8,15 +8,18 @@ public class SaveImgRepo implements Command{
     private final ImgCardRepo imgFlashcardRepository;
     private final AllCards allCards;
 
-    public SaveImgRepo(ComHistory history, ImgCardRepo imgFlashcardRepository, AllCards allCards) {
+    private final Long id;
+
+    public SaveImgRepo(ComHistory history, ImgCardRepo imgFlashcardRepository, AllCards allCards, Long id) {
         this.history = history;
         this.imgFlashcardRepository = imgFlashcardRepository;
         this.allCards = allCards;
+        this.id = id;
     }
 
     @Override
     public void execute() {
-        allCards.addToAll(imgFlashcardRepository);
+        allCards.addToAll(id, imgFlashcardRepository);
         history.push(this);
     }
 }

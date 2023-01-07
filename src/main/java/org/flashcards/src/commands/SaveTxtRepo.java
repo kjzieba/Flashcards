@@ -9,15 +9,18 @@ public class SaveTxtRepo implements Command{
     private final TxtCardRepo txtCardRepo;
     private final AllCards allCards;
 
-    public SaveTxtRepo(ComHistory history, TxtCardRepo txtCardRepo, AllCards allCards) {
+    private final Long id;
+
+    public SaveTxtRepo(ComHistory history, TxtCardRepo txtCardRepo, AllCards allCards, Long id) {
         this.history = history;
         this.txtCardRepo = txtCardRepo;
         this.allCards = allCards;
+        this.id = id;
     }
 
     @Override
     public void execute() {
-        allCards.addToAll(txtCardRepo);
+        allCards.addToAll(id, txtCardRepo);
         history.push(this);
     }
 }

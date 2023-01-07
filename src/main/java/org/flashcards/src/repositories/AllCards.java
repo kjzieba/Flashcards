@@ -1,16 +1,35 @@
 package org.flashcards.src.repositories;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AllCards {
 
-    ArrayList<CardsRepo> allFlashcards = new ArrayList<>();
+    private Map<Long, CardsRepo> allFlashcards = new HashMap<>();
 
-    public void addToAll(CardsRepo cardsRepo) {
-        allFlashcards.add(cardsRepo);
+    public CardsRepo query(Long id){
+        return allFlashcards.get(id);
     }
 
-    public CardsRepo deleteFromAll(CardsRepo cardsRepo) {
-         return allFlashcards.remove(allFlashcards.indexOf(cardsRepo));
+    public void addToAll(Long id, CardsRepo cardsRepo) {
+        allFlashcards.put(id, cardsRepo);
+    }
+
+    public CardsRepo deleteFromAll(Long id) {
+         return allFlashcards.remove(id);
+    }
+
+    public void print(){
+        for (Map.Entry entry : allFlashcards.entrySet())
+        {
+            System.out.println("key: " + entry.getKey() + "; value: " + entry.getValue());
+        }
+    }
+    @Override
+    public String toString() {
+        return "AllCards{" +
+                "allFlashcards=" + allFlashcards +
+                '}';
     }
 }

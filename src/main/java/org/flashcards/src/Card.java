@@ -9,7 +9,6 @@ public abstract class Card implements State {
     protected String answer;
     protected State flashcardState;
 
-
     protected Card(Long id, String answer){
         this.id = id;
         this.answer = answer;
@@ -45,4 +44,13 @@ public abstract class Card implements State {
         this.flashcardState.action();
     }
 
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "id=" + id +
+                ", answer='" + answer + '\'' +
+                ", flashcardState=" + flashcardState +
+                '}';
+    }
 }

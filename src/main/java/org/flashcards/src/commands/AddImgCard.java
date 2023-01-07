@@ -12,7 +12,7 @@ public class AddImgCard implements Command{
     private final String image;
     private final String description;
 
-    ImgCardCreator imageCreator;
+    ImgCardCreator imageCreator = new ImgCardCreator();
 
     public AddImgCard(Long id, ComHistory history, ImgCardRepo imgCardRepo, String answer, String image, String description) {
         this.id = id;

@@ -27,49 +27,49 @@ public class EditImgRepo implements Command {
     @Override
     public void execute() {
         while (!end) {
-            System.out.println("Choose an option");
+            System.out.println("Choose an option: A - add flashcard, E - edit flashcard, D - delete flashcard, R - return");
             String function = scanner.nextLine();
             switch (function) {
-                case "Change Title" -> {
+                case "T" -> {
                     String title = scanner.nextLine();
                     Command changeTitle = new ChgImgTitle(comHistory, imgCardRepo, title);
                     changeTitle.execute();
                 }
-                case "Change Answer" -> {
-                    String idString = scanner.nextLine();
-                    Long id = Long.parseLong(String.valueOf(idString));
-                    Card card = imgCardRepo.queryFromRepo(id);
-                    String answer = scanner.nextLine();
-                    Command changeAnswer = new ChgAns(comHistory, card, answer);
-                    changeAnswer.execute();
+                case "A" -> {
+                    System.out.println("Enter an Id");
+                    String cardId = scanner.nextLine();
+                    Long id = Long.parseLong(cardId);
+                    if(imgCardRepo.flashcards.contains(imgCardRepo.queryFromRepo(id))){
+                        System.out.println("Id is already taken");
+                    }
+                    else{
+                        System.out.println("Enter an image");
+                        String image = scanner.nextLine();
+                        System.out.println("Enter an answer");
+                        String answer = scanner.nextLine();
+                        System.out.println("Enter an description");
+                        String description = scanner.nextLine();
+                        Command addImgCard = new AddImgCard(id, comHistory, imgCardRepo, answer, image, description);
+                        addImgCard.execute();
+                    }
                 }
-                case "Change State" -> {
-                    String idString = scanner.nextLine();
-                    Long id = Long.parseLong(String.valueOf(idString));
-                    Card card = imgCardRepo.queryFromRepo(id);
-                    String stateString = scanner.nextLine();
-                    States state = States.valueOf(stateString);
-                    Command changeState = new ChgState(comHistory, card, state);
-                    changeState.execute();
+                case "D" -> {
+                    System.out.println("Enter an Id");
+                    String cardId = scanner.nextLine();
+                    Long id = Long.parseLong(cardId);
+                    Command delImgCard = new DelImgCard(comHistory,imgCardRepo,id);
+                    delImgCard.execute();
+
                 }
-                case "Change Image Description" -> {
-                    String idString = scanner.nextLine();
-                    Long id = Long.parseLong(String.valueOf(idString));
-                    ImgCard flashcard = imgCardRepo.queryFromRepo(id);
-                    String description = scanner.nextLine();
-                    Command changeDescription = new ChgImgDesc(comHistory, flashcard, description);
-                    changeDescription.execute();
+                case "E" -> {
+                    String cardId = scanner.nextLine();
+                    Long id = Long.parseLong(cardId);
+                    Command editImgCard = new EditImgCard(imgCardRepo, comHistory, id);
+                    editImgCard.execute();
                 }
-                case "Change Image" -> {
-                    String idString = scanner.nextLine();
-                    Long id = Long.parseLong(String.valueOf(idString));
-                    ImgCard flashcard = imgCardRepo.queryFromRepo(id);
-                    String description = scanner.nextLine();
-                    Command changeImage = new ChgImg(comHistory, flashcard, description);
-                    changeImage.execute();
-                }
-                case "Save" -> {
-                    allCards.addToAll(imgCardRepo);
+                case "R" -> {
+                    comHistory.push(this);
+                    end = true;
                 }
             }
         }

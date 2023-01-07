@@ -1,8 +1,5 @@
 package org.flashcards.src.commands;
 
-import org.flashcards.src.Card;
-import org.flashcards.src.TxtCard;
-import org.flashcards.src.enums.States;
 import org.flashcards.src.repositories.AllCards;
 import org.flashcards.src.repositories.TxtCardRepo;
 
@@ -28,41 +25,47 @@ public class EditTextRepo implements Command {
     @Override
     public void execute() {
         while (!end) {
-            System.out.println("Choose an option");
+            System.out.println("Choose an option: A - add flashcard, E - edit flashcard, D - delete flashcard, R - return");
             String function = scanner.nextLine();
             switch (function) {
-                case "Change Title" -> {
+                case "T" -> {
                     String title = scanner.nextLine();
                     Command changeTitle = new ChgTxtTitle(comHistory, txtCardRepo, title);
                     changeTitle.execute();
                 }
-                case "Change Answer" -> {
-                    String idString = scanner.nextLine();
-                    Long id = Long.parseLong(String.valueOf(idString));
-                    Card card = txtCardRepo.queryFromRepo(id);
-                    String answer = scanner.nextLine();
-                    Command changeAnswer = new ChgAns(comHistory, card, answer);
-                    changeAnswer.execute();
+                case "A"->{
+                    System.out.println("Enter an Id");
+                    String cardId = scanner.nextLine();
+                    Long id = Long.parseLong(cardId);
+                    if(txtCardRepo.flashcards.contains(txtCardRepo.queryFromRepo(id))){
+                        System.out.println("Id is already taken");
+                    }
+                    else{
+                        System.out.println("Enter an question");
+                        String question = scanner.nextLine();
+                        System.out.println("Enter an answer");
+                        String answer = scanner.nextLine();
+                        Command addTxtCard = new AddTxtCard(id, comHistory, txtCardRepo, answer, question);
+                        addTxtCard.execute();
+                    }
                 }
-                case "Change State" -> {
-                    String idString = scanner.nextLine();
-                    Long id = Long.parseLong(String.valueOf(idString));
-                    Card card = txtCardRepo.queryFromRepo(id);
-                    String stateString = scanner.nextLine();
-                    States state = States.valueOf(stateString);
-                    Command changeState = new ChgState(comHistory, card, state);
-                    changeState.execute();
+                case "D"->{
+                    System.out.println("Enter an Id");
+                    String cardId = scanner.nextLine();
+                    Long id = Long.parseLong(cardId);
+                    Command delTxtCard = new DelTxtCard(comHistory, txtCardRepo, id);
+                    delTxtCard.execute();
+
                 }
-                case "Change Text" -> {
-                    String idString = scanner.nextLine();
-                    Long id = Long.parseLong(String.valueOf(idString));
-                    TxtCard flashcard = txtCardRepo.queryFromRepo(id);
-                    String question = scanner.nextLine();
-                    Command changeQuestion = new ChangeTxt(comHistory, flashcard, question);
-                    changeQuestion.execute();
+                case "E" -> {
+                    String cardId = scanner.nextLine();
+                    Long id = Long.parseLong(cardId);
+                    Command editTxtCard = new EditTxtCard(txtCardRepo,comHistory,id);
+                    editTxtCard.execute();
                 }
-                case "Save" -> {
-                    allCards.addToAll(txtCardRepo);
+                case "R" -> {
+                    comHistory.push(this);
+                    end = true;
                 }
             }
         }

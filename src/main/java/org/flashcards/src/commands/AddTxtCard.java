@@ -11,7 +11,7 @@ public class AddTxtCard implements Command{
     private final TxtCardRepo txtCardRepo;
     private final String answer;
     private final String question;
-    TxtCardCreator textCreator;
+    TxtCardCreator textCreator = new TxtCardCreator();
 
     public AddTxtCard(Long id, ComHistory history, TxtCardRepo txtCardRepo, String answer, String question) {
         this.id = id;

@@ -1,5 +1,7 @@
 package org.flashcards.src;
 
+import java.util.Arrays;
+
 public class ImgCard extends Card {
 
     protected byte[] imageQuestion;
@@ -31,5 +33,16 @@ public class ImgCard extends Card {
     @Override
     public void action() {
         this.flashcardState.action();
+    }
+
+    @Override
+    public String toString() {
+        return "ImgCard{" +
+                "imageQuestion=" + Arrays.toString(imageQuestion) +
+                ", imageDescription='" + imageDescription + '\'' +
+                ", id=" + id +
+                ", answer='" + answer + '\'' +
+                ", flashcardState=" + flashcardState +
+                '}';
     }
 }
