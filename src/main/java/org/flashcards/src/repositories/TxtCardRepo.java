@@ -12,7 +12,6 @@ public class TxtCardRepo implements CardsRepo{
     public ArrayList<TxtCard> flashcards = new ArrayList<>();
 
 
-
     public TxtCard queryFromRepo(Long id) {
         for (TxtCard flashcard : flashcards) {
             if (Objects.equals(flashcard.getId(), id)) {
@@ -46,7 +45,13 @@ public class TxtCardRepo implements CardsRepo{
         this.title = title;
     }
 
+    public ArrayList<TxtCard> getFlashcards() {
+        return flashcards;
+    }
 
+    public void setFlashcards(ArrayList<TxtCard> flashcards) {
+        this.flashcards = flashcards;
+    }
 
     @Override
     public String toString() {
@@ -54,5 +59,19 @@ public class TxtCardRepo implements CardsRepo{
                 "title='" + title + '\'' +
                 ", flashcards=" + flashcards +
                 '}';
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        TxtCardRepo repo = null;
+        try {
+            repo = (TxtCardRepo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            repo = new TxtCardRepo();
+        }
+        String title = this.getTitle();
+        repo.setTitle(title);
+        repo.setFlashcards((ArrayList<TxtCard>) this.getFlashcards().clone());
+        return repo;
     }
 }

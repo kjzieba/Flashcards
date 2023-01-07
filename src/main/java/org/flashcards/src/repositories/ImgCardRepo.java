@@ -1,6 +1,7 @@
 package org.flashcards.src.repositories;
 
 import org.flashcards.src.ImgCard;
+import org.flashcards.src.TxtCard;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -43,6 +44,13 @@ public class ImgCardRepo implements CardsRepo{
     }
 
 
+    public ArrayList<ImgCard> getFlashcards() {
+        return flashcards;
+    }
+
+    public void setFlashcards(ArrayList<ImgCard> flashcards) {
+        this.flashcards = flashcards;
+    }
 
     @Override
     public String toString() {
@@ -50,5 +58,19 @@ public class ImgCardRepo implements CardsRepo{
                 "title='" + title + '\'' +
                 ", flashcards=" + flashcards +
                 '}';
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        ImgCardRepo repo = null;
+        try {
+            repo = (ImgCardRepo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            repo = new ImgCardRepo();
+        }
+        String title = this.getTitle();
+        repo.setTitle(title);
+        repo.setFlashcards((ArrayList<ImgCard>) this.getFlashcards().clone());
+        return repo;
     }
 }

@@ -38,9 +38,9 @@ public class ImgCard extends Card {
     @Override
     public String toString() {
         return "ImgCard{" +
+                ", id=" + id +
                 "imageQuestion=" + Arrays.toString(imageQuestion) +
                 ", imageDescription='" + imageDescription + '\'' +
-                ", id=" + id +
                 ", answer='" + answer + '\'' +
                 ", flashcardState=" + flashcardState +
                 '}';

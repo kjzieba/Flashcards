@@ -1,12 +1,11 @@
 package org.flashcards.src.commands;
 
-import org.flashcards.src.Card;
-import org.flashcards.src.ImgCard;
-import org.flashcards.src.enums.States;
 import org.flashcards.src.repositories.AllCards;
+import org.flashcards.src.repositories.CardsRepo;
 import org.flashcards.src.repositories.ImgCardRepo;
 import org.flashcards.src.repositories.TxtCardRepo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EditImgRepo implements Command {
@@ -15,17 +14,24 @@ public class EditImgRepo implements Command {
 
     private final ComHistory comHistory;
 
-    private final AllCards allCards;
+    private final ArrayList<CardsRepo> cardsRepo;
+
+    private Long id = Long.parseLong("1");
     boolean end = false;
 
-    public EditImgRepo(ImgCardRepo imgCardRepo, ComHistory comHistory, AllCards allCards) {
+    public EditImgRepo(ImgCardRepo imgCardRepo, ComHistory comHistory, ArrayList<CardsRepo> cardsRepo) {
         this.imgCardRepo = imgCardRepo;
         this.comHistory = comHistory;
-        this.allCards = allCards;
+        this.cardsRepo = cardsRepo;
     }
 
     @Override
     public void execute() {
+        try {
+            cardsRepo.add((CardsRepo) imgCardRepo.clone());
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
         while (!end) {
             System.out.println("Choose an option: A - add flashcard, E - edit flashcard, D - delete flashcard, R - return");
             String function = scanner.nextLine();
@@ -36,9 +42,6 @@ public class EditImgRepo implements Command {
                     changeTitle.execute();
                 }
                 case "A" -> {
-                    System.out.println("Enter an Id");
-                    String cardId = scanner.nextLine();
-                    Long id = Long.parseLong(cardId);
                     if(imgCardRepo.flashcards.contains(imgCardRepo.queryFromRepo(id))){
                         System.out.println("Id is already taken");
                     }

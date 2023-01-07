@@ -26,8 +26,8 @@ public class TxtCard extends Card {
     @Override
     public String toString() {
         return "TxtCard{" +
-                "textQuestion='" + textQuestion + '\'' +
                 ", id=" + id +
+                "textQuestion='" + textQuestion + '\'' +
                 ", answer='" + answer + '\'' +
                 ", flashcardState=" + flashcardState +
                 '}';

@@ -1,13 +1,15 @@
 package org.flashcards.src.commands;
 
 import org.flashcards.src.repositories.AllCards;
+import org.flashcards.src.repositories.CardsRepo;
 import org.flashcards.src.repositories.ImgCardRepo;
+
+import java.util.ArrayList;
 
 public class SaveImgRepo implements Command{
     private final ComHistory history;
     private final ImgCardRepo imgFlashcardRepository;
     private final AllCards allCards;
-
     private final Long id;
 
     public SaveImgRepo(ComHistory history, ImgCardRepo imgFlashcardRepository, AllCards allCards, Long id) {
