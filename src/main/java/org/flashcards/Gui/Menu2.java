@@ -6,11 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 
 
-
-public class Menu extends JPanel {
+public class Menu2 extends JPanel {
     private final Initializer initializer;
 
-    public Menu(Initializer initializer) {
+    public Menu2(Initializer initializer) {
         this.initializer = initializer;
         setPreferredSize(new Dimension(960, 560));
         setBackground(new java.awt.Color(41, 41, 41));
@@ -18,13 +17,15 @@ public class Menu extends JPanel {
         getCustomTitle();
         getBackButton();
         getAddButton();
+        getAllRepos();
     }
 
     private void getCustomTitle() {
-        JLabel title = new JLabel("Add your first repository");
+        JLabel title = new JLabel("Your repositories");
         title.setFont(new Font("Arbutus", Font.PLAIN, 40));
+        title.setHorizontalAlignment(JLabel.CENTER);
         title.setForeground(Color.white);
-        title.setBounds(160, 220, 700, 50);
+        title.setBounds(130, 160, 700, 50);
         add(title);
     }
 
@@ -53,4 +54,16 @@ public class Menu extends JPanel {
         });
         add(addButton);
     }
+
+    private void getAllRepos() {
+        JButton print = new JButton("Print all repos");
+        print.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        print.setHorizontalAlignment(JTextField.CENTER);
+        print.setBounds(375, 260, 210, 65);
+        print.addActionListener(e -> {
+            GuiApp.getInstance().getApp().print();
+        });
+        add(print);
+    }
+
 }

@@ -1,29 +1,29 @@
 package org.flashcards.src.commands;
 
 import org.flashcards.src.TxtCard;
-import org.flashcards.src.repositories.TxtCardRepo;
+import org.flashcards.src.repositories.AllCards;
 import org.flashcards.src.creators.TxtCardCreator;
+import org.flashcards.src.repositories.TxtCardRepo;
 
 public class AddTxtCard implements Command{
 
     private final Long id;
     private final ComHistory history;
-    private final TxtCardRepo txtCardRepo;
-    private final String answer;
-    private final String question;
+    private final AllCards allCards;
+    private final TxtCard txtCard;
     TxtCardCreator textCreator = new TxtCardCreator();
 
-    public AddTxtCard(Long id, ComHistory history, TxtCardRepo txtCardRepo, String answer, String question) {
+    public AddTxtCard(Long id, ComHistory history, AllCards allCards, TxtCard txtCard) {
         this.id = id;
         this.history = history;
-        this.txtCardRepo = txtCardRepo;
-        this.answer = answer;
-        this.question = question;
+        this.allCards = allCards;
+        this.txtCard = txtCard;
     }
 
     @Override
     public void execute() {
-        TxtCard flashcard = textCreator.createFlashcard(id, answer,question);
+        TxtCard flashcard = textCreator.createFlashcard(id, txtCard.getAnswer(),txtCard.getTextQuestion());
+        TxtCardRepo txtCardRepo = (TxtCardRepo) allCards.query(id);
         txtCardRepo.addToRepo(flashcard);
         history.push(this);
     }

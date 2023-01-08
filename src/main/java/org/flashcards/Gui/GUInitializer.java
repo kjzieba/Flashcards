@@ -17,6 +17,15 @@ public class GUInitializer extends JFrame implements Initializer {
     private final TestMode testMode;
     private final FlashCardsMode flashCardsMode;
 
+    private final AddTxtRepoTitle addTxtRepoTitle;
+
+    private final AddImgRepoTitle addImgRepoTitle;
+
+    private final AddTxtCard addTxtCard;
+
+    private final Menu2 menu2;
+
+
     public GUInitializer() {
 
         File icon = new File("src/main/resources/img/FlashCardsIcon.png");
@@ -45,6 +54,10 @@ public class GUInitializer extends JFrame implements Initializer {
         learnMode = new LearnMode(this);
         testMode = new TestMode(this);
         flashCardsMode = new FlashCardsMode(this);
+        addTxtRepoTitle = new AddTxtRepoTitle(this,edit);
+        addImgRepoTitle = new AddImgRepoTitle(this,edit);
+        addTxtCard = new AddTxtCard(this);
+        menu2 = new Menu2(this);
 
 
         setTitle("Flashcards");
@@ -106,7 +119,32 @@ public class GUInitializer extends JFrame implements Initializer {
                 pack();
                 flashCardsMode.setVisible(true);
             }
+            case AddTxtRepoTitle -> {
+                chooseMode.setVisible(false);
+                setContentPane(addTxtRepoTitle);
+                pack();
+                addTxtRepoTitle.setVisible(true);
+            }
 
+            case AddImgRepoTitle -> {
+                chooseMode.setVisible(false);
+                setContentPane(addImgRepoTitle);
+                pack();
+                addImgRepoTitle.setVisible(true);
+            }
+            case AddTxtCard -> {
+                chooseMode.setVisible(false);
+                setContentPane(addTxtCard);
+                pack();
+                addTxtCard.setVisible(true);
+            }
+
+            case Menu2 -> {
+                chooseMode.setVisible(false);
+                setContentPane(menu2);
+                pack();
+                menu2.setVisible(true);
+            }
         }
     }
 
@@ -124,7 +162,13 @@ public class GUInitializer extends JFrame implements Initializer {
         FlashCardsMode,
         LearnMode,
         TestMode,
-        Result
+
+        Result,
+
+        AddTxtRepoTitle,
+        AddImgRepoTitle,
+        AddTxtCard,
+        Menu2
     }
 
     public static void changeFont(String path) {

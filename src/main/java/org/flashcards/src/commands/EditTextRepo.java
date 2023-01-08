@@ -1,11 +1,9 @@
 package org.flashcards.src.commands;
 
-import org.flashcards.src.repositories.AllCards;
 import org.flashcards.src.repositories.CardsRepo;
 import org.flashcards.src.repositories.TxtCardRepo;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class EditTextRepo implements Command {
@@ -52,8 +50,6 @@ public class EditTextRepo implements Command {
                         String question = scanner.nextLine();
                         System.out.println("Enter an answer");
                         String answer = scanner.nextLine();
-                        Command addTxtCard = new AddTxtCard(id, comHistory, txtCardRepo, answer, question);
-                        addTxtCard.execute();
                         id += 1;
                     }
                 }

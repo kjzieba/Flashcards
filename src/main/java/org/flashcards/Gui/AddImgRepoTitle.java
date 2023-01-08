@@ -5,23 +5,24 @@ import org.flashcards.src.GuiApp;
 import javax.swing.*;
 import java.awt.*;
 
-public class Add extends JPanel {
-
+public class AddImgRepoTitle extends JPanel{
     private final Initializer initializer;
 
-    public Add(Initializer initializer) {
+    private Edit edit;
+
+    public AddImgRepoTitle(Initializer initializer,Edit edit) {
         this.initializer = initializer;
+        this.edit = edit;
         setPreferredSize(new Dimension(960, 560));
         setBackground(new java.awt.Color(41, 41, 41));
         setLayout(null);
         getCustomTitle();
         getBackButton();
-        getTextButton();
-        getImageButton();
+        getTitleField();
     }
 
     private void getCustomTitle() {
-        JLabel title = new JLabel("Choose type of your repository");
+        JLabel title = new JLabel("Enter a title for new repository");
         title.setFont(new Font("Arbutus", Font.PLAIN, 30));
         title.setForeground(Color.white);
         title.setBounds(180, 120, 700, 50);
@@ -41,23 +42,19 @@ public class Add extends JPanel {
         add(backButton);
     }
 
-    private void getTextButton() {
-        JButton addTextButton = new JButton("Text");
-        addTextButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        addTextButton.setBounds(232, 239, 210, 65);
-        addTextButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.AddTxtRepoTitle);
+    private void getTitleField() {
+        JTextField title = new JTextField();
+        title.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        title.setHorizontalAlignment(JTextField.CENTER);
+        title.setBounds(375, 239, 210, 65);
+        title.addActionListener(e -> {
+            GuiApp.getInstance().getApp().setTitle(title.getText());
+            initializer.update(GUInitializer.Panel.Edit);
+            edit.getNameRepository();
+            title.setText("");
+            GuiApp.getInstance().getApp().addTxtRepo(GuiApp.getInstance().getApp().getTitle());
+            GuiApp.getInstance().getApp().print();
         });
-        add(addTextButton);
-    }
-
-    private void getImageButton() {
-        JButton addButton = new JButton("Image");
-        addButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        addButton.setBounds(518, 239, 210, 65);
-        addButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.AddImgRepoTitle);
-        });
-        add(addButton);
+        add(title);
     }
 }

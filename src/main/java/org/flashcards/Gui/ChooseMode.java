@@ -1,5 +1,7 @@
 package org.flashcards.Gui;
 
+import org.flashcards.src.GuiApp;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -25,7 +27,10 @@ public class ChooseMode extends JPanel {
         backButton.setContentAreaFilled(false);
         backButton.setFocusPainted(false);
         backButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.Menu);
+            if(GuiApp.getInstance().getApp().getReposNumber()==0){
+                initializer.update(GUInitializer.Panel.Menu);
+            }else
+                initializer.update(GUInitializer.Panel.Menu2);
         });
         add(backButton);
     }

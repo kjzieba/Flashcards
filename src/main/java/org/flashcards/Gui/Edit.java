@@ -1,10 +1,12 @@
 package org.flashcards.Gui;
 
+import org.flashcards.src.GuiApp;
+import org.flashcards.src.repositories.TxtCardRepo;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class Edit extends JPanel {
-
     private final Initializer initializer;
     public Edit(Initializer initializer) {
         this.initializer = initializer;
@@ -13,7 +15,7 @@ public class Edit extends JPanel {
         setLayout(null);
         getBackButton();
         getSaveButton();
-        getNameRepository();
+        getAddCardButton();
     }
 
     private void getBackButton() {
@@ -25,6 +27,7 @@ public class Edit extends JPanel {
         backButton.setFocusPainted(false);
         backButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Add);
+            GuiApp.getInstance().getApp().deleteRepo();
         });
         add(backButton);
     }
@@ -32,19 +35,33 @@ public class Edit extends JPanel {
     private void getSaveButton() {
         JButton addTextButton = new JButton("Save");
         addTextButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        addTextButton.setBounds(601, 47, 210, 65);
+        addTextButton.setBounds(618, 47, 210, 65);
 
         addTextButton.addActionListener(e -> {
+            GuiApp.getInstance().getApp().setId(GuiApp.getInstance().getApp().getId() + 1);
             initializer.update(GUInitializer.Panel.ChooseMode);
         });
         add(addTextButton);
     }
 
-    private void getNameRepository() {
-        JButton addTextButton = new JButton();
+    public void getNameRepository() {
+        JButton addTextButton = new JButton(GuiApp.getInstance().getApp().getTitle());
         addTextButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        addTextButton.setBounds(149, 47, 210, 65);
+        addTextButton.setBounds(132, 47, 210, 65);
+        addTextButton.addActionListener(e -> {
+            GuiApp.getInstance().getApp().printOne();
+        });
+        add(addTextButton);
+    }
 
+
+    private void getAddCardButton() {
+        JButton addTextButton = new JButton("Add Flashcard");
+        addTextButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        addTextButton.setBounds(375, 47, 210, 65);
+        addTextButton.addActionListener(e -> {
+            initializer.update(GUInitializer.Panel.AddTxtCard);
+        });
         add(addTextButton);
     }
 }
