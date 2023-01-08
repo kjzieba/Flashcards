@@ -1,6 +1,7 @@
 package org.flashcards.Gui;
 
 import org.flashcards.Gui.Components.ButtonComponents;
+import org.flashcards.src.GuiApp;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +9,7 @@ import java.awt.*;
 public class Add extends JPanel {
 
     private final Initializer initializer;
+
     public Add(Initializer initializer) {
         this.initializer = initializer;
         setPreferredSize(new Dimension(960, 560));
@@ -15,8 +17,8 @@ public class Add extends JPanel {
         setLayout(null);
         getCustomTitle();
         getBackButton();
-        getTextButton();
         getSoundButton();
+        getTextButton();
         getImageButton();
     }
 
@@ -29,19 +31,16 @@ public class Add extends JPanel {
     }
 
     private void getBackButton() {
-        JButton backButton = new ButtonComponents().backButtonComponent(13,12);
+        JButton backButton = new JButton();
+        backButton.setIcon(new ImageIcon("src/main/resources/img/backButton.png"));
+        backButton.setBounds(13, 12, 30, 30);
+        backButton.setBorderPainted(false);
+        backButton.setContentAreaFilled(false);
+        backButton.setFocusPainted(false);
         backButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.Menu);
+                initializer.update(GUInitializer.Panel.Menu);
         });
         add(backButton);
-    }
-
-    private void getTextButton() {
-        JButton textButton = new ButtonComponents().bigButtonComponent("Text", 132, 239);
-        textButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.Edit);
-        });
-        add(textButton);
     }
 
     private void getSoundButton() {
@@ -52,11 +51,24 @@ public class Add extends JPanel {
         add(soundButton);
     }
 
+    private void getTextButton() {
+        JButton addTextButton = new JButton("Text");
+        addTextButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        addTextButton.setBounds(132, 239, 210, 65);
+        addTextButton.addActionListener(e -> {
+            initializer.update(GUInitializer.Panel.Edit);
+            GuiApp.getInstance().getApp().addTxtRepo();
+        });
+        add(addTextButton);
+    }
+
     private void getImageButton() {
-        JButton imageButton = new ButtonComponents().bigButtonComponent("Image", 618, 239);
-        imageButton.addActionListener(e -> {
+        JButton addButton = new JButton("Image");
+        addButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        addButton.setBounds(618, 239, 210, 65);
+        addButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Edit);
         });
-        add(imageButton);
+        add(addButton);
     }
 }

@@ -1,65 +1,67 @@
+
 package org.flashcards.Gui;
 
-import org.flashcards.Gui.Components.ButtonComponents;
+import org.flashcards.src.GuiApp;
+import org.flashcards.src.repositories.CardsRepo;
+import org.flashcards.src.repositories.TxtCardRepo;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 public class Edit extends JPanel {
-
     private final Initializer initializer;
-//    private final JTextArea nameTextArea = new JTextArea("Enter a title");
+
     private final JTextField nameTextField = new JTextField("Enter a title");
-    JScrollPane scrollPane = new JScrollPane();
-//    private final JTextArea termTextArea = new JTextArea("term");
-//    private final JTextArea definitionTextArea = new JTextArea("definition");
-    int height = 192;
-    int flag = 0;
+
     public Edit(Initializer initializer) {
         this.initializer = initializer;
         setPreferredSize(new Dimension(960, 560));
         setBackground(new java.awt.Color(41, 41, 41));
         setLayout(null);
         getBackButton();
-        getAddButton();
         getSaveButton();
+        getAddCardButton();
         getNameRepository();
-        getScrollPane();
     }
 
     private void getBackButton() {
-        JButton backButton = new ButtonComponents().backButtonComponent(13,12);
+        JButton backButton = new JButton();
+        backButton.setIcon(new ImageIcon("src/main/resources/img/backButton.png"));
+        backButton.setBounds(13, 12, 30, 30);
+        backButton.setBorderPainted(false);
+        backButton.setContentAreaFilled(false);
+        backButton.setFocusPainted(false);
         backButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Add);
+            GuiApp.getInstance().getApp().deleteRepo();
         });
         add(backButton);
     }
 
     private void getSaveButton() {
-        JButton saveButton = new ButtonComponents().bigButtonComponent("Save", 601, 47);
-        saveButton.addActionListener(e -> {
+        JButton addTextButton = new JButton("Save");
+        addTextButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        addTextButton.setBounds(618, 47, 210, 65);
+        addTextButton.addActionListener(e -> {
+            GuiApp.getInstance().getApp().setId(GuiApp.getInstance().getApp().getId() + 1);
             initializer.update(GUInitializer.Panel.ChooseMode);
+            nameTextField.setText("Enter a title");
+            System.out.println(GuiApp.getInstance().getApp().getAllCards());
         });
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String areaText = nameTextField.getText();
-                System.out.println(areaText);
-            }
-        });
-        add(saveButton);
+        add(addTextButton);
     }
 
-    private void getAddButton() {
-        JButton addButton = new ButtonComponents().addButtonComponent(457,132);
-        addButton.addActionListener(e -> {
-            height += 50;
-            flag++;
-            getDoubleTextArea(height);
+
+    private void getAddCardButton() {
+        JButton addTextButton = new JButton("Add Flashcard");
+        addTextButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        addTextButton.setBounds(375, 47, 210, 65);
+        addTextButton.addActionListener(e -> {
+            initializer.update(GUInitializer.Panel.AddTxtCard);
         });
-        add(addButton);
+        add(addTextButton);
     }
 
     private void getNameRepository() {
@@ -68,32 +70,20 @@ public class Edit extends JPanel {
         nameTextField.setForeground(Color.white);
         nameTextField.setBounds(149, 47, 210, 65);
         nameTextField.setHorizontalAlignment(JTextField.CENTER);
+        nameTextField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
 
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                CardsRepo cardsRepo = GuiApp.getInstance().getApp().getAllCards().query(GuiApp.getInstance().getApp().getId());
+                TxtCardRepo txtCardRepo = (TxtCardRepo) cardsRepo;
+                txtCardRepo.setTitle(nameTextField.getText());
+            }
+        });
         add(nameTextField);
-    }
-
-    private void getDoubleTextArea(int y) {
-        JTextArea termTextArea = new JTextArea("term");
-        JTextArea definitionTextArea = new JTextArea("definition");
-        termTextArea.setBackground(new java.awt.Color(67, 69, 74));
-        definitionTextArea.setBackground(new java.awt.Color(67, 69, 74));
-        termTextArea.setForeground(Color.white);
-        definitionTextArea.setForeground(Color.white);
-        termTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        termTextArea.setBounds(254, y, 210, 35);
-        definitionTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        definitionTextArea.setBounds(496, y, 210, 35);
-
-        add(termTextArea);
-        add(definitionTextArea);
-    }
-
-    private void getScrollPane() {
-        scrollPane.setBackground(new Color(41, 41, 41));
-        scrollPane.getViewport().setBackground(new Color (41, 41, 41));
-        scrollPane.setBounds(193, 176, 570, 350);
-        getDoubleTextArea(height);
-        add(scrollPane);
     }
 
 }

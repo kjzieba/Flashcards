@@ -1,6 +1,6 @@
 package org.flashcards.collection;
 
-import org.flashcards.src.Flashcard;
+import org.flashcards.src.Card;
 
 public class TxtFlashcardIterator implements Iterator {
     private final TxtFlashcardCollection list;
@@ -12,7 +12,7 @@ public class TxtFlashcardIterator implements Iterator {
     }
 
     @Override
-    public Flashcard next() {
+    public Card next() {
         if (!isDone()) {
             iterationPosition += 1;
             return list.getList().get(iterationPosition);

@@ -17,6 +17,10 @@ public class GUInitializer extends JFrame implements Initializer {
     private final TestMode testMode;
     private final FlashCardsMode flashCardsMode;
 
+    private final AddTxtCard addTxtCard;
+
+
+
     public GUInitializer() {
 
         File icon = new File("src/main/resources/img/FlashCardsIcon.png");
@@ -45,6 +49,7 @@ public class GUInitializer extends JFrame implements Initializer {
         learnMode = new LearnMode(this);
         testMode = new TestMode(this);
         flashCardsMode = new FlashCardsMode(this);
+        addTxtCard = new AddTxtCard(this);
 
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -113,6 +118,12 @@ public class GUInitializer extends JFrame implements Initializer {
                 flashCardsMode.setVisible(true);
             }
 
+            case AddTxtCard -> {
+                chooseMode.setVisible(false);
+                setContentPane(addTxtCard);
+                pack();
+                addTxtCard.setVisible(true);
+            }
         }
     }
 
@@ -130,7 +141,9 @@ public class GUInitializer extends JFrame implements Initializer {
         FlashCardsMode,
         LearnMode,
         TestMode,
-        Result
+
+        Result,
+        AddTxtCard
     }
 
     public static void changeFont(String path) {

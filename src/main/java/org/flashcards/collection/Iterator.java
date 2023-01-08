@@ -1,9 +1,9 @@
 package org.flashcards.collection;
 
-import org.flashcards.src.Flashcard;
+import org.flashcards.src.Card;
 
 public interface Iterator {
-    Flashcard next();
+    Card next();
 
     boolean isDone();
 }

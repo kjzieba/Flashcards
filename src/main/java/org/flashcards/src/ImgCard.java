@@ -1,17 +1,18 @@
 package org.flashcards.src;
 
-import org.flashcards.src.states.State;
+import java.util.Arrays;
 
-public class FlashcardWithImage extends Flashcard {
+public class ImgCard extends Card {
 
     protected byte[] imageQuestion;
     protected String imageDescription;
 
-    public FlashcardWithImage(byte[] imageQuestion, String imageDescription, String answer, State flashcardState) {
-        super(answer, flashcardState);
+    public ImgCard(Long id, String answer, byte[] imageQuestion, String imageDescription) {
+        super(id, answer);
         this.imageQuestion = imageQuestion;
         this.imageDescription = imageDescription;
     }
+
 
     public byte[] getImageQuestion() {
         return imageQuestion;
@@ -31,6 +32,17 @@ public class FlashcardWithImage extends Flashcard {
 
     @Override
     public void action() {
+        this.flashcardState.action();
+    }
 
+    @Override
+    public String toString() {
+        return "ImgCard{" +
+                ", id=" + id +
+                "imageQuestion=" + Arrays.toString(imageQuestion) +
+                ", imageDescription='" + imageDescription + '\'' +
+                ", answer='" + answer + '\'' +
+                ", flashcardState=" + flashcardState +
+                '}';
     }
 }

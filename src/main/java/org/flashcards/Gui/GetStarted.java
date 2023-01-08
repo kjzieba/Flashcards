@@ -1,5 +1,7 @@
 package org.flashcards.Gui;
 
+import org.flashcards.src.GuiApp;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -36,7 +38,7 @@ public class GetStarted extends JPanel {
         getStartedButton.setBounds(398, 321, 152, 47);
         add(getStartedButton);
         getStartedButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.Menu);
+                initializer.update(GUInitializer.Panel.Menu);
         });
     }
 

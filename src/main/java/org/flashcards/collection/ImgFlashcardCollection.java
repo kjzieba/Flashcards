@@ -1,14 +1,14 @@
 package org.flashcards.collection;
 
-import org.flashcards.src.FlashcardWithImage;
+import org.flashcards.src.ImgCard;
 
 import java.util.ArrayList;
 
 public class ImgFlashcardCollection implements FlashcardCollectionInterface {
     private String title;
-    private ArrayList<FlashcardWithImage> list;
+    private ArrayList<ImgCard> list;
 
-    public ImgFlashcardCollection(String title, ArrayList<FlashcardWithImage> list) {
+    public ImgFlashcardCollection(String title, ArrayList<ImgCard> list) {
         this.title = title;
         this.list = list;
     }
@@ -21,19 +21,19 @@ public class ImgFlashcardCollection implements FlashcardCollectionInterface {
         this.title = title;
     }
 
-    public ArrayList<FlashcardWithImage> getList() {
+    public ArrayList<ImgCard> getList() {
         return list;
     }
 
-    public void setList(ArrayList<FlashcardWithImage> lst) {
+    public void setList(ArrayList<ImgCard> lst) {
         this.list = lst;
     }
 
-    public void add(FlashcardWithImage f) {
+    public void add(ImgCard f) {
         list.add(f);
     }
 
-    public void remove(FlashcardWithImage f) {
+    public void remove(ImgCard f) {
         list.remove(f);
     }
 

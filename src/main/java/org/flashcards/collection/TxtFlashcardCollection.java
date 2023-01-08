@@ -1,14 +1,14 @@
 package org.flashcards.collection;
 
-import org.flashcards.src.FlashcardWithText;
+import org.flashcards.src.TxtCard;
 
 import java.util.ArrayList;
 
 public class TxtFlashcardCollection implements FlashcardCollectionInterface {
     private String title;
-    private ArrayList<FlashcardWithText> list;
+    private ArrayList<TxtCard> list;
 
-    public TxtFlashcardCollection(String title, ArrayList<FlashcardWithText> list) {
+    public TxtFlashcardCollection(String title, ArrayList<TxtCard> list) {
         this.title = title;
         this.list = list;
     }
@@ -21,19 +21,19 @@ public class TxtFlashcardCollection implements FlashcardCollectionInterface {
         this.title = title;
     }
 
-    public ArrayList<FlashcardWithText> getList() {
+    public ArrayList<TxtCard> getList() {
         return list;
     }
 
-    public void setList(ArrayList<FlashcardWithText> lst) {
+    public void setList(ArrayList<TxtCard> lst) {
         this.list = lst;
     }
 
-    public void add(FlashcardWithText f) {
+    public void add(TxtCard f) {
         list.add(f);
     }
 
-    public void remove(FlashcardWithText f) {
+    public void remove(TxtCard f) {
         list.remove(f);
     }
 

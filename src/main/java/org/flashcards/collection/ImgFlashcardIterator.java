@@ -1,6 +1,8 @@
 package org.flashcards.collection;
 
-import org.flashcards.src.Flashcard;
+import org.flashcards.src.Card;
+import org.flashcards.src.ImgCard;
+import org.flashcards.src.repositories.ImgCardRepo;
 
 public class ImgFlashcardIterator implements Iterator {
     private final ImgFlashcardCollection list;
@@ -12,7 +14,7 @@ public class ImgFlashcardIterator implements Iterator {
     }
 
     @Override
-    public Flashcard next() {
+    public Card next() {
         if (!isDone()) {
             iterationPosition += 1;
             return list.getList().get(iterationPosition);
