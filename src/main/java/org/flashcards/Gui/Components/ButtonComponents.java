@@ -3,7 +3,7 @@ package org.flashcards.Gui.Components;
 import javax.swing.*;
 import java.awt.*;
 
-public class ButtonComponents extends JPanel {
+public class ButtonComponents {
 
     public JButton addButtonComponent(int x, int y) {
         JButton addButton = new JButton();

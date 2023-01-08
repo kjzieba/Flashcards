@@ -1,5 +1,9 @@
 package org.flashcards.Gui;
 
+import org.flashcards.Gui.Components.CardFactory;
+import org.flashcards.Gui.Components.CardInit;
+import org.flashcards.Gui.Components.CardView;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,6 +12,7 @@ public class GetStarted extends JPanel {
 
     private JButton getStartedButton, settingsButton;
     private final Initializer initializer;
+    private final CardInit cardInit = new CardInit();
 
     public GetStarted(Initializer initializer) {
         this.initializer = initializer;
@@ -17,6 +22,7 @@ public class GetStarted extends JPanel {
         getCustomTitle();
         addGetStartedButton();
         addSettingsButton();
+        getCardView();
     }
 
     private void getCustomTitle() {
@@ -48,5 +54,10 @@ public class GetStarted extends JPanel {
         settingsButton.addActionListener(e -> {
 
         });
+    }
+
+    private void getCardView() {
+        cardInit.setCardView(new CardView(CardFactory.getRectangle()));
+        System.out.println("dupa");
     }
 }
