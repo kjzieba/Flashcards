@@ -36,7 +36,11 @@ public class Add extends JPanel {
         backButton.setContentAreaFilled(false);
         backButton.setFocusPainted(false);
         backButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.Menu);
+            if (GuiApp.getInstance().getApp().getReposNumber() == 0) {
+                initializer.update(GUInitializer.Panel.Menu);
+            } else
+                initializer.update(GUInitializer.Panel.Menu2);
+
         });
         add(backButton);
     }

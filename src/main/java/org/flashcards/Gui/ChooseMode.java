@@ -28,6 +28,7 @@ public class ChooseMode extends JPanel {
         backButton.setFocusPainted(false);
         backButton.addActionListener(e -> {
             if(GuiApp.getInstance().getApp().getReposNumber()==0){
+                System.out.println(GuiApp.getInstance().getApp().getReposNumber());
                 initializer.update(GUInitializer.Panel.Menu);
             }else
                 initializer.update(GUInitializer.Panel.Menu2);

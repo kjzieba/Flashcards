@@ -16,13 +16,23 @@ public class AddTxtCard extends JPanel {
         setBackground(new java.awt.Color(41, 41, 41));
         setLayout(null);
         addFlashCard();
-        getSaveButton();
+        getCustomTitle();
+    }
+
+    private void getCustomTitle() {
+        JLabel title = new JLabel("Add Next Flashcard");
+        title.setFont(new Font("Arbutus", Font.PLAIN, 40));
+        title.setHorizontalAlignment(JLabel.CENTER);
+        title.setForeground(Color.white);
+        title.setBounds(130, 120, 700, 50);
+        add(title);
     }
 
     private void addFlashCard() {
-        JButton addTextButton = new JButton("Next");
+        JButton addTextButton = new JButton("Save");
         JTextField answer = new JTextField("Enter an answer");
         JTextField question = new JTextField("Enter a question");
+        JButton addSaveButton = new JButton("Done");
         addTextButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
         addTextButton.setBounds(618, 239, 210, 65);
 
@@ -65,14 +75,14 @@ public class AddTxtCard extends JPanel {
             }
         });
         add(question);
-    }
-    private void getSaveButton() {
-        JButton addTextButton = new JButton("Save");
-        addTextButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        addTextButton.setBounds(375, 340, 210, 65);
-        addTextButton.addActionListener(e -> {
+
+        addSaveButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        addSaveButton.setBounds(375, 340, 210, 65);
+        addSaveButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Edit);
+            answer.setText("");
+            question.setText("");
         });
-        add(addTextButton);
+        add(addSaveButton);
     }
 }

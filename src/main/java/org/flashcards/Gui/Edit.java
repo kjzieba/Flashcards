@@ -8,6 +8,9 @@ import java.awt.*;
 
 public class Edit extends JPanel {
     private final Initializer initializer;
+
+    private JButton jButton;
+
     public Edit(Initializer initializer) {
         this.initializer = initializer;
         setPreferredSize(new Dimension(960, 560));
@@ -28,30 +31,33 @@ public class Edit extends JPanel {
         backButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Add);
             GuiApp.getInstance().getApp().deleteRepo();
+            remove(jButton);
         });
         add(backButton);
     }
-
     private void getSaveButton() {
         JButton addTextButton = new JButton("Save");
         addTextButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
         addTextButton.setBounds(618, 47, 210, 65);
-
         addTextButton.addActionListener(e -> {
             GuiApp.getInstance().getApp().setId(GuiApp.getInstance().getApp().getId() + 1);
             initializer.update(GUInitializer.Panel.ChooseMode);
+            remove(jButton);
         });
         add(addTextButton);
     }
 
     public void getNameRepository() {
+        System.out.println(GuiApp.getInstance().getApp().getTitle());
         JButton addTextButton = new JButton(GuiApp.getInstance().getApp().getTitle());
-        addTextButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        addTextButton.setBounds(132, 47, 210, 65);
-        addTextButton.addActionListener(e -> {
-            GuiApp.getInstance().getApp().printOne();
-        });
-        add(addTextButton);
+            addTextButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
+            addTextButton.setBounds(132, 47, 210, 65);
+            addTextButton.addActionListener(e -> {
+                GuiApp.getInstance().getApp().printOne();
+            });
+            jButton = addTextButton;
+            add(jButton);
+
     }
 
 
