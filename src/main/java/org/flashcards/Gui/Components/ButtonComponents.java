@@ -27,6 +27,10 @@ public class ButtonComponents {
 
     public JButton bigButtonComponent(String text, int x, int y) {
         JButton bigButton = new JButton(text);
+        bigButton.setBackground(new java.awt.Color( 67, 69, 74));
+        bigButton.setForeground(Color.white);
+        bigButton.setOpaque(true);
+        bigButton.setBorderPainted(false);
         bigButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
         bigButton.setBounds(x, y, 210, 65);
         return bigButton;

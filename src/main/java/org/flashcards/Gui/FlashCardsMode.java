@@ -8,13 +8,17 @@ import java.awt.*;
 public class FlashCardsMode extends JPanel {
 
     private final Initializer initializer;
-    private final CardInit cardInit = new CardInit();
+    private JButton cardView = new CardComponent().cardButtonComponent(318, 135, 323, 175, "dupa");
+    private JButton cardReverseView = new CardComponent().cardReverseButtonComponent(318, 135, 323, 175, "chuj");
+    private JButton flagButton = new FlashCardComponent().flagButtonComponent(655,135);
+    private JButton redFlagButton = new FlashCardComponent().redFlagButtonComponent(655,135);
     public FlashCardsMode(Initializer initializer) {
         this.initializer = initializer;
         setPreferredSize(new Dimension(960, 560));
         setBackground(new java.awt.Color(41, 41, 41));
         setLayout(null);
         getCardView();
+        getCardViewReverse();
         getBackButton();
         getLeftArrow();
         getRightArrow();
@@ -30,12 +34,24 @@ public class FlashCardsMode extends JPanel {
     }
 
     private void getCardView() {
-        cardInit.setCardView(new CardView(CardFactory.getRectangle()));
-        System.out.println("dupa");
+        cardView.addActionListener(e -> {
+            cardView.setVisible(false);
+            cardReverseView.setVisible(true);
+        });
+        add(cardView);
     }
 
+    private void getCardViewReverse() {
+        cardReverseView.addActionListener(e -> {
+            cardReverseView.setVisible(false);
+            cardView.setVisible(true);
+        });
+        add(cardReverseView);
+    }
+
+
     private void getLeftArrow() {
-        JButton leftArrow = new FlashCardComponent().leftArrowButtonComponent(262,314);
+        JButton leftArrow = new FlashCardComponent().leftArrowButtonComponent(318,329);
         leftArrow.addActionListener(e -> {
 
         });
@@ -43,7 +59,7 @@ public class FlashCardsMode extends JPanel {
     }
 
     private void getRightArrow() {
-        JButton rightArrow = new FlashCardComponent().rightArrowButtonComponent(631,314);
+        JButton rightArrow = new FlashCardComponent().rightArrowButtonComponent(611,329);
         rightArrow.addActionListener(e -> {
 
         });
@@ -51,16 +67,16 @@ public class FlashCardsMode extends JPanel {
     }
 
     private void getFlagButtonComponent() {
-        JButton flagButton = new FlashCardComponent().flagButtonComponent(697,102);
+        redFlagButton.setVisible(false);
         flagButton.addActionListener(e -> {
             flagButton.setVisible(false);
-            JButton redFlagButton = new FlashCardComponent().redFlagButtonComponent(697,102);
-            add(redFlagButton);
-            redFlagButton.addActionListener(e1 -> {
-                redFlagButton.setVisible(false);
-                flagButton.setVisible(true);
-            });
+            redFlagButton.setVisible(true);
         });
+        redFlagButton.addActionListener(e1 -> {
+            redFlagButton.setVisible(false);
+            flagButton.setVisible(true);
+        });
+        add(redFlagButton);
         add(flagButton);
     }
 }

@@ -46,6 +46,12 @@ public class GUInitializer extends JFrame implements Initializer {
         testMode = new TestMode(this);
         flashCardsMode = new FlashCardsMode(this);
 
+        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
 
         setTitle("Flashcards");
         add(getStarted);

@@ -63,6 +63,8 @@ public class Edit extends JPanel {
 
     private void getNameRepository() {
         nameTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        nameTextArea.setBackground(new java.awt.Color(67, 69, 74));
+        nameTextArea.setForeground(Color.white);
         nameTextArea.setBounds(149, 47, 210, 65);
 
         add(nameTextArea);
@@ -71,6 +73,10 @@ public class Edit extends JPanel {
     private void getDoubleTextArea(int y) {
         JTextArea termTextArea = new JTextArea("term");
         JTextArea definitionTextArea = new JTextArea("definition");
+        termTextArea.setBackground(new java.awt.Color(67, 69, 74));
+        definitionTextArea.setBackground(new java.awt.Color(67, 69, 74));
+        termTextArea.setForeground(Color.white);
+        definitionTextArea.setForeground(Color.white);
         termTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
         termTextArea.setBounds(254, y, 210, 35);
         definitionTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));

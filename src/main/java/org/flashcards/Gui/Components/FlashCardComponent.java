@@ -43,11 +43,4 @@ public class FlashCardComponent {
         redFlagButton.setFocusPainted(false);
         return redFlagButton;
     }
-
-    public JButton reverseButtonComponent(int x, int y) {
-        JButton reverseButton = new JButton();
-        reverseButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        reverseButton.setBounds(x, y, 210, 65);
-        return reverseButton;
-    }
 }
