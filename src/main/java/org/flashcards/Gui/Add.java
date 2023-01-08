@@ -1,7 +1,7 @@
 package org.flashcards.Gui;
 
 import org.flashcards.Gui.Components.ButtonComponents;
-import org.flashcards.src.GuiApp;
+import org.flashcards.src.App;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,7 +57,7 @@ public class Add extends JPanel {
         addTextButton.setBounds(132, 239, 210, 65);
         addTextButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Edit);
-            GuiApp.getInstance().getApp().addTxtRepo();
+            App.getInstance().addTxtRepo();
         });
         add(addTextButton);
     }

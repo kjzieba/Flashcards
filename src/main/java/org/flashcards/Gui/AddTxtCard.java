@@ -1,6 +1,6 @@
 package org.flashcards.Gui;
 
-import org.flashcards.src.GuiApp;
+import org.flashcards.src.App;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,7 +37,7 @@ public class AddTxtCard extends JPanel {
         addTextButton.setBounds(618, 239, 210, 65);
 
         addTextButton.addActionListener(e -> {
-            GuiApp.getInstance().getApp().addTxtCard();
+            App.getInstance().addTxtCard();
             initializer.update(GUInitializer.Panel.AddTxtCard);
             answer.setText("");
             question.setText("");
@@ -55,7 +55,7 @@ public class AddTxtCard extends JPanel {
 
             @Override
             public void focusLost(FocusEvent e) {
-                GuiApp.getInstance().getApp().txtCard.setAnswer(answer.getText());
+                App.getInstance().txtCard.setAnswer(answer.getText());
             }
         });
         add(answer);
@@ -71,7 +71,7 @@ public class AddTxtCard extends JPanel {
 
             @Override
             public void focusLost(FocusEvent e) {
-                GuiApp.getInstance().getApp().txtCard.setTextQuestion(question.getText());
+                App.getInstance().txtCard.setTextQuestion(question.getText());
             }
         });
         add(question);

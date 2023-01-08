@@ -10,6 +10,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
+    private static volatile App instance;
+
+    public static App getInstance() {
+        if (instance == null) {
+            synchronized (App.class) {
+                if (instance == null) {
+                    instance = new App();
+                }
+            }
+        }
+        return instance;
+    }
+
     ComHistory comHistory = new ComHistory();
 
     AllCards allCards = new AllCards();

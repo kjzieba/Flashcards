@@ -1,6 +1,5 @@
 package org.flashcards.Gui;
 
-import org.flashcards.src.GuiApp;
 
 import javax.swing.*;
 import java.awt.*;

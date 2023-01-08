@@ -1,7 +1,7 @@
 
 package org.flashcards.Gui;
 
-import org.flashcards.src.GuiApp;
+import org.flashcards.src.App;
 import org.flashcards.src.repositories.CardsRepo;
 import org.flashcards.src.repositories.TxtCardRepo;
 
@@ -35,7 +35,7 @@ public class Edit extends JPanel {
         backButton.setFocusPainted(false);
         backButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Add);
-            GuiApp.getInstance().getApp().deleteRepo();
+            App.getInstance().deleteRepo();
         });
         add(backButton);
     }
@@ -45,10 +45,10 @@ public class Edit extends JPanel {
         addTextButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
         addTextButton.setBounds(618, 47, 210, 65);
         addTextButton.addActionListener(e -> {
-            GuiApp.getInstance().getApp().setId(GuiApp.getInstance().getApp().getId() + 1);
+            App.getInstance().setId(App.getInstance().getId() + 1);
             initializer.update(GUInitializer.Panel.ChooseMode);
             nameTextField.setText("Enter a title");
-            System.out.println(GuiApp.getInstance().getApp().getAllCards());
+            System.out.println(App.getInstance().getAllCards());
         });
         add(addTextButton);
     }
@@ -78,7 +78,7 @@ public class Edit extends JPanel {
 
             @Override
             public void focusLost(FocusEvent e) {
-                CardsRepo cardsRepo = GuiApp.getInstance().getApp().getAllCards().query(GuiApp.getInstance().getApp().getId());
+                CardsRepo cardsRepo = App.getInstance().getAllCards().query(App.getInstance().getId());
                 TxtCardRepo txtCardRepo = (TxtCardRepo) cardsRepo;
                 txtCardRepo.setTitle(nameTextField.getText());
             }
