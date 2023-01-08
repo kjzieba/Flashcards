@@ -10,7 +10,8 @@ import java.awt.event.ActionListener;
 public class Edit extends JPanel {
 
     private final Initializer initializer;
-    private final JTextArea nameTextArea = new JTextArea("Enter a title");
+//    private final JTextArea nameTextArea = new JTextArea("Enter a title");
+    private final JTextField nameTextField = new JTextField("Enter a title");
     JScrollPane scrollPane = new JScrollPane();
 //    private final JTextArea termTextArea = new JTextArea("term");
 //    private final JTextArea definitionTextArea = new JTextArea("definition");
@@ -44,7 +45,7 @@ public class Edit extends JPanel {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String areaText = nameTextArea.getText();
+                String areaText = nameTextField.getText();
                 System.out.println(areaText);
             }
         });
@@ -62,12 +63,13 @@ public class Edit extends JPanel {
     }
 
     private void getNameRepository() {
-        nameTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        nameTextArea.setBackground(new java.awt.Color(67, 69, 74));
-        nameTextArea.setForeground(Color.white);
-        nameTextArea.setBounds(149, 47, 210, 65);
+        nameTextField.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        nameTextField.setBackground(new java.awt.Color(67, 69, 74));
+        nameTextField.setForeground(Color.white);
+        nameTextField.setBounds(149, 47, 210, 65);
+        nameTextField.setHorizontalAlignment(JTextField.CENTER);
 
-        add(nameTextArea);
+        add(nameTextField);
     }
 
     private void getDoubleTextArea(int y) {

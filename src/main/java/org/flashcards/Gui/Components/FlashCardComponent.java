@@ -43,4 +43,14 @@ public class FlashCardComponent {
         redFlagButton.setFocusPainted(false);
         return redFlagButton;
     }
+
+    public JButton learningButtonComponent(int x, int y, String text) {
+        JButton learningButton = new JButton(text);
+        learningButton.setBackground(Color.black);
+        learningButton.setForeground(Color.white);
+        learningButton.setBounds(x, y, 140, 35);
+        learningButton.setFont(new Font("Arbutus", Font.PLAIN, 14));
+        learningButton.setOpaque(true);
+        return learningButton;
+    }
 }
