@@ -4,6 +4,7 @@ package org.flashcards.gui;
 import org.flashcards.TxtCard;
 import org.flashcards.collection.FlashcardCollectionInterface;
 import org.flashcards.collection.TxtFlashcardCollection;
+import org.flashcards.db.DatabaseProxy;
 import org.flashcards.gui.components.ButtonComponents;
 import org.flashcards.App;
 
@@ -77,6 +78,7 @@ public class Edit extends JPanel {
             scrollPane.repaint();
             scrollPane.revalidate();
             titleSet = false;
+            App.getInstance().getAllCards().saveList(App.getInstance().getIdRepo()-1);
 
         });
         add(saveButton);

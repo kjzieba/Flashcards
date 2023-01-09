@@ -21,9 +21,16 @@ public class DatabaseProxy implements DatabaseInterface {
         return instance;
     }
 
+    public void saveList(Long id) {
+        for (FlashcardCollectionInterface list : memory) {
+            if (list.getId().equals(id)) {
+                db.addFlashcardList(list);
+            }
+        }
+    }
+
     @Override
     public void addFlashcardList(FlashcardCollectionInterface list) {
-        db.addFlashcardList(list);
         memory.add(list);
     }
 
