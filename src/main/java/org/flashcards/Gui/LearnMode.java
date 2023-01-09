@@ -16,7 +16,7 @@ public class LearnMode extends JPanel {
     public LearnMode(Initializer initializer) {
         this.initializer = initializer;
         setPreferredSize(new Dimension(960, 560));
-        setBackground(new java.awt.Color(41, 41, 41));
+        setBackground(GUInitializer.backgroundColor);
         setLayout(null);
         getCardView();
         getCardViewReverse();

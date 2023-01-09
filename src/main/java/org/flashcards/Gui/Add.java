@@ -13,7 +13,7 @@ public class Add extends JPanel {
     public Add(Initializer initializer) {
         this.initializer = initializer;
         setPreferredSize(new Dimension(960, 560));
-        setBackground(new java.awt.Color(41, 41, 41));
+        setBackground(GUInitializer.backgroundColor);
         setLayout(null);
         getCustomTitle();
         getBackButton();
@@ -31,12 +31,7 @@ public class Add extends JPanel {
     }
 
     private void getBackButton() {
-        JButton backButton = new JButton();
-        backButton.setIcon(new ImageIcon("src/main/resources/img/backButton.png"));
-        backButton.setBounds(13, 12, 30, 30);
-        backButton.setBorderPainted(false);
-        backButton.setContentAreaFilled(false);
-        backButton.setFocusPainted(false);
+        JButton backButton = new ButtonComponents().backButtonComponent(13, 12);
         backButton.addActionListener(e -> {
                 initializer.update(GUInitializer.Panel.Menu);
         });
@@ -45,16 +40,14 @@ public class Add extends JPanel {
 
     private void getSoundButton() {
         JButton soundButton = new ButtonComponents().bigButtonComponent("Sound", 375, 239);
+        soundButton.setBorderPainted(true);
         soundButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.Edit);
         });
         add(soundButton);
     }
 
     private void getTextButton() {
-        JButton addTextButton = new JButton("Text");
-        addTextButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        addTextButton.setBounds(132, 239, 210, 65);
+        JButton addTextButton = new ButtonComponents().bigButtonComponent("Text", 132, 239);
         addTextButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Edit);
             App.getInstance().addTxtRepo();
@@ -63,9 +56,7 @@ public class Add extends JPanel {
     }
 
     private void getImageButton() {
-        JButton addButton = new JButton("Image");
-        addButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        addButton.setBounds(618, 239, 210, 65);
+        JButton addButton = new ButtonComponents().bigButtonComponent("Image", 618, 239);
         addButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Edit);
         });

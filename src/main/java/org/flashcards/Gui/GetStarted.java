@@ -13,7 +13,7 @@ public class GetStarted extends JPanel {
     public GetStarted(Initializer initializer) {
         this.initializer = initializer;
         setPreferredSize(new Dimension(960, 560));
-        setBackground(new java.awt.Color(41, 41, 41));
+        setBackground(GUInitializer.backgroundColor);
         setLayout(null);
         getCustomTitle();
         addGetStartedButton();
@@ -31,7 +31,7 @@ public class GetStarted extends JPanel {
 
     private void addGetStartedButton() {
         getStartedButton = new JButton("Get started");
-        getStartedButton.setBackground(new java.awt.Color(149, 149, 149));
+        getStartedButton.setBackground(GUInitializer.getStartedButtonsColor);
         getStartedButton.setOpaque(true);
         getStartedButton.setFont(new Font("Arbutus", Font.PLAIN, 14));
         getStartedButton.setBounds(398, 321, 152, 47);
@@ -43,7 +43,7 @@ public class GetStarted extends JPanel {
 
     private void addSettingsButton() {
         settingsButton = new JButton("Settings");
-        settingsButton.setBackground(new java.awt.Color(149, 149, 149));
+        settingsButton.setBackground(GUInitializer.getStartedButtonsColor);
         settingsButton.setOpaque(true);
         settingsButton.setFont(new Font("Arbutus", Font.PLAIN, 14));
         settingsButton.setBounds(398, 404, 152, 47);

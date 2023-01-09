@@ -16,10 +16,11 @@ public class GUInitializer extends JFrame implements Initializer {
     private final LearnMode learnMode;
     private final TestMode testMode;
     private final FlashCardsMode flashCardsMode;
-
     private final AddTxtCard addTxtCard;
 
-
+    public static Color backgroundColor = new Color(41, 41, 41);
+    public static Color buttonColor = new Color(67, 69, 74);
+    public static Color getStartedButtonsColor = new Color(149, 149, 149);
 
     public GUInitializer() {
 
@@ -117,7 +118,6 @@ public class GUInitializer extends JFrame implements Initializer {
                 pack();
                 flashCardsMode.setVisible(true);
             }
-
             case AddTxtCard -> {
                 chooseMode.setVisible(false);
                 setContentPane(addTxtCard);
@@ -141,7 +141,6 @@ public class GUInitializer extends JFrame implements Initializer {
         FlashCardsMode,
         LearnMode,
         TestMode,
-
         Result,
         AddTxtCard
     }

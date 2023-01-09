@@ -1,5 +1,7 @@
 package org.flashcards.Gui.Components;
 
+import org.flashcards.Gui.GUInitializer;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -27,7 +29,7 @@ public class ButtonComponents {
 
     public JButton bigButtonComponent(String text, int x, int y) {
         JButton bigButton = new JButton(text);
-        bigButton.setBackground(new java.awt.Color( 67, 69, 74));
+        bigButton.setBackground(GUInitializer.buttonColor);
         bigButton.setForeground(Color.white);
         bigButton.setOpaque(true);
         bigButton.setBorderPainted(false);

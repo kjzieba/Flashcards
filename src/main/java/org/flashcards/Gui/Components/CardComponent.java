@@ -1,5 +1,7 @@
 package org.flashcards.Gui.Components;
 
+import org.flashcards.Gui.GUInitializer;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,7 +11,7 @@ public class CardComponent {
         JButton cardButton = new JButton(term);
         cardButton.setBounds(x, y, width, height);
         cardButton.setFont(new Font("Arbutus", Font.PLAIN, 20));
-        cardButton.setBackground(new java.awt.Color( 67, 69, 74));
+        cardButton.setBackground(GUInitializer.buttonColor);
         cardButton.setForeground(Color.white);
         cardButton.setOpaque(true);
         cardButton.setBorderPainted(false);
