@@ -19,6 +19,7 @@ public class GUInitializer extends JFrame implements Initializer {
     private final Result result;
     private final QuestionsAmount questionsAmount;
     private final AddTxtCard addTxtCard;
+    private final EditImg editImg;
 
     public static Color backgroundColor = new Color(41, 41, 41);
     public static Color buttonColor = new Color(67, 69, 74);
@@ -55,6 +56,7 @@ public class GUInitializer extends JFrame implements Initializer {
         addTxtCard = new AddTxtCard(this);
         result = new Result(this);
         questionsAmount = new QuestionsAmount(this);
+        editImg = new EditImg(this);
 
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -98,6 +100,12 @@ public class GUInitializer extends JFrame implements Initializer {
                 setContentPane(edit);
                 pack();
                 edit.setVisible(true);
+            }
+            case EditImg -> {
+                add.setVisible(false);
+                setContentPane(editImg);
+                pack();
+                editImg.setVisible(true);
             }
             case ChooseMode -> {
                 edit.setVisible(false);
@@ -154,6 +162,7 @@ public class GUInitializer extends JFrame implements Initializer {
         Menu,
         Add,
         Edit,
+        EditImg,
         ChooseMode,
         FlashCardsMode,
         LearnMode,

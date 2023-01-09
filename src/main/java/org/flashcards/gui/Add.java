@@ -58,7 +58,8 @@ public class Add extends JPanel {
     private void getImageButton() {
         JButton addButton = new ButtonComponents().bigButtonComponent("Image", 618, 239);
         addButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.Edit);
+            initializer.update(GUInitializer.Panel.EditImg);
+            App.getInstance().addImgRepo("img");
         });
         add(addButton);
     }

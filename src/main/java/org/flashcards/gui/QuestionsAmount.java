@@ -8,7 +8,7 @@ import java.awt.*;
 public class QuestionsAmount extends JPanel {
 
     private final Initializer initializer;
-    int amount = 0;
+    public static int amount;
     JLabel questionsAmountTitle = new JLabel();
     public QuestionsAmount(Initializer initializer) {
         this.initializer = initializer;
@@ -72,6 +72,7 @@ public class QuestionsAmount extends JPanel {
         JButton startButton = new ButtonComponents().smallButtonComponent("Start test", 406, 290);
         startButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.TestMode);
+            TestMode.questionNumber.setText(TestMode.actualWord + "/" + QuestionsAmount.amount);
         });
         add(startButton);
     }

@@ -1,21 +1,22 @@
 
 package org.flashcards.gui;
 
+import org.flashcards.App;
 import org.flashcards.TxtCard;
 import org.flashcards.collection.FlashcardCollectionInterface;
 import org.flashcards.collection.TxtFlashcardCollection;
-import org.flashcards.db.DatabaseProxy;
 import org.flashcards.gui.components.ButtonComponents;
-import org.flashcards.App;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Edit extends JPanel {
+public class EditImg extends JPanel {
     private final Initializer initializer;
 
     private final JTextField nameTextField = new JTextField("Enter a title");
@@ -27,7 +28,7 @@ public class Edit extends JPanel {
     private ArrayList<Long> idCards = new ArrayList<>();
     private JPanel content = new JPanel(new GridLayout(0, 2));
 
-    public Edit(Initializer initializer) {
+    public EditImg(Initializer initializer) {
         this.initializer = initializer;
         setPreferredSize(new Dimension(960, 560));
         setBackground(GUInitializer.backgroundColor);
@@ -42,7 +43,7 @@ public class Edit extends JPanel {
     private void getBackButton() {
         JButton backButton = new ButtonComponents().backButtonComponent(13, 12);
         backButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.Menu);
+            initializer.update(GUInitializer.Panel.Add);
             App.getInstance().deleteRepo();
             content.removeAll();
             content.repaint();
@@ -59,57 +60,10 @@ public class Edit extends JPanel {
         addButton.addActionListener(e -> {
             TxtCard txtCard = App.getInstance().createEmptyTxtCard();
             content.add(getTermTextArea(txtCard));
-            content.add(getDefinitionTextArea(txtCard));
+            content.add(getImgButton());
 
         });
         add(addButton);
-    }
-
-    private void getSaveButton() {
-        JButton saveButton = new ButtonComponents().bigButtonComponent("Save", 601, 47);
-        saveButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.ChooseMode);
-            nameTextField.setText("Enter a title");
-            System.out.println(App.getInstance().getAllCards());
-            App.getInstance().setIdRepo(App.getInstance().getIdRepo() + 1);
-            content.removeAll();
-            content.repaint();
-            content.revalidate();
-            scrollPane.repaint();
-            scrollPane.revalidate();
-            titleSet = false;
-            App.getInstance().getAllCards().saveList(App.getInstance().getIdRepo()-1);
-
-        });
-        add(saveButton);
-    }
-
-
-    private void getNameRepository() {
-        nameTextField.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        nameTextField.setBackground(GUInitializer.buttonColor);
-        nameTextField.setForeground(Color.white);
-        nameTextField.setBounds(149, 47, 210, 65);
-        nameTextField.setHorizontalAlignment(JTextField.CENTER);
-        nameTextField.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (titleSet) {
-
-                } else {
-                    nameTextField.setText("");
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                FlashcardCollectionInterface cardsRepo = App.getInstance().getAllCards().getFlashcardList(App.getInstance().getIdRepo(), "T");
-                TxtFlashcardCollection txtCardRepo = (TxtFlashcardCollection) cardsRepo;
-                txtCardRepo.setTitle(nameTextField.getText());
-                titleSet = true;
-            }
-        });
-        add(nameTextField);
     }
 
     private Component getTermTextArea(TxtCard card) {
@@ -147,40 +101,50 @@ public class Edit extends JPanel {
         return add(termTextArea);
     }
 
-    private Component getDefinitionTextArea(TxtCard card) {
-        JTextArea definitionTextArea = new JTextArea("definition");
-        definitionTextArea.setBackground(GUInitializer.buttonColor);
-        definitionTextArea.setForeground(Color.white);
-        definitionTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        definitionTextArea.setBounds(496, 192, 210, 85);
-        definitionTextArea.setBorder(BorderFactory.createLineBorder(Color.black, 1));
-        definitionTextArea.setBorder(BorderFactory.createCompoundBorder(
-                definitionTextArea.getBorder(),
-                BorderFactory.createEmptyBorder(10, 3, 10, 0)));
-        definitionTextArea.addFocusListener(new FocusListener() {
+    private void getNameRepository() {
+        nameTextField.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        nameTextField.setBackground(GUInitializer.buttonColor);
+        nameTextField.setForeground(Color.white);
+        nameTextField.setBounds(149, 47, 210, 65);
+        nameTextField.setHorizontalAlignment(JTextField.CENTER);
+        nameTextField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (idCards.contains(card.getId()) && !Objects.equals(definitionTextArea.getText(), "definition")) {
+                if (titleSet) {
 
                 } else {
-                    definitionTextArea.setText("");
+                    nameTextField.setText("");
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                if (idCards.contains(card.getId())) {
-                    card.setAnswer(definitionTextArea.getText());
-                } else {
-                    card.setAnswer(definitionTextArea.getText());
-                    idCards.add(card.getId());
-                    App.getInstance().addTxtCard(card);
-                }
+                FlashcardCollectionInterface cardsRepo = App.getInstance().getAllCards().getFlashcardList(App.getInstance().getIdRepo(), "T");
+                TxtFlashcardCollection txtCardRepo = (TxtFlashcardCollection) cardsRepo;
+                txtCardRepo.setTitle(nameTextField.getText());
+                titleSet = true;
             }
         });
-        return add(definitionTextArea);
+        add(nameTextField);
     }
 
+    private void getSaveButton() {
+        JButton saveButton = new ButtonComponents().bigButtonComponent("Save", 601, 47);
+        saveButton.addActionListener(e -> {
+            initializer.update(GUInitializer.Panel.ChooseMode);
+            nameTextField.setText("Enter a title");
+            System.out.println(App.getInstance().getAllCards());
+            App.getInstance().setIdRepo(App.getInstance().getIdRepo() + 1);
+            content.removeAll();
+            content.repaint();
+            content.revalidate();
+            scrollPane.repaint();
+            scrollPane.revalidate();
+            titleSet = false;
+
+        });
+        add(saveButton);
+    }
     private void getScrollPane() {
         scrollPane.getViewport().setBackground(GUInitializer.backgroundColor);
         scrollPane.setBounds(193, 176, 570, 350);
@@ -188,8 +152,30 @@ public class Edit extends JPanel {
         scrollPane.createVerticalScrollBar();
         TxtCard txtCard = App.getInstance().createEmptyTxtCard();
         content.add(getTermTextArea(txtCard));
-        content.add(getDefinitionTextArea(txtCard));
+        content.add(getImgButton());
         scrollPane.setViewportView(content);
         add(scrollPane);
     }
+
+    private Component getImgButton() {
+        JButton imgButton = new JButton("Upload Image");
+        imgButton.setBackground(GUInitializer.buttonColor);
+        imgButton.setForeground(Color.white);
+        imgButton.setOpaque(true);
+        imgButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        imgButton.setBounds(496, 192, 210, 65);
+        imgButton.addActionListener(e -> {
+            if(e.getSource() == imgButton) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+                int res = fileChooser.showOpenDialog(null);
+                if(res == JFileChooser.APPROVE_OPTION) {
+                    File filePath = new File(fileChooser.getSelectedFile().getAbsolutePath());
+                    System.out.println(filePath);
+                }
+            }
+        });
+        return imgButton;
+    }
+
 }

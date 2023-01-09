@@ -1,8 +1,6 @@
 package org.flashcards.gui;
 
 import org.flashcards.gui.components.ButtonComponents;
-import org.flashcards.gui.components.CardComponent;
-import org.flashcards.gui.components.FlashCardComponent;
 
 import javax.swing.*;
 import java.awt.*;
