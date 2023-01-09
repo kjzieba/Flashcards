@@ -8,8 +8,8 @@ import java.awt.*;
 public class FlashCardsMode extends JPanel {
 
     private final Initializer initializer;
-    private JButton cardView = new CardComponent().cardButtonComponent(318, 135, 323, 175, "dupa");
-    private JButton cardReverseView = new CardComponent().cardReverseButtonComponent(318, 135, 323, 175, "chuj");
+    private JButton cardView = new CardComponent().cardButtonComponent(318, 135, 323, 175, "kocham");
+    private JButton cardReverseView = new CardComponent().cardReverseButtonComponent(318, 135, 323, 175, "jave");
     private JButton flagButton = new FlashCardComponent().flagButtonComponent(655,135);
     private JButton redFlagButton = new FlashCardComponent().redFlagButtonComponent(655,135);
     public FlashCardsMode(Initializer initializer) {
