@@ -1,6 +1,6 @@
 package org.flashcards.collection;
 
-import org.flashcards.src.Card;
+import org.flashcards.Card;
 
 public interface Iterator {
     Card next();

@@ -1,6 +1,6 @@
 package org.flashcards.collection;
 
-import org.flashcards.src.TxtCard;
+import org.flashcards.TxtCard;
 
 import java.util.ArrayList;
 

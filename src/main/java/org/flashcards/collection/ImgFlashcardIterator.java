@@ -1,8 +1,6 @@
 package org.flashcards.collection;
 
-import org.flashcards.src.Card;
-import org.flashcards.src.ImgCard;
-import org.flashcards.src.repositories.ImgCardRepo;
+import org.flashcards.Card;
 
 public class ImgFlashcardIterator implements Iterator {
     private final ImgFlashcardCollection list;

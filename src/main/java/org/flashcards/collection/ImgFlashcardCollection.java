@@ -1,6 +1,6 @@
 package org.flashcards.collection;
 
-import org.flashcards.src.ImgCard;
+import org.flashcards.ImgCard;
 
 import java.util.ArrayList;
 
