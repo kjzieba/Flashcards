@@ -61,7 +61,10 @@ public class ImgFlashcardCollection implements FlashcardCollectionInterface {
 
     @Override
     public String toString() {
+        String lst = list.toString();
+        String[] l = lst.split(", ");
+        lst = String.join(",", l);
         return "I " + id.toString() + " " +
-                title + " " + list;
+                title + " " + lst;
     }
 }

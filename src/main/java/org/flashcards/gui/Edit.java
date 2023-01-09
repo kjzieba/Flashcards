@@ -57,6 +57,12 @@ public class Edit extends JPanel {
             nameTextField.setText("Enter a title");
             System.out.println(App.getInstance().getAllCards());
             App.getInstance().setIdRepo(App.getInstance().getIdRepo()+1);
+            content.removeAll();
+            content.repaint();
+            content.revalidate();
+            scrollPane.repaint();
+            scrollPane.revalidate();
+
         });
         add(saveButton);
     }

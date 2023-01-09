@@ -3,6 +3,7 @@ package org.flashcards.collection;
 import org.flashcards.TxtCard;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class TxtFlashcardCollection implements FlashcardCollectionInterface {
@@ -60,7 +61,10 @@ public class TxtFlashcardCollection implements FlashcardCollectionInterface {
 
     @Override
     public String toString() {
+        String lst = list.toString();
+        String[] l = lst.split(", ");
+        lst = String.join(",", l);
         return "T " + id.toString() + " " +
-                title + " " + list;
+                title + " " + lst;
     }
 }
