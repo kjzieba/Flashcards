@@ -33,6 +33,7 @@ public class ImgFlashcardCollection implements FlashcardCollectionInterface {
         this.list = lst;
     }
 
+    @Override
     public Long getId() {
         return id;
     }

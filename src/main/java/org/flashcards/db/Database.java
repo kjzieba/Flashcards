@@ -55,6 +55,7 @@ public class Database implements DatabaseInterface {
                 }
 
             }
+            sc.close();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -63,6 +64,24 @@ public class Database implements DatabaseInterface {
 
     @Override
     public void deleteFlashcardList(Long id) {
-
+        try {
+            File tmp = new File("tmp.txt");
+            tmp.createNewFile();
+            Scanner sc = new Scanner(db);
+            FileWriter fw = new FileWriter("tmp.txt");
+            while (sc.hasNextLine()){
+                String str = sc.nextLine();
+                String[] strings = str.split(" ");
+                if (strings[1].equals(id.toString())) {
+                    continue;
+                }
+                fw.write(str+"\n");
+            }
+            fw.close();
+            sc.close();
+            tmp.renameTo(db);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
