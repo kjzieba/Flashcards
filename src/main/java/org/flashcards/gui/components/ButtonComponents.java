@@ -37,4 +37,14 @@ public class ButtonComponents {
         bigButton.setBounds(x, y, 210, 65);
         return bigButton;
     }
+
+    public JButton cardTitleButtonComponent(String text, int x, int y) {
+        JButton cardTitle = new JButton(text);
+        cardTitle.setBackground(GUInitializer.buttonColor);
+        cardTitle.setForeground(Color.white);
+        cardTitle.setOpaque(true);
+        cardTitle.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        cardTitle.setBounds(x, y, 210, 80);
+        return cardTitle;
+    }
 }

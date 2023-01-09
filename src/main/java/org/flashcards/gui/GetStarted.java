@@ -21,7 +21,7 @@ public class GetStarted extends JPanel {
     }
 
     private void getCustomTitle() {
-        GUInitializer.changeFont("src/main/java/org/flashcards/Gui/fonts/BungeeShade-Regular.ttf");
+        GUInitializer.changeFont("src/main/java/org/flashcards/gui/fonts/BungeeShade-Regular.ttf");
         JLabel title = new JLabel("FLASHCARDS");
         title.setFont(new Font("Bungee Shade", Font.PLAIN, 63));
         title.setForeground(Color.white);

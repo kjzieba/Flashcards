@@ -131,7 +131,7 @@ public class Edit extends JPanel {
     }
 
     private void getScrollPane() {
-        scrollPane.getViewport().setBackground(new Color(41, 41, 41));
+        scrollPane.getViewport().setBackground(GUInitializer.backgroundColor);
         scrollPane.setBounds(193, 176, 570, 350);
         scrollPane.setAutoscrolls(true);
         scrollPane.createVerticalScrollBar();

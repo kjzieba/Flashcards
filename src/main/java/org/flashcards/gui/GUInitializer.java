@@ -40,7 +40,7 @@ public class GUInitializer extends JFrame implements Initializer {
             e.printStackTrace();
         }
 
-        changeFont("src/main/java/org/flashcards/Gui/fonts/Arbutus-Regular.ttf");
+        changeFont("src/main/java/org/flashcards/gui/fonts/Arbutus-Regular.ttf");
 
         getStarted = new GetStarted(this);
         menu = new Menu(this);

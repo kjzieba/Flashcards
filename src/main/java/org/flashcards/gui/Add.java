@@ -62,4 +62,5 @@ public class Add extends JPanel {
         });
         add(addButton);
     }
+
 }
