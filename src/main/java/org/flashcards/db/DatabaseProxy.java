@@ -3,6 +3,7 @@ package org.flashcards.db;
 import org.flashcards.collection.FlashcardCollectionInterface;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class DatabaseProxy implements DatabaseInterface {
     private static DatabaseProxy instance;
@@ -50,6 +51,11 @@ public class DatabaseProxy implements DatabaseInterface {
     public void deleteFlashcardList(Long id) {
         db.deleteFlashcardList(id);
         memory.removeIf(list -> list.getId().equals(id));
+    }
+
+    @Override
+    public Map<Long, String> getAllLists() {
+        return db.getAllLists();
     }
 
     @Override

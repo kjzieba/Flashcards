@@ -82,6 +82,7 @@ public class GUInitializer extends JFrame implements Initializer {
             }
             case Menu -> {
                 getStarted.setVisible(false);
+                menu.checkCards();
                 setContentPane(menu);
                 pack();
                 menu.setVisible(true);

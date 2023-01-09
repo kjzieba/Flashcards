@@ -3,6 +3,9 @@ package org.flashcards.db;
 import org.flashcards.collection.FlashcardCollectionInterface;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Database implements DatabaseInterface {
@@ -83,5 +86,22 @@ public class Database implements DatabaseInterface {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Map<Long, String> getAllLists() {
+        Map<Long, String> map = new HashMap<>();
+        try {
+            Scanner sc = new Scanner(db);
+            while (sc.hasNextLine()){
+                String str = sc.nextLine();
+                String[] strings = str.split(" ");
+                map.put(Long.parseLong(strings[1]), strings[2]);
+            }
+            sc.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return map;
     }
 }
