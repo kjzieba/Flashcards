@@ -101,7 +101,7 @@ public class Edit extends JPanel {
 
             @Override
             public void focusLost(FocusEvent e) {
-                FlashcardCollectionInterface cardsRepo = App.getInstance().getAllCards().query(App.getInstance().getIdRepo());
+                FlashcardCollectionInterface cardsRepo = App.getInstance().getAllCards().getFlashcardList(App.getInstance().getIdRepo(), "T");
                 TxtFlashcardCollection txtCardRepo = (TxtFlashcardCollection) cardsRepo;
                 txtCardRepo.setTitle(nameTextField.getText());
                 titleSet = true;

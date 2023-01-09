@@ -1,24 +1,24 @@
 package org.flashcards.commands;
 
 import org.flashcards.collection.ImgFlashcardCollection;
-import org.flashcards.repositories.AllCards;
+import org.flashcards.db.DatabaseProxy;
 
 public class SaveImgRepo implements Command{
     private final ComHistory history;
     private final ImgFlashcardCollection imgFlashcardRepository;
-    private final AllCards allCards;
+    private final DatabaseProxy dbProxy;
     private final Long id;
 
-    public SaveImgRepo(ComHistory history, ImgFlashcardCollection imgFlashcardRepository, AllCards allCards, Long id) {
+    public SaveImgRepo(ComHistory history, ImgFlashcardCollection imgFlashcardRepository, Long id) {
         this.history = history;
         this.imgFlashcardRepository = imgFlashcardRepository;
-        this.allCards = allCards;
+        this.dbProxy = DatabaseProxy.getInstance();
         this.id = id;
     }
 
     @Override
     public void execute() {
-        allCards.addToAll(id, imgFlashcardRepository);
+        dbProxy.addFlashcardList(imgFlashcardRepository);
         history.push(this);
     }
 }

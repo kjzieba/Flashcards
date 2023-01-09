@@ -1,26 +1,26 @@
 package org.flashcards.commands;
 
 import org.flashcards.collection.TxtFlashcardCollection;
-import org.flashcards.repositories.AllCards;
+import org.flashcards.db.DatabaseProxy;
 
 public class SaveTxtRepo implements Command{
     private final ComHistory history;
 
     private final TxtFlashcardCollection txtCardRepo;
-    private final AllCards allCards;
+    private final DatabaseProxy dbProxy;
 
     private final Long id;
 
-    public SaveTxtRepo(ComHistory history, TxtFlashcardCollection txtCardRepo, AllCards allCards, Long id) {
+    public SaveTxtRepo(ComHistory history, TxtFlashcardCollection txtCardRepo, Long id) {
         this.history = history;
         this.txtCardRepo = txtCardRepo;
-        this.allCards = allCards;
+        this.dbProxy = DatabaseProxy.getInstance();
         this.id = id;
     }
 
     @Override
     public void execute() {
-        allCards.addToAll(id, txtCardRepo);
+        dbProxy.addFlashcardList(txtCardRepo);
         history.push(this);
     }
 }

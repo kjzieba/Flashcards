@@ -7,10 +7,11 @@ import java.util.ArrayList;
 public class DatabaseProxy implements DatabaseInterface {
     private static DatabaseProxy instance;
     private final Database db;
-    private ArrayList<FlashcardCollectionInterface> memory;
+    private final ArrayList<FlashcardCollectionInterface> memory;
 
     private DatabaseProxy() {
         this.db = Database.getInstance();
+        memory = new ArrayList<>();
     }
 
     public static DatabaseProxy getInstance() {
@@ -42,5 +43,12 @@ public class DatabaseProxy implements DatabaseInterface {
     public void deleteFlashcardList(Long id) {
         db.deleteFlashcardList(id);
         memory.removeIf(list -> list.getId().equals(id));
+    }
+
+    @Override
+    public String toString() {
+        return "DatabaseProxy{" +
+                "memory=" + memory +
+                '}';
     }
 }

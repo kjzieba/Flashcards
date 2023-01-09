@@ -6,7 +6,7 @@ import org.flashcards.collection.TxtFlashcardCollection;
 import org.flashcards.commands.*;
 import org.flashcards.creators.ImgCardCreator;
 import org.flashcards.creators.TxtCardCreator;
-import org.flashcards.repositories.AllCards;
+import org.flashcards.db.DatabaseProxy;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class App {
 
     private ComHistory comHistory = new ComHistory();
 
-    private AllCards allCards = new AllCards();
+    private final DatabaseProxy dbProxy = DatabaseProxy.getInstance();
 
     private ArrayList<Long> addedId = new ArrayList<>();
 
@@ -36,9 +36,9 @@ public class App {
 
     private ArrayList<Long> editedId = new ArrayList<>();
 
-    private final TxtCardCreator txtCardCreator= new TxtCardCreator();
+    private final TxtCardCreator txtCardCreator = new TxtCardCreator();
 
-    private final ImgCardCreator imgCardCreator= new ImgCardCreator();
+    private final ImgCardCreator imgCardCreator = new ImgCardCreator();
 
 
     private Long idRepo = 1L;
@@ -54,79 +54,74 @@ public class App {
 
     ArrayList<FlashcardCollectionInterface> reposHistory = new ArrayList<>();
 
-public TxtCard createEmptyTxtCard(){
-    TxtCard txtCard = txtCardCreator.createFlashcard(idCards, "","");
-    idCards = idCards + 1;
-    return txtCard;
-}
-    public void addTxtRepo(){
-        Command command = new AddTxtRepo(comHistory, allCards,addedId, idRepo);
-        command.execute();
-        this.title=title;
-        reposNumber += 1;
-        optionHistory.add(1);
+    public TxtCard createEmptyTxtCard() {
+        TxtCard txtCard = txtCardCreator.createFlashcard(idCards, "", "");
+        idCards = idCards + 1;
+        return txtCard;
     }
 
-    public void addImgRepo(String title){
-        Command command = new AddImgRepo(comHistory, allCards, title, addedId, idCards);
+    public void addTxtRepo() {
+        Command command = new AddTxtRepo(comHistory, addedId, idRepo);
         command.execute();
         this.title = title;
         reposNumber += 1;
         optionHistory.add(1);
     }
 
-    public void addTxtCard(TxtCard card){
-        Command command = new AddTxtCard(idRepo, comHistory,allCards, card);
+    public void addImgRepo(String title) {
+        Command command = new AddImgRepo(comHistory, title, addedId, idCards);
+        command.execute();
+        this.title = title;
+        reposNumber += 1;
+        optionHistory.add(1);
+    }
+
+    public void addTxtCard(TxtCard card) {
+        Command command = new AddTxtCard(idRepo, comHistory, card);
         command.execute();
         reposNumber += 1;
         optionHistory.add(1);
     }
 
-    public void editRepo(){
-        if (allCards.query(idRepo).getClass() == TxtFlashcardCollection.class) {
-            editedId.add(idRepo);
-            Command editTextRepo = new EditTextRepo((TxtFlashcardCollection) allCards.query(idRepo), comHistory, reposHistory);
-            editTextRepo.execute();
-            optionHistory.add(2);
-        } else if (allCards.query(idRepo).getClass() == ImgFlashcardCollection.class) {
-            editedId.add(idRepo);
+    public void editRepo() {
+//        if (dbProxy.getFlashcardList(idRepo).getClass() == TxtFlashcardCollection.class) {
+//            editedId.add(idRepo);
+//            Command editTextRepo = new EditTextRepo((TxtFlashcardCollection) allCards.query(idRepo), comHistory, reposHistory);
+//            editTextRepo.execute();
+//            optionHistory.add(2);
+//        } else if (allCards.query(idRepo).getClass() == ImgFlashcardCollection.class) {
+//            editedId.add(idRepo);
 //            Command editImgRepo = new EditImgRepo((ImgFlashcardCollection) allCards.query(idRepo), comHistory, reposHistory);
 //            editImgRepo.execute();
-            optionHistory.add(2);
-        } else {
-            System.out.println("You entered a wrong id");
-        }
-    }
-    public void deleteRepo(){
-        Command delRepo = new DelRepo(comHistory, idRepo, allCards, deletedRepos, deletedId);
-        delRepo.execute();
-        reposNumber -= 1;
-        optionHistory.add(3);
+//            optionHistory.add(2);
+//        } else {
+//            System.out.println("You entered a wrong id");
+//        }
     }
 
-    public void undo(){
-        int option = optionHistory.remove(optionHistory.size() - 1);
-        System.out.println(option);
-        if (option == 1) {
-            allCards.deleteFromAll(addedId.remove(addedId.size() - 1));
-            comHistory.pop();
-            reposNumber -= 1;
-        } else if (option == 2) {
-            allCards.deleteFromAll(editedId.get(editedId.size()-1));
-            allCards.addToAll(editedId.remove(editedId.size()-1),reposHistory.remove(reposHistory.size()-1));
-            comHistory.pop();
-        } else if (option == 3) {
-            allCards.addToAll(deletedId.remove(deletedId.size() - 1), deletedRepos.remove(deletedRepos.size() - 1));
-            comHistory.pop();
-            reposNumber += 1;
-        }
-    }
-    public void print(){
-        allCards.print();
+    public void deleteRepo() {
+//        Command delRepo = new DelRepo(comHistory, idRepo, allCards, deletedRepos, deletedId);
+//        delRepo.execute();
+//        reposNumber -= 1;
+//        optionHistory.add(3);
     }
 
-    public void printOne(){
-        System.out.println(allCards.query(idRepo));
+    public void undo() {
+//        int option = optionHistory.remove(optionHistory.size() - 1);
+//        System.out.println(option);
+//        if (option == 1) {
+//            allCards.deleteFromAll(addedId.remove(addedId.size() - 1));
+//            comHistory.pop();
+//            reposNumber -= 1;
+//        } else if (option == 2) {
+//            allCards.deleteFromAll(editedId.get(editedId.size() - 1));
+//            allCards.addToAll(editedId.remove(editedId.size() - 1), reposHistory.remove(reposHistory.size() - 1));
+//            comHistory.pop();
+//        } else if (option == 3) {
+//            allCards.addToAll(deletedId.remove(deletedId.size() - 1), deletedRepos.remove(deletedRepos.size() - 1));
+//            comHistory.pop();
+//            reposNumber += 1;
+//        }
     }
 
     public ComHistory getComHistory() {
@@ -137,12 +132,8 @@ public TxtCard createEmptyTxtCard(){
         this.comHistory = comHistory;
     }
 
-    public AllCards getAllCards() {
-        return allCards;
-    }
-
-    public void setAllCards(AllCards allCards) {
-        this.allCards = allCards;
+    public DatabaseProxy getAllCards() {
+        return dbProxy;
     }
 
     public ArrayList<Long> getAddedId() {
