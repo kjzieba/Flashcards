@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Edit extends JPanel {
     private final Initializer initializer;
@@ -122,7 +123,7 @@ public class Edit extends JPanel {
         termTextArea.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (idCards.contains(card.getId())) {
+                if (idCards.contains(card.getId()) && !Objects.equals(termTextArea.getText(), "term")) {
 
                 } else {
                     termTextArea.setText("");
@@ -157,7 +158,7 @@ public class Edit extends JPanel {
         definitionTextArea.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (idCards.contains(card.getId())) {
+                if (idCards.contains(card.getId()) && !Objects.equals(definitionTextArea.getText(), "definition")) {
 
                 } else {
                     definitionTextArea.setText("");
