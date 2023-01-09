@@ -2,7 +2,6 @@ package org.flashcards.commands;
 
 import org.flashcards.TxtCard;
 import org.flashcards.repositories.AllCards;
-import org.flashcards.creators.TxtCardCreator;
 import org.flashcards.repositories.TxtCardRepo;
 
 public class AddTxtCard implements Command{
@@ -10,7 +9,9 @@ public class AddTxtCard implements Command{
     private final Long id;
     private final ComHistory history;
     private final AllCards allCards;
+
     private final TxtCard txtCard;
+
 
 
     public AddTxtCard(Long id, ComHistory history, AllCards allCards, TxtCard txtCard) {

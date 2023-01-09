@@ -6,7 +6,7 @@ public class TxtCard extends Card {
 
     protected String textQuestion;
 
-    public TxtCard(Long id, String answer, String textQuestion) {
+    public TxtCard(Long id, String textQuestion, String answer) {
         super(id, answer);
         this.textQuestion = textQuestion;
     }

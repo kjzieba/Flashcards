@@ -1,6 +1,7 @@
 
 package org.flashcards.gui;
 
+import org.flashcards.TxtCard;
 import org.flashcards.gui.components.ButtonComponents;
 import org.flashcards.App;
 import org.flashcards.repositories.CardsRepo;
@@ -27,7 +28,6 @@ public class Edit extends JPanel {
         getBackButton();
         getSaveButton();
         getAddButton();
-        getAddCardButton();
         getNameRepository();
         getScrollPane();
     }
@@ -44,8 +44,8 @@ public class Edit extends JPanel {
     private void getAddButton() {
         JButton addButton = new ButtonComponents().addButtonComponent(457, 130);
         addButton.addActionListener(e -> {
-            content.add(getTermTextArea());
-            content.add(getDefinitionTextArea());
+            TxtCard txtCard = App.getInstance().createEmptyTxtCard();
+            content.add(getTermTextArea(txtCard));
         });
         add(addButton);
     }
@@ -53,25 +53,14 @@ public class Edit extends JPanel {
     private void getSaveButton() {
         JButton saveButton = new ButtonComponents().bigButtonComponent("Save", 601, 47);
         saveButton.addActionListener(e -> {
-            App.getInstance().setId(App.getInstance().getId() + 1);
             initializer.update(GUInitializer.Panel.ChooseMode);
             nameTextField.setText("Enter a title");
             System.out.println(App.getInstance().getAllCards());
+            App.getInstance().setIdRepo(App.getInstance().getIdRepo()+1);
         });
         add(saveButton);
     }
 
-
-    private void getAddCardButton() {
-        JButton addTextButton = new JButton("Add Flashcard");
-        addTextButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        addTextButton.setBounds(375, 47, 210, 65);
-        addTextButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.AddTxtCard);
-            App.getInstance().txtCard.setId(App.getInstance().getId());
-        });
-        add(addTextButton);
-    }
 
     private void getNameRepository() {
         nameTextField.setFont(new Font("Arbutus", Font.PLAIN, 16));
@@ -85,7 +74,7 @@ public class Edit extends JPanel {
 
             @Override
             public void focusLost(FocusEvent e) {
-                CardsRepo cardsRepo = App.getInstance().getAllCards().query(App.getInstance().getId());
+                CardsRepo cardsRepo = App.getInstance().getAllCards().query(App.getInstance().getIdRepo());
                 TxtCardRepo txtCardRepo = (TxtCardRepo) cardsRepo;
                 txtCardRepo.setTitle(nameTextField.getText());
             }
@@ -93,7 +82,7 @@ public class Edit extends JPanel {
         add(nameTextField);
     }
 
-    private Component getTermTextArea() {
+    private Component getTermTextArea(TxtCard card) {
         JTextArea termTextArea = new JTextArea("term");
         termTextArea.setBackground(new java.awt.Color(67, 69, 74));
         termTextArea.setForeground(Color.white);
@@ -103,11 +92,21 @@ public class Edit extends JPanel {
         termTextArea.setBorder(BorderFactory.createCompoundBorder(
                 termTextArea.getBorder(),
                 BorderFactory.createEmptyBorder(10, 3, 10, 0)));
+        termTextArea.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {}
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                card.setTextQuestion(termTextArea.getText());
+                content.add(getDefinitionTextArea(card));
+            }
+        });
 
         return add(termTextArea);
     }
 
-    private Component getDefinitionTextArea() {
+    private Component getDefinitionTextArea(TxtCard card) {
         JTextArea definitionTextArea = new JTextArea("definition");
         definitionTextArea.setBackground(new java.awt.Color(67, 69, 74));
         definitionTextArea.setForeground(Color.white);
@@ -117,7 +116,17 @@ public class Edit extends JPanel {
         definitionTextArea.setBorder(BorderFactory.createCompoundBorder(
                 definitionTextArea.getBorder(),
                 BorderFactory.createEmptyBorder(10, 3, 10, 0)));
+        definitionTextArea.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+            }
 
+            @Override
+            public void focusLost(FocusEvent e) {
+                card.setAnswer(definitionTextArea.getText());
+                App.getInstance().addTxtCard(card);
+            }
+        });
         return add(definitionTextArea);
     }
 
@@ -126,8 +135,8 @@ public class Edit extends JPanel {
         scrollPane.setBounds(193, 176, 570, 350);
         scrollPane.setAutoscrolls(true);
         scrollPane.createVerticalScrollBar();
-        content.add(getTermTextArea());
-        content.add(getDefinitionTextArea());
+        content.add(getTermTextArea(App.getInstance().createEmptyTxtCard()));
+        //content.add(getDefinitionTextArea(App.getInstance().createEmptyTxtCard()));
         scrollPane.setViewportView(content);
         add(scrollPane);
     }

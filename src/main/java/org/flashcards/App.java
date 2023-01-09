@@ -40,11 +40,10 @@ public class App {
 
     private final ImgCardCreator imgCardCreator= new ImgCardCreator();
 
-    public TxtCard txtCard = txtCardCreator.createFlashcard(0L,"","");
 
-   // public ImgCard imgCard = imgCardCreator.createFlashcard(0L,"","","");
+    private Long idRepo = 1L;
 
-    private Long id = Long.parseLong("1");
+    private Long idCards = 1L;
 
     private int reposNumber = 0;
 
@@ -55,39 +54,43 @@ public class App {
 
     ArrayList<CardsRepo> reposHistory = new ArrayList<>();
 
-
+public TxtCard createEmptyTxtCard(){
+    TxtCard txtCard = txtCardCreator.createFlashcard(idCards, "","");
+    idCards = idCards + 1;
+    return txtCard;
+}
     public void addTxtRepo(){
-        Command command = new AddTxtRepo(comHistory, allCards,addedId, id);
+        Command command = new AddTxtRepo(comHistory, allCards,addedId, idRepo);
         command.execute();
+        this.title=title;
         reposNumber += 1;
         optionHistory.add(1);
     }
 
     public void addImgRepo(String title){
-        Command command = new AddImgRepo(comHistory, allCards, title, addedId, id);
+        Command command = new AddImgRepo(comHistory, allCards, title, addedId, idCards);
         command.execute();
         this.title = title;
         reposNumber += 1;
         optionHistory.add(1);
     }
 
-    public void addTxtCard(){
-        Command command = new AddTxtCard(id, comHistory,allCards,txtCard);
+    public void addTxtCard(TxtCard card){
+        Command command = new AddTxtCard(idRepo, comHistory,allCards, card);
         command.execute();
-        this.title = title;
         reposNumber += 1;
         optionHistory.add(1);
     }
 
     public void editRepo(){
-        if (allCards.query(id).getClass() == TxtCardRepo.class) {
-            editedId.add(id);
-            Command editTextRepo = new EditTextRepo((TxtCardRepo) allCards.query(id), comHistory, reposHistory);
+        if (allCards.query(idRepo).getClass() == TxtCardRepo.class) {
+            editedId.add(idRepo);
+            Command editTextRepo = new EditTextRepo((TxtCardRepo) allCards.query(idRepo), comHistory, reposHistory);
             editTextRepo.execute();
             optionHistory.add(2);
-        } else if (allCards.query(id).getClass() == ImgCardRepo.class) {
-            editedId.add(id);
-            Command editImgRepo = new EditImgRepo((ImgCardRepo) allCards.query(id), comHistory, reposHistory);
+        } else if (allCards.query(idRepo).getClass() == ImgCardRepo.class) {
+            editedId.add(idRepo);
+            Command editImgRepo = new EditImgRepo((ImgCardRepo) allCards.query(idRepo), comHistory, reposHistory);
             editImgRepo.execute();
             optionHistory.add(2);
         } else {
@@ -95,7 +98,7 @@ public class App {
         }
     }
     public void deleteRepo(){
-        Command delRepo = new DelRepo(comHistory, id, allCards, deletedRepos, deletedId);
+        Command delRepo = new DelRepo(comHistory, idRepo, allCards, deletedRepos, deletedId);
         delRepo.execute();
         reposNumber -= 1;
         optionHistory.add(3);
@@ -123,7 +126,7 @@ public class App {
     }
 
     public void printOne(){
-        System.out.println(allCards.query(id));
+        System.out.println(allCards.query(idRepo));
     }
 
     public ComHistory getComHistory() {
@@ -174,12 +177,25 @@ public class App {
         this.editedId = editedId;
     }
 
-    public Long getId() {
-        return id;
+    public static void setInstance(App instance) {
+        App.instance = instance;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+
+    public Long getIdRepo() {
+        return idRepo;
+    }
+
+    public void setIdRepo(Long idRepo) {
+        this.idRepo = idRepo;
+    }
+
+    public Long getIdCards() {
+        return idCards;
+    }
+
+    public void setIdCards(Long idCards) {
+        this.idCards = idCards;
     }
 
     public int getReposNumber() {
@@ -222,11 +238,5 @@ public class App {
         this.title = title;
     }
 
-    public TxtCard getTxtCard() {
-        return txtCard;
-    }
 
-    public void setTxtCard(TxtCard txtCard) {
-        this.txtCard = txtCard;
-    }
 }
