@@ -1,6 +1,8 @@
 package org.flashcards;
 
 import org.flashcards.commands.*;
+import org.flashcards.creators.ImgCardCreator;
+import org.flashcards.creators.TxtCardCreator;
 import org.flashcards.repositories.AllCards;
 import org.flashcards.repositories.CardsRepo;
 import org.flashcards.repositories.ImgCardRepo;
@@ -22,19 +24,25 @@ public class App {
         return instance;
     }
 
-    ComHistory comHistory = new ComHistory();
+    private ComHistory comHistory = new ComHistory();
 
-    AllCards allCards = new AllCards();
+    private AllCards allCards = new AllCards();
 
-    ArrayList<Long> addedId = new ArrayList<>();
+    private ArrayList<Long> addedId = new ArrayList<>();
 
-    ArrayList<CardsRepo> deletedRepos = new ArrayList<>();
+    private ArrayList<CardsRepo> deletedRepos = new ArrayList<>();
 
-    ArrayList<Long> deletedId = new ArrayList<>();
+    private ArrayList<Long> deletedId = new ArrayList<>();
 
-    ArrayList<Long> editedId = new ArrayList<>();
+    private ArrayList<Long> editedId = new ArrayList<>();
 
-    public TxtCard txtCard = new TxtCard(0L, "","");
+    private final TxtCardCreator txtCardCreator= new TxtCardCreator();
+
+    private final ImgCardCreator imgCardCreator= new ImgCardCreator();
+
+    public TxtCard txtCard = txtCardCreator.createFlashcard(0L,"","");
+
+   // public ImgCard imgCard = imgCardCreator.createFlashcard(0L,"","","");
 
     private Long id = Long.parseLong("1");
 

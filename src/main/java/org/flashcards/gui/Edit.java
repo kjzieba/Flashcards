@@ -68,6 +68,7 @@ public class Edit extends JPanel {
         addTextButton.setBounds(375, 47, 210, 65);
         addTextButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.AddTxtCard);
+            App.getInstance().txtCard.setId(App.getInstance().getId());
         });
         add(addTextButton);
     }

@@ -11,7 +11,7 @@ public class AddTxtCard implements Command{
     private final ComHistory history;
     private final AllCards allCards;
     private final TxtCard txtCard;
-    TxtCardCreator textCreator = new TxtCardCreator();
+
 
     public AddTxtCard(Long id, ComHistory history, AllCards allCards, TxtCard txtCard) {
         this.id = id;
@@ -22,9 +22,8 @@ public class AddTxtCard implements Command{
 
     @Override
     public void execute() {
-        TxtCard flashcard = textCreator.createFlashcard(id, txtCard.getAnswer(),txtCard.getTextQuestion());
         TxtCardRepo txtCardRepo = (TxtCardRepo) allCards.query(id);
-        txtCardRepo.addToRepo(flashcard);
+        txtCardRepo.addToRepo(txtCard);
         history.push(this);
     }
 
