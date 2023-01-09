@@ -19,7 +19,6 @@ public class Menu extends JPanel {
         setBackground(GUInitializer.backgroundColor);
         setLayout(null);
 //        getCustomTitle();
-        getBackButton();
         getAddButton();
         getCardBoardPane();
     }
@@ -30,14 +29,6 @@ public class Menu extends JPanel {
         title.setForeground(Color.white);
         title.setBounds(160, 220, 700, 50);
         add(title);
-    }
-
-    private void getBackButton() {
-        JButton backButton = new ButtonComponents().backButtonComponent(13,12);
-        backButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.GetStarted);
-        });
-        add(backButton);
     }
 
     private void getAddButton() {

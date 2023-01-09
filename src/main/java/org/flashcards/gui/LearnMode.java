@@ -76,7 +76,7 @@ public class LearnMode extends JPanel {
     private void getKnowButtonComponent(){
         JButton learningButton = new FlashCardComponent().learningButtonComponent(548,335, "Know");
         learningButton.addActionListener(e -> {
-
+            initializer.update(GUInitializer.Panel.Result);
         });
         add(learningButton);
     }

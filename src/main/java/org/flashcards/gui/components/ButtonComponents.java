@@ -38,6 +38,17 @@ public class ButtonComponents {
         return bigButton;
     }
 
+    public JButton smallButtonComponent(String text, int x, int y) {
+        JButton smallButton = new JButton(text);
+        smallButton.setBackground(Color.black);
+        smallButton.setForeground(Color.white);
+        smallButton.setOpaque(true);
+        smallButton.setBorderPainted(false);
+        smallButton.setFont(new Font("Arbutus", Font.PLAIN, 14));
+        smallButton.setBounds(x, y, 150, 35);
+        return smallButton;
+    }
+
     public JButton cardTitleButtonComponent(String text, int x, int y) {
         JButton cardTitle = new JButton(text);
         cardTitle.setBackground(GUInitializer.buttonColor);

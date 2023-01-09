@@ -16,6 +16,7 @@ public class GUInitializer extends JFrame implements Initializer {
     private final LearnMode learnMode;
     private final TestMode testMode;
     private final FlashCardsMode flashCardsMode;
+    private final Result result;
     private final AddTxtCard addTxtCard;
 
     public static Color backgroundColor = new Color(41, 41, 41);
@@ -51,6 +52,7 @@ public class GUInitializer extends JFrame implements Initializer {
         testMode = new TestMode(this);
         flashCardsMode = new FlashCardsMode(this);
         addTxtCard = new AddTxtCard(this);
+        result = new Result(this);
 
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -117,6 +119,12 @@ public class GUInitializer extends JFrame implements Initializer {
                 setContentPane(flashCardsMode);
                 pack();
                 flashCardsMode.setVisible(true);
+            }
+            case Result -> {
+                chooseMode.setVisible(false);
+                setContentPane(result);
+                pack();
+                result.setVisible(true);
             }
             case AddTxtCard -> {
                 chooseMode.setVisible(false);
