@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Database implements DatabaseInterface {
     private static Database instance;
-    private File db;
+    private final File db;
 
     private Database() {
         try {
@@ -37,11 +37,23 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
-    public FlashcardCollectionInterface getFlashcardList() {
+    public FlashcardCollectionInterface getFlashcardList(Long id, String type) {
         try {
             Scanner sc = new Scanner(db);
             while (sc.hasNextLine()){
                 String str = sc.nextLine();
+                String[] strings = str.split(" ");
+                if (strings[0].equals(type)) {
+                    if(strings[1].equals(id.toString())){
+                        if (type.equals("T")){
+//                            return new TxtFlashcardCollection();
+                        }
+                        else if (type.equals("I")){
+//                            return new TxtFlashcardCollection();
+                        }
+                    }
+                }
+
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -50,7 +62,7 @@ public class Database implements DatabaseInterface {
     }
 
     @Override
-    public void deleteFlashcardList() {
+    public void deleteFlashcardList(Long id) {
 
     }
 }

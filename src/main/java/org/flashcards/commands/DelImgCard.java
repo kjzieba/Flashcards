@@ -1,13 +1,14 @@
 package org.flashcards.commands;
 
-import org.flashcards.repositories.ImgCardRepo;
+
+import org.flashcards.collection.ImgFlashcardCollection;
 
 public class DelImgCard implements Command{
     private final ComHistory history;
-    private final ImgCardRepo imgCardRepo;
+    private final ImgFlashcardCollection imgCardRepo;
     private final Long cardId;
 
-    public DelImgCard(ComHistory history, ImgCardRepo imgCardRepo, Long cardId) {
+    public DelImgCard(ComHistory history, ImgFlashcardCollection imgCardRepo, Long cardId) {
         this.history = history;
         this.imgCardRepo = imgCardRepo;
         this.cardId = cardId;
@@ -15,7 +16,7 @@ public class DelImgCard implements Command{
 
     @Override
     public void execute() {
-        imgCardRepo.deleteFromRepo(cardId);
+//        imgCardRepo.remove();
         history.push(this);
     }
 }

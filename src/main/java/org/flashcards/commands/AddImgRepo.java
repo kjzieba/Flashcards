@@ -1,7 +1,8 @@
 package org.flashcards.commands;
 
+import org.flashcards.ImgCard;
+import org.flashcards.collection.ImgFlashcardCollection;
 import org.flashcards.repositories.AllCards;
-import org.flashcards.repositories.ImgCardRepo;
 
 import java.util.ArrayList;
 
@@ -24,8 +25,7 @@ public class AddImgRepo implements Command{
 
     @Override
     public void execute() {
-        ImgCardRepo imgCardRepo = new ImgCardRepo();
-        imgCardRepo.setTitle(title);
+        ImgFlashcardCollection imgCardRepo = new ImgFlashcardCollection(title, new ArrayList<>(), id);
         addedID.add(id);
         Command saveImgRepo = new SaveImgRepo(comHistory, imgCardRepo, allCards, id);
         saveImgRepo.execute();

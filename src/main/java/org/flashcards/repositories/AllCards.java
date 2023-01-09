@@ -1,21 +1,23 @@
 package org.flashcards.repositories;
 
+import org.flashcards.collection.FlashcardCollectionInterface;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class AllCards {
 
-    private Map<Long, CardsRepo> allFlashcards = new HashMap<>();
+    private Map<Long, FlashcardCollectionInterface> allFlashcards = new HashMap<>();
 
-    public CardsRepo query(Long id){
+    public FlashcardCollectionInterface query(Long id){
         return allFlashcards.get(id);
     }
 
-    public void addToAll(Long id, CardsRepo cardsRepo) {
+    public void addToAll(Long id, FlashcardCollectionInterface cardsRepo) {
         allFlashcards.put(id, cardsRepo);
     }
 
-    public CardsRepo deleteFromAll(Long id) {
+    public FlashcardCollectionInterface deleteFromAll(Long id) {
          return allFlashcards.remove(id);
     }
 

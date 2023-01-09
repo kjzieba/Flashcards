@@ -1,7 +1,5 @@
 package org.flashcards;
 
-import org.flashcards.Card;
-
 import java.util.Arrays;
 
 public class ImgCard extends Card {
@@ -39,12 +37,6 @@ public class ImgCard extends Card {
 
     @Override
     public String toString() {
-        return "ImgCard{" +
-                ", id=" + id +
-                "imageQuestion=" + Arrays.toString(imageQuestion) +
-                ", imageDescription='" + imageDescription + '\'' +
-                ", answer='" + answer + '\'' +
-                ", flashcardState=" + flashcardState +
-                '}';
+        return id + "|" + imageDescription + "|" + answer + "|"+ Arrays.toString(imageQuestion) + "|" + flashcardState;
     }
 }

@@ -1,8 +1,8 @@
 package org.flashcards.commands;
 
 import org.flashcards.TxtCard;
+import org.flashcards.collection.TxtFlashcardCollection;
 import org.flashcards.repositories.AllCards;
-import org.flashcards.repositories.TxtCardRepo;
 
 public class AddTxtCard implements Command{
 
@@ -23,8 +23,8 @@ public class AddTxtCard implements Command{
 
     @Override
     public void execute() {
-        TxtCardRepo txtCardRepo = (TxtCardRepo) allCards.query(id);
-        txtCardRepo.addToRepo(txtCard);
+        TxtFlashcardCollection txtCardRepo = (TxtFlashcardCollection) allCards.query(id);
+        txtCardRepo.add(txtCard);
         history.push(this);
     }
 

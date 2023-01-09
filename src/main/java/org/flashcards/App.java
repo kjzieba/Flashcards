@@ -1,12 +1,12 @@
 package org.flashcards;
 
+import org.flashcards.collection.FlashcardCollectionInterface;
+import org.flashcards.collection.ImgFlashcardCollection;
+import org.flashcards.collection.TxtFlashcardCollection;
 import org.flashcards.commands.*;
 import org.flashcards.creators.ImgCardCreator;
 import org.flashcards.creators.TxtCardCreator;
 import org.flashcards.repositories.AllCards;
-import org.flashcards.repositories.CardsRepo;
-import org.flashcards.repositories.ImgCardRepo;
-import org.flashcards.repositories.TxtCardRepo;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ public class App {
 
     private ArrayList<Long> addedId = new ArrayList<>();
 
-    private ArrayList<CardsRepo> deletedRepos = new ArrayList<>();
+    private ArrayList<FlashcardCollectionInterface> deletedRepos = new ArrayList<>();
 
     private ArrayList<Long> deletedId = new ArrayList<>();
 
@@ -52,7 +52,7 @@ public class App {
     String title;
     ArrayList<Integer> optionHistory = new ArrayList<>();
 
-    ArrayList<CardsRepo> reposHistory = new ArrayList<>();
+    ArrayList<FlashcardCollectionInterface> reposHistory = new ArrayList<>();
 
 public TxtCard createEmptyTxtCard(){
     TxtCard txtCard = txtCardCreator.createFlashcard(idCards, "","");
@@ -83,15 +83,15 @@ public TxtCard createEmptyTxtCard(){
     }
 
     public void editRepo(){
-        if (allCards.query(idRepo).getClass() == TxtCardRepo.class) {
+        if (allCards.query(idRepo).getClass() == TxtFlashcardCollection.class) {
             editedId.add(idRepo);
-            Command editTextRepo = new EditTextRepo((TxtCardRepo) allCards.query(idRepo), comHistory, reposHistory);
+            Command editTextRepo = new EditTextRepo((TxtFlashcardCollection) allCards.query(idRepo), comHistory, reposHistory);
             editTextRepo.execute();
             optionHistory.add(2);
-        } else if (allCards.query(idRepo).getClass() == ImgCardRepo.class) {
+        } else if (allCards.query(idRepo).getClass() == ImgFlashcardCollection.class) {
             editedId.add(idRepo);
-            Command editImgRepo = new EditImgRepo((ImgCardRepo) allCards.query(idRepo), comHistory, reposHistory);
-            editImgRepo.execute();
+//            Command editImgRepo = new EditImgRepo((ImgFlashcardCollection) allCards.query(idRepo), comHistory, reposHistory);
+//            editImgRepo.execute();
             optionHistory.add(2);
         } else {
             System.out.println("You entered a wrong id");
@@ -153,11 +153,11 @@ public TxtCard createEmptyTxtCard(){
         this.addedId = addedId;
     }
 
-    public ArrayList<CardsRepo> getDeletedRepos() {
+    public ArrayList<FlashcardCollectionInterface> getDeletedRepos() {
         return deletedRepos;
     }
 
-    public void setDeletedRepos(ArrayList<CardsRepo> deletedRepos) {
+    public void setDeletedRepos(ArrayList<FlashcardCollectionInterface> deletedRepos) {
         this.deletedRepos = deletedRepos;
     }
 
@@ -222,11 +222,11 @@ public TxtCard createEmptyTxtCard(){
         this.optionHistory = optionHistory;
     }
 
-    public ArrayList<CardsRepo> getReposHistory() {
+    public ArrayList<FlashcardCollectionInterface> getReposHistory() {
         return reposHistory;
     }
 
-    public void setReposHistory(ArrayList<CardsRepo> reposHistory) {
+    public void setReposHistory(ArrayList<FlashcardCollectionInterface> reposHistory) {
         this.reposHistory = reposHistory;
     }
 

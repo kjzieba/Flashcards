@@ -3,14 +3,18 @@ package org.flashcards.collection;
 import org.flashcards.ImgCard;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ImgFlashcardCollection implements FlashcardCollectionInterface {
     private String title;
     private ArrayList<ImgCard> list;
 
-    public ImgFlashcardCollection(String title, ArrayList<ImgCard> list) {
+    private final Long id;
+
+    public ImgFlashcardCollection(String title, ArrayList<ImgCard> list, Long id) {
         this.title = title;
         this.list = list;
+        this.id = id;
     }
 
     public String getTitle() {
@@ -29,12 +33,25 @@ public class ImgFlashcardCollection implements FlashcardCollectionInterface {
         this.list = lst;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public void add(ImgCard f) {
         list.add(f);
     }
 
     public void remove(ImgCard f) {
         list.remove(f);
+    }
+
+    public ImgCard getImgFlashcardByID(Long id) {
+        for (ImgCard flashcard : list) {
+            if (Objects.equals(flashcard.getId(), id)) {
+                return flashcard;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -44,9 +61,7 @@ public class ImgFlashcardCollection implements FlashcardCollectionInterface {
 
     @Override
     public String toString() {
-        return "ImgFlashcardCollection{" +
-                "title='" + title + '\'' +
-                ", list=" + list +
-                '}';
+        return "I " + id.toString() + " " +
+                title + " " + list;
     }
 }

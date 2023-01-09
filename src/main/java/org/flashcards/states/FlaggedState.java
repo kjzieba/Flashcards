@@ -6,4 +6,9 @@ public class FlaggedState implements State{
     public void action() {
         System.out.println("I'm a flagged flashcard!");
     }
+
+    @Override
+    public String toString() {
+        return "flagged";
+    }
 }

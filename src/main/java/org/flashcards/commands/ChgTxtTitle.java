@@ -1,14 +1,14 @@
 package org.flashcards.commands;
 
-import org.flashcards.repositories.TxtCardRepo;
+import org.flashcards.collection.TxtFlashcardCollection;
 
 public class ChgTxtTitle implements Command{
     private final ComHistory history;
-    private final TxtCardRepo txtCardRepo;
+    private final TxtFlashcardCollection txtCardRepo;
 
     private final String title;
 
-    public ChgTxtTitle(ComHistory history, TxtCardRepo txtCardRepo, String title) {
+    public ChgTxtTitle(ComHistory history, TxtFlashcardCollection txtCardRepo, String title) {
         this.history = history;
         this.txtCardRepo = txtCardRepo;
         this.title = title;

@@ -1,7 +1,5 @@
 package org.flashcards;
 
-import org.flashcards.Card;
-
 public class TxtCard extends Card {
 
     protected String textQuestion;
@@ -27,11 +25,6 @@ public class TxtCard extends Card {
 
     @Override
     public String toString() {
-        return "TxtCard{" +
-                ", id=" + id +
-                "textQuestion='" + textQuestion + '\'' +
-                ", answer='" + answer + '\'' +
-                ", flashcardState=" + flashcardState +
-                '}';
+        return id + "|" + textQuestion + "|" + answer + "|" + flashcardState;
     }
 }

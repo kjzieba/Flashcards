@@ -3,14 +3,17 @@ package org.flashcards.collection;
 import org.flashcards.TxtCard;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TxtFlashcardCollection implements FlashcardCollectionInterface {
     private String title;
     private ArrayList<TxtCard> list;
+    private final Long id;
 
-    public TxtFlashcardCollection(String title, ArrayList<TxtCard> list) {
+    public TxtFlashcardCollection(String title, ArrayList<TxtCard> list, Long id) {
         this.title = title;
         this.list = list;
+        this.id = id;
     }
 
     public String getTitle() {
@@ -29,12 +32,25 @@ public class TxtFlashcardCollection implements FlashcardCollectionInterface {
         this.list = lst;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public void add(TxtCard f) {
         list.add(f);
     }
 
     public void remove(TxtCard f) {
         list.remove(f);
+    }
+
+    public TxtCard getTxtFlashcardByID(Long id) {
+        for (TxtCard flashcard : list) {
+            if (Objects.equals(flashcard.getId(), id)) {
+                return flashcard;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -44,9 +60,7 @@ public class TxtFlashcardCollection implements FlashcardCollectionInterface {
 
     @Override
     public String toString() {
-        return "TxtFlashcardCollection{" +
-                "title='" + title + '\'' +
-                ", list=" + list +
-                '}';
+        return "T " + id.toString() + " " +
+                title + " " + list;
     }
 }

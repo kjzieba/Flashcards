@@ -6,4 +6,8 @@ public class NormalState implements State{
     public void action() {
         System.out.println("I'm a normal flashcard!");
     }
+    @Override
+    public String toString() {
+        return "normal";
+    }
 }

@@ -2,10 +2,10 @@
 package org.flashcards.gui;
 
 import org.flashcards.TxtCard;
+import org.flashcards.collection.FlashcardCollectionInterface;
+import org.flashcards.collection.TxtFlashcardCollection;
 import org.flashcards.gui.components.ButtonComponents;
 import org.flashcards.App;
-import org.flashcards.repositories.CardsRepo;
-import org.flashcards.repositories.TxtCardRepo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -74,8 +74,8 @@ public class Edit extends JPanel {
 
             @Override
             public void focusLost(FocusEvent e) {
-                CardsRepo cardsRepo = App.getInstance().getAllCards().query(App.getInstance().getIdRepo());
-                TxtCardRepo txtCardRepo = (TxtCardRepo) cardsRepo;
+                FlashcardCollectionInterface cardsRepo = App.getInstance().getAllCards().query(App.getInstance().getIdRepo());
+                TxtFlashcardCollection txtCardRepo = (TxtFlashcardCollection) cardsRepo;
                 txtCardRepo.setTitle(nameTextField.getText());
             }
         });

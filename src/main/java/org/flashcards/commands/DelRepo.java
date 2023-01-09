@@ -1,7 +1,7 @@
 package org.flashcards.commands;
 
+import org.flashcards.collection.FlashcardCollectionInterface;
 import org.flashcards.repositories.AllCards;
-import org.flashcards.repositories.CardsRepo;
 
 import java.util.ArrayList;
 
@@ -10,11 +10,11 @@ public class DelRepo implements Command {
     private final Long id;
     private final AllCards allCards;
 
-    private final ArrayList<CardsRepo> deletedRepos;
+    private final ArrayList<FlashcardCollectionInterface> deletedRepos;
 
     private final ArrayList<Long> deletedId;
 
-    public DelRepo(ComHistory history, Long id, AllCards allCards, ArrayList<CardsRepo> deletedRepos, ArrayList<Long> deletedId) {
+    public DelRepo(ComHistory history, Long id, AllCards allCards, ArrayList<FlashcardCollectionInterface> deletedRepos, ArrayList<Long> deletedId) {
         this.history = history;
         this.id = id;
         this.allCards = allCards;

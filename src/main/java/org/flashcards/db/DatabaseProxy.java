@@ -9,12 +9,12 @@ public class DatabaseProxy implements DatabaseInterface {
     }
 
     @Override
-    public FlashcardCollectionInterface getFlashcardList() {
+    public FlashcardCollectionInterface getFlashcardList(Long id, String type) {
         return null;
     }
 
     @Override
-    public void deleteFlashcardList() {
+    public void deleteFlashcardList(Long id) {
 
     }
 }

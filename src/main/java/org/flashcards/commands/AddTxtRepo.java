@@ -1,7 +1,7 @@
 package org.flashcards.commands;
 
+import org.flashcards.collection.TxtFlashcardCollection;
 import org.flashcards.repositories.AllCards;
-import org.flashcards.repositories.TxtCardRepo;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class AddTxtRepo implements Command{
 
     @Override
     public void execute() {
-            TxtCardRepo txtCardRepo = new TxtCardRepo();
+            TxtFlashcardCollection txtCardRepo = new TxtFlashcardCollection("", new ArrayList<>(), id);
             addedID.add(id);
             Command saveTxtRepo = new SaveTxtRepo(comHistory, txtCardRepo, allCards, id);
             saveTxtRepo.execute();
