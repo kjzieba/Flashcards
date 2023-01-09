@@ -46,7 +46,7 @@ public class ChooseMode extends JPanel {
     private void getTestButton() {
         JButton testButton = new ButtonComponents().bigButtonComponent("test", 635, 47);
         testButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.TestMode);
+            initializer.update(GUInitializer.Panel.QuestionsAmount);
         });
         add(testButton);
     }

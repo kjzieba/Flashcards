@@ -112,7 +112,7 @@ public class Edit extends JPanel {
 
     private Component getTermTextArea(TxtCard card) {
         JTextArea termTextArea = new JTextArea("term");
-        termTextArea.setBackground(new java.awt.Color(67, 69, 74));
+        termTextArea.setBackground(GUInitializer.buttonColor);
         termTextArea.setForeground(Color.white);
         termTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
         termTextArea.setBounds(254, 192, 210, 35);
@@ -147,7 +147,7 @@ public class Edit extends JPanel {
 
     private Component getDefinitionTextArea(TxtCard card) {
         JTextArea definitionTextArea = new JTextArea("definition");
-        definitionTextArea.setBackground(new java.awt.Color(67, 69, 74));
+        definitionTextArea.setBackground(GUInitializer.buttonColor);
         definitionTextArea.setForeground(Color.white);
         definitionTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
         definitionTextArea.setBounds(496, 192, 210, 85);
