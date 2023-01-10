@@ -20,6 +20,8 @@ public class GUInitializer extends JFrame implements Initializer {
     private final QuestionsAmount questionsAmount;
     private final AddImg addImg;
 
+    private final ChooseActionForList chooseActionForList;
+
     public static Color backgroundColor = new Color(41, 41, 41);
     public static Color buttonColor = new Color(67, 69, 74);
     public static Color getStartedButtonsColor = new Color(149, 149, 149);
@@ -55,6 +57,7 @@ public class GUInitializer extends JFrame implements Initializer {
         result = new Result(this);
         questionsAmount = new QuestionsAmount(this);
         addImg = new AddImg(this);
+        chooseActionForList = new ChooseActionForList(this);
 
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -141,6 +144,12 @@ public class GUInitializer extends JFrame implements Initializer {
                 pack();
                 questionsAmount.setVisible(true);
             }
+            case ChooseActionForList -> {
+                menu.setVisible(false);
+                setContentPane(chooseActionForList);
+                pack();
+                chooseActionForList.setVisible(true);
+            }
         }
     }
 
@@ -160,7 +169,8 @@ public class GUInitializer extends JFrame implements Initializer {
         Result,
         AddTxt,
         AddImg,
-        QuestionsAmount
+        QuestionsAmount,
+        ChooseActionForList
     }
 
     public static void changeFont(String path) {
