@@ -20,6 +20,10 @@ public class GUInitializer extends JFrame implements Initializer {
     private final QuestionsAmount questionsAmount;
     private final AddImg addImg;
 
+    private EditTextRepo editTextRepo;
+
+    public Long editID = 0L;
+
     private final ChooseActionForList chooseActionForList;
 
     public static Color backgroundColor = new Color(41, 41, 41);
@@ -58,6 +62,7 @@ public class GUInitializer extends JFrame implements Initializer {
         questionsAmount = new QuestionsAmount(this);
         addImg = new AddImg(this);
         chooseActionForList = new ChooseActionForList(this);
+        editTextRepo = new EditTextRepo(this);
 
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -150,6 +155,15 @@ public class GUInitializer extends JFrame implements Initializer {
                 pack();
                 chooseActionForList.setVisible(true);
             }
+            case EditTxtRepo -> {
+                chooseActionForList.setVisible(false);
+                setContentPane(editTextRepo);
+                pack();
+                editTextRepo.setVisible(true);
+                editTextRepo.setRepo();
+                editTextRepo.getScrollPane();
+                editTextRepo.getNameRepository();
+            }
         }
     }
 
@@ -170,7 +184,8 @@ public class GUInitializer extends JFrame implements Initializer {
         AddTxt,
         AddImg,
         QuestionsAmount,
-        ChooseActionForList
+        ChooseActionForList,
+        EditTxtRepo
     }
 
     public static void changeFont(String path) {
@@ -182,4 +197,5 @@ public class GUInitializer extends JFrame implements Initializer {
             e.printStackTrace();
         }
     }
+
 }

@@ -53,6 +53,7 @@ public class Menu extends JPanel {
             contentMenu.add(cardBoardButton);
             cardBoardButton.addActionListener(e -> {
                 initializer.update(GUInitializer.Panel.ChooseActionForList);
+                App.getInstance().setCurrentRepo(entry.getKey());
             });
             contentMenu.revalidate();
         }

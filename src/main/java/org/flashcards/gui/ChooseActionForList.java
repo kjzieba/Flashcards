@@ -43,7 +43,7 @@ public class ChooseActionForList extends JPanel {
     private void getEditButton() {
         JButton addEditButton = new ButtonComponents().bigButtonComponent("Edit", 132, 239);
         addEditButton.addActionListener(e -> {
-//            initializer.update(GUInitializer.Panel.AddTxt);
+            initializer.update(GUInitializer.Panel.EditTxtRepo);
         });
         add(addEditButton);
     }
@@ -51,7 +51,7 @@ public class ChooseActionForList extends JPanel {
     private void getDeleteButton() {
         JButton getDeleteButton = new ButtonComponents().bigButtonComponent("Delete", 300, 239);
         getDeleteButton.addActionListener(e -> {
-//            initializer.update(GUInitializer.Panel.AddTxt);
+        initializer.update(GUInitializer.Panel.EditTxtRepo);
         });
         add(getDeleteButton);
     }

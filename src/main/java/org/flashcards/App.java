@@ -46,6 +46,8 @@ public class App {
 
     private Long idRepo;
 
+    private Long currentRepo;
+
     private Long idTxtCards = 1L;
 
     private Long idImgCards = 1L;
@@ -82,22 +84,22 @@ public class App {
     }
 
     public void addTxtCard(TxtCard card) {
-        Command command = new AddTxtCard(idRepo, comHistory, card);
+        Command command = new AddTxtCard(currentRepo, comHistory, card);
         command.execute();
     }
 
     public void addImgCard(ImgCard card) {
-        Command command = new AddImgCard(idRepo, comHistory, card);
+        Command command = new AddImgCard(currentRepo, comHistory, card);
         command.execute();
     }
 
     public void changeTxtTitle(String title) {
-        Command command = new ChgTxtTitle(comHistory, idRepo, title);
+        Command command = new ChgTxtTitle(comHistory, currentRepo, title);
         command.execute();
     }
 
     public void changeImgTitle(String title) {
-        Command command = new ChgImgTitle(comHistory, idRepo, title);
+        Command command = new ChgImgTitle(comHistory, currentRepo, title);
         command.execute();
     }
 
@@ -117,7 +119,7 @@ public class App {
     }
 
     public void deleteRepo(String type) {
-        Command delRepo = new DelRepo(comHistory, idRepo, deletedRepos, deletedId, type);
+        Command delRepo = new DelRepo(comHistory, currentRepo, deletedRepos, deletedId, type);
         delRepo.execute();
         reposNumber -= 1;
     }
@@ -238,5 +240,11 @@ public class App {
         this.reposHistory = reposHistory;
     }
 
+    public Long getCurrentRepo() {
+        return currentRepo;
+    }
 
+    public void setCurrentRepo(Long currentRepo) {
+        this.currentRepo = currentRepo;
+    }
 }

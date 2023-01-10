@@ -51,6 +51,7 @@ public class Add extends JPanel {
         addTextButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.AddTxt);
             App.getInstance().addTxtRepo();
+            App.getInstance().setCurrentRepo(App.getInstance().getIdRepo());
             System.out.println(App.getInstance().getAllCards());
         });
         add(addTextButton);
