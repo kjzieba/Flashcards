@@ -104,6 +104,8 @@ public class FlashCardsMode extends JPanel {
             card.action(cardReverseView);
             cardView.setText(card.getTextQuestion());
             cardReverseView.setText(card.getAnswer());
+            cardReverseView.setVisible(false);
+            cardView.setVisible(true);
         }
     }
 
@@ -114,6 +116,8 @@ public class FlashCardsMode extends JPanel {
             card.action(cardReverseView);
             cardView.setText(card.getTextQuestion());
             cardReverseView.setText(card.getAnswer());
+            cardReverseView.setVisible(false);
+            cardView.setVisible(true);
         }
     }
 
@@ -124,6 +128,8 @@ public class FlashCardsMode extends JPanel {
             card.action(cardReverseView);
             cardView.setText(card.getTextQuestion());
             cardReverseView.setText(card.getAnswer());
+            cardReverseView.setVisible(false);
+            cardView.setVisible(true);
         }
     }
 }
