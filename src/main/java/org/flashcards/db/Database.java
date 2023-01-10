@@ -62,6 +62,7 @@ public class Database implements DatabaseInterface {
                                 }
                                 list.add(c);
                             }
+                            sc.close();
                             return new TxtFlashcardCollection(title, list, id);
                         } else if (type.equals("I")) {
 //                            return new TxtFlashcardCollection();
@@ -79,8 +80,9 @@ public class Database implements DatabaseInterface {
 
     @Override
     public void deleteFlashcardList(Long id) {
+        File tmp;
         try {
-            File tmp = new File("tmp.txt");
+            tmp = new File("tmp.txt");
             tmp.createNewFile();
             Scanner sc = new Scanner(db);
             FileWriter fw = new FileWriter("tmp.txt");
@@ -94,7 +96,9 @@ public class Database implements DatabaseInterface {
             }
             fw.close();
             sc.close();
-            tmp.renameTo(db);
+
+            db.delete();
+            tmp.renameTo(new File("db.txt"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
