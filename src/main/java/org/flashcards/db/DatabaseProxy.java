@@ -37,11 +37,12 @@ public class DatabaseProxy implements DatabaseInterface {
 
     @Override
     public FlashcardCollectionInterface getFlashcardList(Long id, String type) {
+        System.out.println(memory);
         for (FlashcardCollectionInterface list : memory) {
             if (list.getId().equals(id)) {
                 return list;
             } else {
-                return db.getFlashcardList(id, type);
+                //return db.getFlashcardList(id, type);
             }
         }
         return null;

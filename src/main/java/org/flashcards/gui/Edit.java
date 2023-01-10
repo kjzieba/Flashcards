@@ -14,6 +14,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.zip.ZipEntry;
 
 public class Edit extends JPanel {
     private final Initializer initializer;
@@ -102,7 +103,6 @@ public class Edit extends JPanel {
 
             @Override
             public void focusLost(FocusEvent e) {
-                System.out.println(App.getInstance().getIdRepo());
                 App.getInstance().changeTxtTitle(nameTextField.getText());
                 titleSet = true;
             }

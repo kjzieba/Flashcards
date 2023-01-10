@@ -5,12 +5,10 @@ import java.util.Arrays;
 public class ImgCard extends Card {
 
     protected byte[] imageQuestion;
-    protected String imageDescription;
 
-    public ImgCard(Long id, String answer, byte[] imageQuestion, String imageDescription) {
+    public ImgCard(Long id, String answer, byte[] imageQuestion) {
         super(id, answer);
         this.imageQuestion = imageQuestion;
-        this.imageDescription = imageDescription;
     }
 
 
@@ -22,13 +20,6 @@ public class ImgCard extends Card {
         this.imageQuestion = imageQuestion;
     }
 
-    public String getImageDescription() {
-        return imageDescription;
-    }
-
-    public void setImageDescription(String imageDescription) {
-        this.imageDescription = imageDescription;
-    }
 
     @Override
     public void action() {
@@ -37,6 +28,6 @@ public class ImgCard extends Card {
 
     @Override
     public String toString() {
-        return id + "|" + imageDescription + "|" + answer + "|"+ Arrays.toString(imageQuestion) + "|" + flashcardState;
+        return id + "|" + Arrays.toString(imageQuestion) + "|"+ answer + "|" + flashcardState;
     }
 }

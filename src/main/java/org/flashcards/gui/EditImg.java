@@ -2,14 +2,15 @@
 package org.flashcards.gui;
 
 import org.flashcards.App;
+import org.flashcards.ImgCard;
 import org.flashcards.TxtCard;
 import org.flashcards.collection.FlashcardCollectionInterface;
+import org.flashcards.collection.ImgFlashcardCollection;
 import org.flashcards.collection.TxtFlashcardCollection;
 import org.flashcards.gui.components.ButtonComponents;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
@@ -43,7 +44,7 @@ public class EditImg extends JPanel {
     private void getBackButton() {
         JButton backButton = new ButtonComponents().backButtonComponent(13, 12);
         backButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.Add);
+            initializer.update(GUInitializer.Panel.Menu);
             App.getInstance().deleteRepo("T");
             content.removeAll();
             content.repaint();
@@ -55,50 +56,54 @@ public class EditImg extends JPanel {
         add(backButton);
     }
 
+
+
     private void getAddButton() {
         JButton addButton = new ButtonComponents().addButtonComponent(457, 130);
         addButton.addActionListener(e -> {
-            TxtCard txtCard = App.getInstance().createEmptyTxtCard();
-            content.add(getTermTextArea(txtCard));
-            content.add(getImgButton());
-
+            ImgCard imgCard = App.getInstance().createEmptyImgCard();
+            content.add(getImgButton(imgCard));
+            content.add(getDefinitionImgArea(imgCard));
         });
         add(addButton);
     }
 
-    private Component getTermTextArea(TxtCard card) {
-        JTextArea termTextArea = new JTextArea("term");
-        termTextArea.setBackground(GUInitializer.buttonColor);
-        termTextArea.setForeground(Color.white);
-        termTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        termTextArea.setBounds(254, 192, 210, 35);
-        termTextArea.setBorder(BorderFactory.createLineBorder(Color.black, 1));
-        termTextArea.setBorder(BorderFactory.createCompoundBorder(
-                termTextArea.getBorder(),
+
+
+    private Component getDefinitionImgArea(ImgCard card) {
+        JTextArea definitionTextArea = new JTextArea("definition");
+        definitionTextArea.setBackground(GUInitializer.buttonColor);
+        definitionTextArea.setForeground(Color.white);
+        definitionTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        definitionTextArea.setBounds(254, 192, 210, 35);
+        definitionTextArea.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+        definitionTextArea.setBorder(BorderFactory.createCompoundBorder(
+                definitionTextArea.getBorder(),
                 BorderFactory.createEmptyBorder(10, 3, 10, 0)));
-        termTextArea.addFocusListener(new FocusListener() {
+        definitionTextArea.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (idCards.contains(card.getId()) && !Objects.equals(termTextArea.getText(), "term")) {
+                if (idCards.contains(card.getId()) && !Objects.equals(definitionTextArea.getText(), "definition")) {
 
                 } else {
-                    termTextArea.setText("");
+                    definitionTextArea.setText("");
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
                 if (idCards.contains(card.getId())) {
-                    card.setTextQuestion(termTextArea.getText());
+                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
                 } else {
-                    card.setTextQuestion(termTextArea.getText());
+                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
+                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
                     idCards.add(card.getId());
-                    App.getInstance().addTxtCard(card);
+                    App.getInstance().addImgCard(card);
                 }
             }
         });
 
-        return add(termTextArea);
+        return add(definitionTextArea);
     }
 
     private void getNameRepository() {
@@ -119,9 +124,7 @@ public class EditImg extends JPanel {
 
             @Override
             public void focusLost(FocusEvent e) {
-                FlashcardCollectionInterface cardsRepo = App.getInstance().getAllCards().getFlashcardList(App.getInstance().getIdRepo(), "T");
-                TxtFlashcardCollection txtCardRepo = (TxtFlashcardCollection) cardsRepo;
-                txtCardRepo.setTitle(nameTextField.getText());
+                App.getInstance().changeImgTitle(nameTextField.getText());
                 titleSet = true;
             }
         });
@@ -141,23 +144,27 @@ public class EditImg extends JPanel {
             scrollPane.repaint();
             scrollPane.revalidate();
             titleSet = false;
+            App.getInstance().getAllCards().saveList(App.getInstance().getIdRepo()-1);
 
         });
         add(saveButton);
     }
+
     private void getScrollPane() {
         scrollPane.getViewport().setBackground(GUInitializer.backgroundColor);
         scrollPane.setBounds(193, 176, 570, 350);
         scrollPane.setAutoscrolls(true);
         scrollPane.createVerticalScrollBar();
-        TxtCard txtCard = App.getInstance().createEmptyTxtCard();
-        content.add(getTermTextArea(txtCard));
-        content.add(getImgButton());
+        ImgCard imgCard = App.getInstance().createEmptyImgCard();
+        content.add(getImgButton(imgCard));
+        content.add(getDefinitionImgArea(imgCard));
         scrollPane.setViewportView(content);
         add(scrollPane);
     }
 
-    private Component getImgButton() {
+
+
+    private Component getImgButton(ImgCard card) {
         JButton imgButton = new JButton("Upload Image");
         imgButton.setBackground(GUInitializer.buttonColor);
         imgButton.setForeground(Color.white);
@@ -171,7 +178,8 @@ public class EditImg extends JPanel {
                 int res = fileChooser.showOpenDialog(null);
                 if(res == JFileChooser.APPROVE_OPTION) {
                     File filePath = new File(fileChooser.getSelectedFile().getAbsolutePath());
-                    System.out.println(filePath);
+                    App.getInstance().changeImage(card,filePath.toString());
+                    imgButton.setText("Uploaded");
                 }
             }
         });

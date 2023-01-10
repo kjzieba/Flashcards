@@ -1,8 +1,6 @@
 package org.flashcards;
 
 import org.flashcards.collection.FlashcardCollectionInterface;
-import org.flashcards.collection.ImgFlashcardCollection;
-import org.flashcards.collection.TxtFlashcardCollection;
 import org.flashcards.commands.*;
 import org.flashcards.creators.ImgCardCreator;
 import org.flashcards.creators.TxtCardCreator;
@@ -43,7 +41,9 @@ public class App {
 
     private Long idRepo = 1L;
 
-    private Long idCards = 1L;
+    private Long idTxtCards = 1L;
+
+    private Long idImgCards = 1L;
 
     private int reposNumber = 0;
 
@@ -53,14 +53,14 @@ public class App {
     ArrayList<FlashcardCollectionInterface> reposHistory = new ArrayList<>();
 
     public TxtCard createEmptyTxtCard() {
-        TxtCard txtCard = txtCardCreator.createFlashcard(idCards, "", "");
-        idCards = idCards + 1;
+        TxtCard txtCard = txtCardCreator.createFlashcard(idTxtCards, "", "");
+        idTxtCards = idTxtCards + 1;
         return txtCard;
     }
 
     public ImgCard createEmptyImgCard() {
-        ImgCard imgCard = imgCardCreator.createFlashcard(idCards, "", "","");
-        idCards = idCards + 1;
+        ImgCard imgCard = imgCardCreator.createFlashcard(idImgCards, "", "src/main/resources/img/Empty.png");
+        idImgCards = idImgCards + 1;
         return imgCard;
     }
 
@@ -103,6 +103,11 @@ public class App {
 
     public void changeQuestion(TxtCard card, String question) {
         Command command = new ChgQue(comHistory, card, question);
+        command.execute();
+    }
+
+    public void changeImage(ImgCard card, String filePath){
+        Command command = new ChgImg(comHistory,card,filePath);
         command.execute();
     }
 
@@ -187,12 +192,20 @@ public class App {
         this.idRepo = idRepo;
     }
 
-    public Long getIdCards() {
-        return idCards;
+    public Long getIdTxtCards() {
+        return idTxtCards;
     }
 
-    public void setIdCards(Long idCards) {
-        this.idCards = idCards;
+    public void setIdTxtCards(Long idTxtCards) {
+        this.idTxtCards = idTxtCards;
+    }
+
+    public Long getIdImgCards() {
+        return idImgCards;
+    }
+
+    public void setIdImgCards(Long idImgCards) {
+        this.idImgCards = idImgCards;
     }
 
     public int getReposNumber() {

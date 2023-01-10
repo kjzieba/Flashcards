@@ -5,16 +5,18 @@ import org.flashcards.ImgCard;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
 
 public class ImgCardCreator implements CardCreator {
 
     @Override
     public ImgCard createFlashcard(Long id, String... args) {
-        return new ImgCard(id, args[0], imageToBytesArray(args[2]), args[3]);
+        return new ImgCard(id, args[0], imageToBytesArray(args[1]));
     }
 
     public byte[] imageToBytesArray(String image) {
         File imgPath = new File(image);
+        System.out.println();
         try {
             return Files.readAllBytes(imgPath.toPath());
         } catch (IOException e) {
