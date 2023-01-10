@@ -1,6 +1,8 @@
 package org.flashcards;
 
 import org.flashcards.collection.FlashcardCollectionInterface;
+import org.flashcards.collection.ImgFlashcardCollection;
+import org.flashcards.collection.TxtFlashcardCollection;
 import org.flashcards.commands.*;
 import org.flashcards.creators.ImgCardCreator;
 import org.flashcards.creators.TxtCardCreator;
@@ -118,6 +120,15 @@ public class App {
         command.execute();
     }
 
+    public void saveEditedTxtRepo(TxtFlashcardCollection txtFlashcardCollection){
+        Command command = new SaveTxtRepo(comHistory,txtFlashcardCollection, currentRepo);
+        command.execute();
+    }
+
+    public void saveEditedImgRepo(ImgFlashcardCollection imgFlashcardCollection){
+        Command command = new SaveImgRepo(comHistory,imgFlashcardCollection, currentRepo);
+        command.execute();
+    }
     public void deleteRepo(String type) {
         Command delRepo = new DelRepo(comHistory, currentRepo, deletedRepos, deletedId, type);
         delRepo.execute();

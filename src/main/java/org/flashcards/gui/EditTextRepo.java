@@ -22,11 +22,8 @@ public class EditTextRepo extends JPanel {
 
     JScrollPane scrollPane = new JScrollPane();
 
-    private boolean titleSet = false;
-
     private TxtFlashcardCollection txtFlashcardCollection = new TxtFlashcardCollection("", new ArrayList<>(), 0L);
 
-    private final ArrayList<Long> idCards = new ArrayList<>();
     private final JPanel content = new JPanel(new GridLayout(0, 2));
 
 
@@ -64,17 +61,15 @@ public class EditTextRepo extends JPanel {
         JButton saveButton = new ButtonComponents().bigButtonComponent("Save", 601, 47);
         saveButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.ChooseMode);
-            System.out.println(App.getInstance().getAllCards());
-            App.getInstance().setIdRepo(App.getInstance().getIdRepo() + 1);
             content.removeAll();
             remove(nameTextField);
             content.repaint();
             content.revalidate();
             scrollPane.repaint();
             scrollPane.revalidate();
-            titleSet = false;
-            App.getInstance().getAllCards().saveList(App.getInstance().getIdRepo() - 1);
-
+            App.getInstance().deleteRepo("T");
+            App.getInstance().saveEditedTxtRepo(txtFlashcardCollection);
+            App.getInstance().getAllCards().saveList(App.getInstance().getCurrentRepo());
         });
         add(saveButton);
     }
@@ -90,17 +85,12 @@ public class EditTextRepo extends JPanel {
         nameTextField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (titleSet) {
 
-                } else {
-                    nameTextField.setText("");
-                }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
                 App.getInstance().changeTxtTitle(nameTextField.getText());
-                titleSet = true;
             }
         });
         add(nameTextField);
@@ -119,23 +109,15 @@ public class EditTextRepo extends JPanel {
         termTextArea.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (idCards.contains(card.getId()) && !Objects.equals(termTextArea.getText(), "term")) {
-
-                } else {
-                    termTextArea.setText("");
-                }
             }
+
 
             @Override
             public void focusLost(FocusEvent e) {
-                if (idCards.contains(card.getId())) {
                     App.getInstance().changeQuestion(card, termTextArea.getText());
-                } else {
-                    App.getInstance().changeQuestion(card, termTextArea.getText());
-                    idCards.add(card.getId());
-                    App.getInstance().addTxtCard(card);
+
                 }
-            }
+
         });
 
         return add(termTextArea);
@@ -154,23 +136,11 @@ public class EditTextRepo extends JPanel {
         definitionTextArea.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (idCards.contains(card.getId()) && !Objects.equals(definitionTextArea.getText(), "definition")) {
-
-                } else {
-                    definitionTextArea.setText("");
-                }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                if (idCards.contains(card.getId())) {
                     App.getInstance().changeAnswer(card, definitionTextArea.getText());
-                } else {
-                    App.getInstance().changeAnswer(card, definitionTextArea.getText());
-                    App.getInstance().changeAnswer(card, definitionTextArea.getText());
-                    idCards.add(card.getId());
-                    App.getInstance().addTxtCard(card);
-                }
             }
         });
         return add(definitionTextArea);

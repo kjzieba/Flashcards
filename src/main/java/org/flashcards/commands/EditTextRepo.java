@@ -25,11 +25,6 @@ public class EditTextRepo implements Command {
 
     @Override
     public void execute() {
-        switch (function) {
-            case "T":
-                FlashcardCollectionInterface flashcardCollectionInterface = dbProxy.getFlashcardList(id, "T");
-                TxtFlashcardCollection txtFlashcardCollection = (TxtFlashcardCollection) flashcardCollectionInterface;
 
-        }
     }
 }
