@@ -74,6 +74,7 @@ public class Menu extends JPanel {
                 public void mouseReleased(MouseEvent releasedEvent) {
                     edit.addActionListener(event -> initializer.update(GUInitializer.Panel.AddTxt));
                     delete.addActionListener(event -> initializer.update(GUInitializer.Panel.GetStarted));
+                    App.getInstance().setCurrentRepo(entry.getKey());
                     popupMenu.add(edit);
                     popupMenu.add(delete);
                 }
