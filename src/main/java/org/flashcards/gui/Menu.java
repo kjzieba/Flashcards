@@ -72,7 +72,7 @@ public class Menu extends JPanel {
                 }
                 @Override
                 public void mouseReleased(MouseEvent releasedEvent) {
-                    edit.addActionListener(event -> initializer.update(GUInitializer.Panel.AddTxt));
+                    edit.addActionListener(event -> initializer.update(GUInitializer.Panel.EditTxtRepo));
                     delete.addActionListener(event -> initializer.update(GUInitializer.Panel.GetStarted));
                     App.getInstance().setCurrentRepo(entry.getKey());
                     popupMenu.add(edit);

@@ -18,6 +18,8 @@ import java.util.Objects;
 public class EditTextRepo extends JPanel {
     private final Initializer initializer;
 
+    private final ArrayList<Long> idCards = new ArrayList<>();
+
     private final JTextField nameTextField = new JTextField("Enter a title");
 
     JScrollPane scrollPane = new JScrollPane();
@@ -34,6 +36,17 @@ public class EditTextRepo extends JPanel {
         setLayout(null);
         getBackButton();
         getSaveButton();
+        getAddButton();
+    }
+
+    private void getAddButton() {
+        JButton addButton = new ButtonComponents().addButtonComponent(457, 130);
+        addButton.addActionListener(e -> {
+            TxtCard txtCard = App.getInstance().createEmptyTxtCard();
+            content.add(getTermTextArea2(txtCard));
+            content.add(getDefinitionTextArea2(txtCard));
+        });
+        add(addButton);
     }
 
     public void setRepo() {
@@ -160,5 +173,74 @@ public class EditTextRepo extends JPanel {
         add(scrollPane);
     }
 
+    private Component getTermTextArea2(TxtCard card) {
+        JTextArea termTextArea = new JTextArea("term");
+        termTextArea.setBackground(GUInitializer.buttonColor);
+        termTextArea.setForeground(Color.white);
+        termTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        termTextArea.setBounds(254, 192, 210, 35);
+        termTextArea.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+        termTextArea.setBorder(BorderFactory.createCompoundBorder(
+                termTextArea.getBorder(),
+                BorderFactory.createEmptyBorder(10, 3, 10, 0)));
+        termTextArea.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (idCards.contains(card.getId()) && !Objects.equals(termTextArea.getText(), "term")) {
+
+                } else {
+                    termTextArea.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (idCards.contains(card.getId())) {
+                    App.getInstance().changeQuestion(card,termTextArea.getText());
+                } else {
+                    App.getInstance().changeQuestion(card,termTextArea.getText());
+                    idCards.add(card.getId());
+                    App.getInstance().addTxtCard(card);
+                }
+            }
+        });
+
+        return add(termTextArea);
+    }
+
+    private Component getDefinitionTextArea2(TxtCard card) {
+        JTextArea definitionTextArea = new JTextArea("definition");
+        definitionTextArea.setBackground(GUInitializer.buttonColor);
+        definitionTextArea.setForeground(Color.white);
+        definitionTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        definitionTextArea.setBounds(496, 192, 210, 85);
+        definitionTextArea.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+        definitionTextArea.setBorder(BorderFactory.createCompoundBorder(
+                definitionTextArea.getBorder(),
+                BorderFactory.createEmptyBorder(10, 3, 10, 0)));
+        definitionTextArea.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (idCards.contains(card.getId()) && !Objects.equals(definitionTextArea.getText(), "definition")) {
+
+                } else {
+                    definitionTextArea.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (idCards.contains(card.getId())) {
+                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
+                } else {
+                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
+                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
+                    idCards.add(card.getId());
+                    App.getInstance().addTxtCard(card);
+                }
+            }
+        });
+        return add(definitionTextArea);
+    }
 
 }
