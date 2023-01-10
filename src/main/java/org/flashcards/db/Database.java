@@ -1,12 +1,12 @@
 package org.flashcards.db;
 
+import org.flashcards.TxtCard;
 import org.flashcards.collection.FlashcardCollectionInterface;
+import org.flashcards.collection.TxtFlashcardCollection;
+import org.flashcards.states.FlaggedState;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Database implements DatabaseInterface {
     private static Database instance;
@@ -43,15 +43,27 @@ public class Database implements DatabaseInterface {
     public FlashcardCollectionInterface getFlashcardList(Long id, String type) {
         try {
             Scanner sc = new Scanner(db);
-            while (sc.hasNextLine()){
+            while (sc.hasNextLine()) {
                 String str = sc.nextLine();
                 String[] strings = str.split(" ");
                 if (strings[0].equals(type)) {
-                    if(strings[1].equals(id.toString())){
-                        if (type.equals("T")){
-//                            return new TxtFlashcardCollection();
-                        }
-                        else if (type.equals("I")){
+                    if (strings[1].equals(id.toString())) {
+                        if (type.equals("T")) {
+                            String title = strings[2];
+                            String[] cards = strings[3].replace("[", "").replace("]", "").split(",");
+
+                            ArrayList<TxtCard> list = new ArrayList<>();
+
+                            for (var card : cards) {
+                                String[] sides = card.split("\\|");
+                                TxtCard c = new TxtCard(Long.parseLong(sides[0]),sides[1], sides[2]);
+                                if (sides[3].equals("flagged")){
+                                    c.setFlashcardState(new FlaggedState());
+                                }
+                                list.add(c);
+                            }
+                            return new TxtFlashcardCollection(title, list, id);
+                        } else if (type.equals("I")) {
 //                            return new TxtFlashcardCollection();
                         }
                     }
@@ -72,13 +84,13 @@ public class Database implements DatabaseInterface {
             tmp.createNewFile();
             Scanner sc = new Scanner(db);
             FileWriter fw = new FileWriter("tmp.txt");
-            while (sc.hasNextLine()){
+            while (sc.hasNextLine()) {
                 String str = sc.nextLine();
                 String[] strings = str.split(" ");
                 if (strings[1].equals(id.toString())) {
                     continue;
                 }
-                fw.write(str+"\n");
+                fw.write(str + "\n");
             }
             fw.close();
             sc.close();
@@ -93,7 +105,7 @@ public class Database implements DatabaseInterface {
         Map<Long, String> map = new HashMap<>();
         try {
             Scanner sc = new Scanner(db);
-            while (sc.hasNextLine()){
+            while (sc.hasNextLine()) {
                 String str = sc.nextLine();
                 String[] strings = str.split(" ");
                 map.put(Long.parseLong(strings[1]), strings[2]);
