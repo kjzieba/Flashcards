@@ -5,6 +5,8 @@ import org.flashcards.gui.components.ButtonComponents;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Map;
 
 
@@ -47,14 +49,36 @@ public class Menu extends JPanel {
 
     private void getCardBoardPane() {
         cards = App.getInstance().getAllCards().getAllLists();
+        JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem delete = new JMenuItem("Delete");
+        JMenuItem edit = new JMenuItem("Edit");
 
         for(var entry: cards.entrySet()){
             JButton cardBoardButton = new ButtonComponents().cardTitleButtonComponent(entry.getValue(), 126, 110);
+            cardBoardButton.setBorder(BorderFactory.createCompoundBorder(
+                    cardBoardButton.getBorder(),
+                    BorderFactory.createEmptyBorder(35, 0, 35, 0)));
             contentMenu.add(cardBoardButton);
             cardBoardButton.addActionListener(e -> {
                 initializer.update(GUInitializer.Panel.ChooseActionForList);
                 App.getInstance().setCurrentRepo(entry.getKey());
             });
+            cardBoardButton.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent releasedEvent) {
+                    if (SwingUtilities.isRightMouseButton(releasedEvent) && releasedEvent.getClickCount() == 1) {
+                        popupMenu.show(cardBoardButton, releasedEvent.getX(), releasedEvent.getY());
+                    }
+                }
+                @Override
+                public void mouseReleased(MouseEvent releasedEvent) {
+                    edit.addActionListener(event -> initializer.update(GUInitializer.Panel.AddTxt));
+                    delete.addActionListener(event -> initializer.update(GUInitializer.Panel.GetStarted));
+                    popupMenu.add(edit);
+                    popupMenu.add(delete);
+                }
+            });
+
             contentMenu.revalidate();
         }
         scrollPane.getViewport().setBackground(GUInitializer.backgroundColor);
