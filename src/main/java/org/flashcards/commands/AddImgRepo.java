@@ -7,13 +7,10 @@ import org.flashcards.db.DatabaseProxy;
 import java.util.ArrayList;
 
 public class AddImgRepo implements Command{
-    private final ComHistory comHistory;
-
     private final ArrayList<Long> addedID;
     private final Long id;
 
-    public AddImgRepo(ComHistory comHistory, ArrayList<Long> addedID, Long id) {
-        this.comHistory = comHistory;
+    public AddImgRepo(ArrayList<Long> addedID, Long id) {
         this.addedID = addedID;
         this.id = id;
     }
@@ -22,9 +19,8 @@ public class AddImgRepo implements Command{
     public void execute() {
         ImgFlashcardCollection imgCardRepo = new ImgFlashcardCollection("", new ArrayList<>(), id);
         addedID.add(id);
-        Command saveImgRepo = new SaveImgRepo(comHistory, imgCardRepo, id);
+        Command saveImgRepo = new SaveImgRepo(imgCardRepo, id);
         saveImgRepo.execute();
-        comHistory.push(this);
     }
 
 }

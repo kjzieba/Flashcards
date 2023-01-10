@@ -3,14 +3,11 @@ package org.flashcards.commands;
 import org.flashcards.Card;
 
 public class ChgAns implements Command{
-    private final ComHistory comHistory;
-
     private final Card card;
 
     private final String answer;
 
-    public ChgAns(ComHistory comHistory, Card card, String answer) {
-        this.comHistory = comHistory;
+    public ChgAns(Card card, String answer) {
         this.card = card;
         this.answer = answer;
     }
@@ -18,6 +15,5 @@ public class ChgAns implements Command{
     @Override
     public void execute() {
         card.setAnswer(answer);
-        comHistory.push(this);
     }
 }

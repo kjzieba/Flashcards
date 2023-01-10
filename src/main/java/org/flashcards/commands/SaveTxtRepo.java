@@ -4,15 +4,12 @@ import org.flashcards.collection.TxtFlashcardCollection;
 import org.flashcards.db.DatabaseProxy;
 
 public class SaveTxtRepo implements Command{
-    private final ComHistory history;
-
     private final TxtFlashcardCollection txtCardRepo;
     private final DatabaseProxy dbProxy;
 
     private final Long id;
 
-    public SaveTxtRepo(ComHistory history, TxtFlashcardCollection txtCardRepo, Long id) {
-        this.history = history;
+    public SaveTxtRepo(TxtFlashcardCollection txtCardRepo, Long id) {
         this.txtCardRepo = txtCardRepo;
         this.dbProxy = DatabaseProxy.getInstance();
         this.id = id;
@@ -21,6 +18,5 @@ public class SaveTxtRepo implements Command{
     @Override
     public void execute() {
         dbProxy.addFlashcardList(txtCardRepo);
-        history.push(this);
     }
 }

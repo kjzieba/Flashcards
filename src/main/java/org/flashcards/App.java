@@ -7,6 +7,7 @@ import org.flashcards.commands.*;
 import org.flashcards.creators.ImgCardCreator;
 import org.flashcards.creators.TxtCardCreator;
 import org.flashcards.db.DatabaseProxy;
+import org.flashcards.enums.States;
 
 import java.util.ArrayList;
 
@@ -74,65 +75,75 @@ public class App {
     }
 
     public void addTxtRepo() {
-        Command command = new AddTxtRepo(comHistory, addedId, idRepo);
+        Command command = new AddTxtRepo(addedId, idRepo);
         command.execute();
         reposNumber += 1;
     }
 
     public void addImgRepo() {
-        Command command = new AddImgRepo(comHistory, addedId, idRepo);
+        Command command = new AddImgRepo(addedId, idRepo);
         command.execute();
         reposNumber += 1;
     }
 
     public void addTxtCard(TxtCard card) {
-        Command command = new AddTxtCard(currentRepo, comHistory, card);
+        Command command = new AddTxtCard(currentRepo, card);
         command.execute();
     }
 
     public void addImgCard(ImgCard card) {
-        Command command = new AddImgCard(currentRepo, comHistory, card);
+        Command command = new AddImgCard(currentRepo, card);
         command.execute();
     }
 
     public void changeTxtTitle(String title) {
-        Command command = new ChgTxtTitle(comHistory, currentRepo, title);
+        Command command = new ChgTxtTitle(currentRepo, title);
         command.execute();
     }
 
     public void changeImgTitle(String title) {
-        Command command = new ChgImgTitle(comHistory, currentRepo, title);
+        Command command = new ChgImgTitle(currentRepo, title);
         command.execute();
     }
 
     public void changeAnswer(Card card, String answer) {
-        Command command = new ChgAns(comHistory, card, answer);
+        Command command = new ChgAns(card, answer);
         command.execute();
     }
 
     public void changeQuestion(TxtCard card, String question) {
-        Command command = new ChgQue(comHistory, card, question);
+        Command command = new ChgQue(card, question);
         command.execute();
     }
 
     public void changeImage(ImgCard card, String filePath) {
-        Command command = new ChgImg(comHistory, card, filePath);
+        Command command = new ChgImg(card, filePath);
         command.execute();
     }
 
     public void saveEditedTxtRepo(TxtFlashcardCollection txtFlashcardCollection){
-        Command command = new SaveTxtRepo(comHistory,txtFlashcardCollection, currentRepo);
+        Command command = new SaveTxtRepo(txtFlashcardCollection, currentRepo);
         command.execute();
     }
 
     public void saveEditedImgRepo(ImgFlashcardCollection imgFlashcardCollection){
-        Command command = new SaveImgRepo(comHistory,imgFlashcardCollection, currentRepo);
+        Command command = new SaveImgRepo(imgFlashcardCollection, currentRepo);
         command.execute();
     }
     public void deleteRepo(String type) {
-        Command delRepo = new DelRepo(comHistory, currentRepo, deletedRepos, deletedId, type);
+        Command delRepo = new DelRepo(currentRepo, deletedRepos, deletedId, type);
         delRepo.execute();
         reposNumber -= 1;
+    }
+
+    public void changeStateToFlagged(TxtCard txtCard){
+        Command command = new ChgState(txtCard,States.FLAGGED);
+        command.execute();
+    }
+
+    public void changeStateToNotFlagged(TxtCard txtCard){
+        Command command = new ChgState(txtCard, States.FLAGGED);
+        command.execute();
     }
 
     public void undo() {

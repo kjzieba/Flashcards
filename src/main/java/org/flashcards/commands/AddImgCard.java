@@ -9,15 +9,13 @@ import org.flashcards.db.DatabaseProxy;
 
 public class AddImgCard implements Command{
     private final Long id;
-    private final ComHistory history;
     private final DatabaseProxy dbProxy;
 
     private final ImgCard imgCard;
 
 
-    public AddImgCard(Long id, ComHistory history, ImgCard imgCard) {
+    public AddImgCard(Long id, ImgCard imgCard) {
         this.id = id;
-        this.history = history;
         this.dbProxy = DatabaseProxy.getInstance();
         this.imgCard = imgCard;
     }
@@ -26,6 +24,5 @@ public class AddImgCard implements Command{
     public void execute() {
         ImgFlashcardCollection imgCardRepo = (ImgFlashcardCollection) dbProxy.getFlashcardList(id, "T");
         imgCardRepo.add(imgCard);
-        history.push(this);
     }
 }

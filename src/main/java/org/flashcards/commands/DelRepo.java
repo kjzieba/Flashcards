@@ -6,7 +6,6 @@ import org.flashcards.db.DatabaseProxy;
 import java.util.ArrayList;
 
 public class DelRepo implements Command {
-    private final ComHistory history;
     private final Long id;
     private final DatabaseProxy dbProxy;
 
@@ -16,8 +15,7 @@ public class DelRepo implements Command {
 
     private final String type;
 
-    public DelRepo(ComHistory history, Long id, ArrayList<FlashcardCollectionInterface> deletedRepos, ArrayList<Long> deletedId, String type) {
-        this.history = history;
+    public DelRepo(Long id, ArrayList<FlashcardCollectionInterface> deletedRepos, ArrayList<Long> deletedId, String type) {
         this.id = id;
         this.dbProxy = DatabaseProxy.getInstance();
         this.deletedRepos = deletedRepos;
@@ -30,6 +28,5 @@ public class DelRepo implements Command {
         deletedId.add(id);
         deletedRepos.add(dbProxy.getFlashcardList(id,type));
         dbProxy.deleteFlashcardList(id);
-        history.push(this);
     }
 }

@@ -4,13 +4,11 @@ import org.flashcards.collection.ImgFlashcardCollection;
 import org.flashcards.db.DatabaseProxy;
 
 public class SaveImgRepo implements Command{
-    private final ComHistory history;
     private final ImgFlashcardCollection imgFlashcardRepository;
     private final DatabaseProxy dbProxy;
     private final Long id;
 
-    public SaveImgRepo(ComHistory history, ImgFlashcardCollection imgFlashcardRepository, Long id) {
-        this.history = history;
+    public SaveImgRepo(ImgFlashcardCollection imgFlashcardRepository, Long id) {
         this.imgFlashcardRepository = imgFlashcardRepository;
         this.dbProxy = DatabaseProxy.getInstance();
         this.id = id;
@@ -19,6 +17,5 @@ public class SaveImgRepo implements Command{
     @Override
     public void execute() {
         dbProxy.addFlashcardList(imgFlashcardRepository);
-        history.push(this);
     }
 }
