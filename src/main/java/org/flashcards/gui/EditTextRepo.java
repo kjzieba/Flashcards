@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -22,6 +24,10 @@ public class EditTextRepo extends JPanel {
     private final JTextField nameTextField = new JTextField("Enter a title");
 
     JScrollPane scrollPane = new JScrollPane();
+    private JPopupMenu popupMenu = new JPopupMenu();
+    private JMenuItem delete = new JMenuItem("Delete");
+    private JTextArea termTextArea = new JTextArea("term");
+    private JTextArea definitionTextArea = new JTextArea("definition");
 
     private TxtFlashcardCollection txtFlashcardCollection = new TxtFlashcardCollection("", new ArrayList<>(), 0L);
 
@@ -166,13 +172,48 @@ public class EditTextRepo extends JPanel {
         for (TxtCard card : txtFlashcardCollection.getList()) {
             content.add(getTermTextArea(card));
             content.add(getDefinitionTextArea(card));
+            termTextArea.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent releasedEvent) {
+                    if (SwingUtilities.isRightMouseButton(releasedEvent) && releasedEvent.getClickCount() == 1) {
+                        popupMenu.add(delete);
+                        popupMenu.show(termTextArea, releasedEvent.getX(), releasedEvent.getY());
+                    }
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent releasedEvent) {
+                    delete.addActionListener(event -> {
+                        App.getInstance().deleteRepo("T");
+                        initializer.update(GUInitializer.Panel.AddTxt);
+                    });
+//                App.getInstance().setCurrentRepo(entry.getKey());
+                }
+            });
+            definitionTextArea.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent releasedEvent) {
+                    if (SwingUtilities.isRightMouseButton(releasedEvent) && releasedEvent.getClickCount() == 1) {
+                        popupMenu.add(delete);
+                        popupMenu.show(definitionTextArea, releasedEvent.getX(), releasedEvent.getY());
+                    }
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent releasedEvent) {
+                    delete.addActionListener(event -> {
+//                    App.getInstance().deleteRepo("T");
+                        initializer.update(GUInitializer.Panel.AddTxt);
+                    });
+//                App.getInstance().setCurrentRepo(entry.getKey());
+                }
+            });
         }
         scrollPane.setViewportView(content);
        add(scrollPane);
     }
 
     private Component getTermTextArea2(TxtCard card) {
-        JTextArea termTextArea = new JTextArea("term");
         termTextArea.setBackground(GUInitializer.buttonColor);
         termTextArea.setForeground(Color.white);
         termTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
@@ -199,6 +240,7 @@ public class EditTextRepo extends JPanel {
                     App.getInstance().changeQuestion(card,termTextArea.getText());
                     idCards.add(card.getId());
                     App.getInstance().addTxtCard(card);
+
                 }
             }
         });
@@ -207,7 +249,6 @@ public class EditTextRepo extends JPanel {
     }
 
     private Component getDefinitionTextArea2(TxtCard card) {
-        JTextArea definitionTextArea = new JTextArea("definition");
         definitionTextArea.setBackground(GUInitializer.buttonColor);
         definitionTextArea.setForeground(Color.white);
         definitionTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));

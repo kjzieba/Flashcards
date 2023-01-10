@@ -7,8 +7,7 @@ import org.flashcards.App;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -17,7 +16,9 @@ public class AddTxt extends JPanel {
 
     private final JTextField nameTextField = new JTextField("Enter a title");
 
-    JScrollPane scrollPane = new JScrollPane();
+    private JScrollPane scrollPane = new JScrollPane();
+    private JPopupMenu popupMenu = new JPopupMenu();
+    private JMenuItem delete = new JMenuItem("Delete");
 
     private boolean titleSet = false;
 
@@ -108,6 +109,7 @@ public class AddTxt extends JPanel {
 
     private Component getTermTextArea(TxtCard card) {
         JTextArea termTextArea = new JTextArea("term");
+
         termTextArea.setBackground(GUInitializer.buttonColor);
         termTextArea.setForeground(Color.white);
         termTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
@@ -135,6 +137,24 @@ public class AddTxt extends JPanel {
                     idCards.add(card.getId());
                     App.getInstance().addTxtCard(card);
                 }
+            }
+        });
+        termTextArea.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent releasedEvent) {
+                if (SwingUtilities.isRightMouseButton(releasedEvent) && releasedEvent.getClickCount() == 1) {
+                    popupMenu.add(delete);
+                    popupMenu.show(termTextArea, releasedEvent.getX(), releasedEvent.getY());
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent releasedEvent) {
+                delete.addActionListener(event -> {
+//                    App.getInstance().deleteRepo("T");
+                    initializer.update(GUInitializer.Panel.AddTxt);
+                });
+//                App.getInstance().setCurrentRepo(entry.getKey());
             }
         });
 
@@ -171,6 +191,24 @@ public class AddTxt extends JPanel {
                     idCards.add(card.getId());
                     App.getInstance().addTxtCard(card);
                 }
+            }
+        });
+        definitionTextArea.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent releasedEvent) {
+                if (SwingUtilities.isRightMouseButton(releasedEvent) && releasedEvent.getClickCount() == 1) {
+                    popupMenu.add(delete);
+                    popupMenu.show(definitionTextArea, releasedEvent.getX(), releasedEvent.getY());
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent releasedEvent) {
+                delete.addActionListener(event -> {
+//                    App.getInstance().deleteRepo("T");
+                    initializer.update(GUInitializer.Panel.AddTxt);
+                });
+//                App.getInstance().setCurrentRepo(entry.getKey());
             }
         });
         return add(definitionTextArea);
