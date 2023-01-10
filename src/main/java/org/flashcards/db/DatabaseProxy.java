@@ -41,11 +41,9 @@ public class DatabaseProxy implements DatabaseInterface {
         for (FlashcardCollectionInterface list : memory) {
             if (list.getId().equals(id)) {
                 return list;
-            } else {
-                //return db.getFlashcardList(id, type);
             }
         }
-        return null;
+        return db.getFlashcardList(id, type);
     }
 
     @Override

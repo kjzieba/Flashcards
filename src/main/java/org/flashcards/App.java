@@ -22,6 +22,11 @@ public class App {
         return instance;
     }
 
+    private App() {
+        Long num = DatabaseProxy.getInstance().getAllLists().keySet().stream().max(Long::compareTo).orElse(1L);
+        this.idRepo = num + 1;
+    }
+
     private ComHistory comHistory = new ComHistory();
 
     private final DatabaseProxy dbProxy = DatabaseProxy.getInstance();
@@ -39,7 +44,7 @@ public class App {
     private final ImgCardCreator imgCardCreator = new ImgCardCreator();
 
 
-    private Long idRepo = 1L;
+    private Long idRepo;
 
     private Long idTxtCards = 1L;
 
@@ -106,8 +111,8 @@ public class App {
         command.execute();
     }
 
-    public void changeImage(ImgCard card, String filePath){
-        Command command = new ChgImg(comHistory,card,filePath);
+    public void changeImage(ImgCard card, String filePath) {
+        Command command = new ChgImg(comHistory, card, filePath);
         command.execute();
     }
 
@@ -232,7 +237,6 @@ public class App {
     public void setReposHistory(ArrayList<FlashcardCollectionInterface> reposHistory) {
         this.reposHistory = reposHistory;
     }
-
 
 
 }
