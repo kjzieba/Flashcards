@@ -24,7 +24,7 @@ public class App {
 
     private App() {
         Long num = DatabaseProxy.getInstance().getAllLists().keySet().stream().max(Long::compareTo).orElse(1L);
-        this.idRepo = num;
+        this.idRepo = num + 1;
     }
 
     private ComHistory comHistory = new ComHistory();
