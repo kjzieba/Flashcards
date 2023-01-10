@@ -24,7 +24,6 @@ public class GUInitializer extends JFrame implements Initializer {
 
     public Long editID = 0L;
 
-    private final ChooseActionForList chooseActionForList;
 
     public static Color backgroundColor = new Color(41, 41, 41);
     public static Color buttonColor = new Color(67, 69, 74);
@@ -40,8 +39,7 @@ public class GUInitializer extends JFrame implements Initializer {
             if (os.contains("Mac OS X")) {
                 final Taskbar taskbar = Taskbar.getTaskbar();
                 taskbar.setIconImage(iconImage);
-            }
-            else {
+            } else {
                 setIconImage(iconImage);
             }
         } catch (IOException e) {
@@ -61,12 +59,11 @@ public class GUInitializer extends JFrame implements Initializer {
         result = new Result(this);
         questionsAmount = new QuestionsAmount(this);
         addImg = new AddImg(this);
-        chooseActionForList = new ChooseActionForList(this);
         editTextRepo = new EditTextRepo(this);
 
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -149,14 +146,8 @@ public class GUInitializer extends JFrame implements Initializer {
                 pack();
                 questionsAmount.setVisible(true);
             }
-            case ChooseActionForList -> {
-                menu.setVisible(false);
-                setContentPane(chooseActionForList);
-                pack();
-                chooseActionForList.setVisible(true);
-            }
             case EditTxtRepo -> {
-                chooseActionForList.setVisible(false);
+                menu.setVisible(false);
                 setContentPane(editTextRepo);
                 pack();
                 editTextRepo.setVisible(true);
@@ -184,7 +175,6 @@ public class GUInitializer extends JFrame implements Initializer {
         AddTxt,
         AddImg,
         QuestionsAmount,
-        ChooseActionForList,
         EditTxtRepo
     }
 

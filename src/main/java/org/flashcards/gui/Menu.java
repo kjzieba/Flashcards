@@ -60,7 +60,7 @@ public class Menu extends JPanel {
                     BorderFactory.createEmptyBorder(35, 0, 35, 0)));
             contentMenu.add(cardBoardButton);
             cardBoardButton.addActionListener(e -> {
-                initializer.update(GUInitializer.Panel.ChooseActionForList);
+                initializer.update(GUInitializer.Panel.ChooseMode);
                 App.getInstance().setCurrentRepo(entry.getKey());
             });
             cardBoardButton.addMouseListener(new MouseAdapter() {
