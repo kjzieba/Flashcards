@@ -12,7 +12,6 @@ import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Objects;
 
 public class EditTextRepo extends JPanel {
@@ -58,7 +57,6 @@ public class EditTextRepo extends JPanel {
         JButton backButton = new ButtonComponents().backButtonComponent(13, 12);
         backButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Menu);
-            App.getInstance().deleteRepo("T");
             content.removeAll();
             content.repaint();
             content.revalidate();
@@ -83,6 +81,7 @@ public class EditTextRepo extends JPanel {
             App.getInstance().deleteRepo("T");
             App.getInstance().saveEditedTxtRepo(txtFlashcardCollection);
             App.getInstance().getAllCards().saveList(App.getInstance().getCurrentRepo());
+
         });
         add(saveButton);
     }
@@ -165,12 +164,11 @@ public class EditTextRepo extends JPanel {
         scrollPane.setAutoscrolls(true);
         scrollPane.createVerticalScrollBar();
         for (TxtCard card : txtFlashcardCollection.getList()) {
-            System.out.println(card);
             content.add(getTermTextArea(card));
             content.add(getDefinitionTextArea(card));
         }
         scrollPane.setViewportView(content);
-        add(scrollPane);
+       add(scrollPane);
     }
 
     private Component getTermTextArea2(TxtCard card) {
@@ -233,7 +231,6 @@ public class EditTextRepo extends JPanel {
                 if (idCards.contains(card.getId())) {
                     App.getInstance().changeAnswer(card,definitionTextArea.getText());
                 } else {
-                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
                     App.getInstance().changeAnswer(card,definitionTextArea.getText());
                     idCards.add(card.getId());
                     App.getInstance().addTxtCard(card);

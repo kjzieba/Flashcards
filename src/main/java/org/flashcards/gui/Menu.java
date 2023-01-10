@@ -67,6 +67,8 @@ public class Menu extends JPanel {
                 @Override
                 public void mousePressed(MouseEvent releasedEvent) {
                     if (SwingUtilities.isRightMouseButton(releasedEvent) && releasedEvent.getClickCount() == 1) {
+                        popupMenu.add(edit);
+                        popupMenu.add(delete);
                         popupMenu.show(cardBoardButton, releasedEvent.getX(), releasedEvent.getY());
                     }
                 }
@@ -79,8 +81,6 @@ public class Menu extends JPanel {
                         initializer.update(GUInitializer.Panel.Menu);
                     });
                     App.getInstance().setCurrentRepo(entry.getKey());
-                    popupMenu.add(edit);
-                    popupMenu.add(delete);
                 }
             });
 
