@@ -110,6 +110,8 @@ public class FlashCardsMode extends JPanel {
     public void nextCard() {
         if (!it.isDoneRight()) {
             TxtCard card = (TxtCard) it.next();
+            card.action(cardView);
+            card.action(cardReverseView);
             cardView.setText(card.getTextQuestion());
             cardReverseView.setText(card.getAnswer());
         }
@@ -118,6 +120,8 @@ public class FlashCardsMode extends JPanel {
     public void prevCard() {
         if (!it.isDoneLeft()) {
             TxtCard card = (TxtCard) it.prev();
+            card.action(cardView);
+            card.action(cardReverseView);
             cardView.setText(card.getTextQuestion());
             cardReverseView.setText(card.getAnswer());
         }
