@@ -4,6 +4,8 @@ import org.flashcards.Card;
 
 public interface Iterator {
     Card next();
+    Card prev();
 
-    boolean isDone();
+    boolean isDoneRight();
+    boolean isDoneLeft();
 }

@@ -98,7 +98,7 @@ public class FlashCardsMode extends JPanel {
         TxtFlashcardCollection list = (TxtFlashcardCollection) App.getInstance().getAllCards().getFlashcardList(id, "T");
         it = new TxtFlashcardIterator(list);
         TxtCard card;
-        if (!it.isDone()) {
+        if (!it.isDoneRight()) {
             card = (TxtCard) it.next();
             cardView.setText(card.getTextQuestion());
             cardReverseView.setText(card.getAnswer());
@@ -106,7 +106,7 @@ public class FlashCardsMode extends JPanel {
     }
 
     public void nextCard() {
-        if (!it.isDone()) {
+        if (!it.isDoneRight()) {
             TxtCard card = (TxtCard) it.next();
             cardView.setText(card.getTextQuestion());
             cardReverseView.setText(card.getAnswer());
@@ -114,6 +114,10 @@ public class FlashCardsMode extends JPanel {
     }
 
     public void prevCard() {
-
+        if (!it.isDoneLeft()) {
+            TxtCard card = (TxtCard) it.prev();
+            cardView.setText(card.getTextQuestion());
+            cardReverseView.setText(card.getAnswer());
+        }
     }
 }

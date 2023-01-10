@@ -13,7 +13,7 @@ public class TxtFlashcardIterator implements Iterator {
 
     @Override
     public Card next() {
-        if (!isDone()) {
+        if (!isDoneRight()) {
             iterationPosition += 1;
             return list.getList().get(iterationPosition);
         }
@@ -21,7 +21,21 @@ public class TxtFlashcardIterator implements Iterator {
     }
 
     @Override
-    public boolean isDone() {
+    public Card prev() {
+        if (!isDoneLeft()) {
+            iterationPosition -= 1;
+            return list.getList().get(iterationPosition);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean isDoneRight() {
         return list.getList().size() <= iterationPosition + 1;
+    }
+
+    @Override
+    public boolean isDoneLeft() {
+        return iterationPosition <= 0;
     }
 }
