@@ -53,7 +53,7 @@ public class Menu extends JPanel {
         JMenuItem delete = new JMenuItem("Delete");
         JMenuItem edit = new JMenuItem("Edit");
 
-        for(var entry: cards.entrySet()){
+        for (var entry : cards.entrySet()) {
             JButton cardBoardButton = new ButtonComponents().cardTitleButtonComponent(entry.getValue(), 126, 110);
             cardBoardButton.setBorder(BorderFactory.createCompoundBorder(
                     cardBoardButton.getBorder(),
@@ -70,10 +70,14 @@ public class Menu extends JPanel {
                         popupMenu.show(cardBoardButton, releasedEvent.getX(), releasedEvent.getY());
                     }
                 }
+
                 @Override
                 public void mouseReleased(MouseEvent releasedEvent) {
                     edit.addActionListener(event -> initializer.update(GUInitializer.Panel.EditTxtRepo));
-                    delete.addActionListener(event -> initializer.update(GUInitializer.Panel.GetStarted));
+                    delete.addActionListener(event -> {
+                        App.getInstance().deleteRepo("T");
+                        initializer.update(GUInitializer.Panel.Menu);
+                    });
                     App.getInstance().setCurrentRepo(entry.getKey());
                     popupMenu.add(edit);
                     popupMenu.add(delete);
