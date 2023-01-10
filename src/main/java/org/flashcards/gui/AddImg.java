@@ -3,10 +3,6 @@ package org.flashcards.gui;
 
 import org.flashcards.App;
 import org.flashcards.ImgCard;
-import org.flashcards.TxtCard;
-import org.flashcards.collection.FlashcardCollectionInterface;
-import org.flashcards.collection.ImgFlashcardCollection;
-import org.flashcards.collection.TxtFlashcardCollection;
 import org.flashcards.gui.components.ButtonComponents;
 
 import javax.swing.*;
@@ -17,7 +13,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class EditImg extends JPanel {
+public class AddImg extends JPanel {
     private final Initializer initializer;
 
     private final JTextField nameTextField = new JTextField("Enter a title");
@@ -29,7 +25,7 @@ public class EditImg extends JPanel {
     private ArrayList<Long> idCards = new ArrayList<>();
     private JPanel content = new JPanel(new GridLayout(0, 2));
 
-    public EditImg(Initializer initializer) {
+    public AddImg(Initializer initializer) {
         this.initializer = initializer;
         setPreferredSize(new Dimension(960, 560));
         setBackground(GUInitializer.backgroundColor);

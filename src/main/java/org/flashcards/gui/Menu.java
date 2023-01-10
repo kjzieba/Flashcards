@@ -52,7 +52,7 @@ public class Menu extends JPanel {
             JButton cardBoardButton = new ButtonComponents().cardTitleButtonComponent(entry.getValue(), 126, 110);
             contentMenu.add(cardBoardButton);
             cardBoardButton.addActionListener(e -> {
-                initializer.update(GUInitializer.Panel.Edit);
+                initializer.update(GUInitializer.Panel.AddTxt);
             });
             contentMenu.revalidate();
         }

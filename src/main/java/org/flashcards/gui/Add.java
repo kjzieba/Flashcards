@@ -49,7 +49,7 @@ public class Add extends JPanel {
     private void getTextButton() {
         JButton addTextButton = new ButtonComponents().bigButtonComponent("Text", 132, 239);
         addTextButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.Edit);
+            initializer.update(GUInitializer.Panel.AddTxt);
             App.getInstance().addTxtRepo();
             System.out.println(App.getInstance().getAllCards());
         });
@@ -59,7 +59,7 @@ public class Add extends JPanel {
     private void getImageButton() {
         JButton addButton = new ButtonComponents().bigButtonComponent("Image", 618, 239);
         addButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.EditImg);
+            initializer.update(GUInitializer.Panel.AddImg);
             App.getInstance().addImgRepo();
         });
         add(addButton);

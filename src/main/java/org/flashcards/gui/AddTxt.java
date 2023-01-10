@@ -2,9 +2,6 @@
 package org.flashcards.gui;
 
 import org.flashcards.TxtCard;
-import org.flashcards.collection.FlashcardCollectionInterface;
-import org.flashcards.collection.TxtFlashcardCollection;
-import org.flashcards.db.DatabaseProxy;
 import org.flashcards.gui.components.ButtonComponents;
 import org.flashcards.App;
 
@@ -14,9 +11,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.zip.ZipEntry;
 
-public class Edit extends JPanel {
+public class AddTxt extends JPanel {
     private final Initializer initializer;
 
     private final JTextField nameTextField = new JTextField("Enter a title");
@@ -28,7 +24,7 @@ public class Edit extends JPanel {
     private final ArrayList<Long> idCards = new ArrayList<>();
     private final JPanel content = new JPanel(new GridLayout(0, 2));
 
-    public Edit(Initializer initializer) {
+    public AddTxt(Initializer initializer) {
         this.initializer = initializer;
         setPreferredSize(new Dimension(960, 560));
         setBackground(GUInitializer.backgroundColor);

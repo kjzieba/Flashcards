@@ -11,15 +11,14 @@ public class GUInitializer extends JFrame implements Initializer {
     private final GetStarted getStarted;
     private final Menu menu;
     private final Add add;
-    private final Edit edit;
+    private final AddTxt addTxt;
     private final ChooseMode chooseMode;
     private final LearnMode learnMode;
     private final TestMode testMode;
     private final FlashCardsMode flashCardsMode;
     private final Result result;
     private final QuestionsAmount questionsAmount;
-    private final AddTxtCard addTxtCard;
-    private final EditImg editImg;
+    private final AddImg addImg;
 
     public static Color backgroundColor = new Color(41, 41, 41);
     public static Color buttonColor = new Color(67, 69, 74);
@@ -48,15 +47,14 @@ public class GUInitializer extends JFrame implements Initializer {
         getStarted = new GetStarted(this);
         menu = new Menu(this);
         add = new Add(this);
-        edit = new Edit(this);
+        addTxt = new AddTxt(this);
         chooseMode = new ChooseMode(this);
         learnMode = new LearnMode(this);
         testMode = new TestMode(this);
         flashCardsMode = new FlashCardsMode(this);
-        addTxtCard = new AddTxtCard(this);
         result = new Result(this);
         questionsAmount = new QuestionsAmount(this);
-        editImg = new EditImg(this);
+        addImg = new AddImg(this);
 
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -95,20 +93,20 @@ public class GUInitializer extends JFrame implements Initializer {
                 pack();
                 add.setVisible(true);
             }
-            case Edit -> {
+            case AddTxt -> {
                 add.setVisible(false);
-                setContentPane(edit);
+                setContentPane(addTxt);
                 pack();
-                edit.setVisible(true);
+                addTxt.setVisible(true);
             }
-            case EditImg -> {
+            case AddImg -> {
                 add.setVisible(false);
-                setContentPane(editImg);
+                setContentPane(addImg);
                 pack();
-                editImg.setVisible(true);
+                addImg.setVisible(true);
             }
             case ChooseMode -> {
-                edit.setVisible(false);
+                addTxt.setVisible(false);
                 setContentPane(chooseMode);
                 pack();
                 chooseMode.setVisible(true);
@@ -143,12 +141,6 @@ public class GUInitializer extends JFrame implements Initializer {
                 pack();
                 questionsAmount.setVisible(true);
             }
-            case AddTxtCard -> {
-                chooseMode.setVisible(false);
-                setContentPane(addTxtCard);
-                pack();
-                addTxtCard.setVisible(true);
-            }
         }
     }
 
@@ -161,14 +153,13 @@ public class GUInitializer extends JFrame implements Initializer {
         GetStarted,
         Menu,
         Add,
-        Edit,
-        EditImg,
         ChooseMode,
         FlashCardsMode,
         LearnMode,
         TestMode,
         Result,
-        AddTxtCard,
+        AddTxt,
+        AddImg,
         QuestionsAmount
     }
 
