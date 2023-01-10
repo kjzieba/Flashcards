@@ -1,19 +1,32 @@
 package org.flashcards.gui;
 
+import org.flashcards.App;
+import org.flashcards.TxtCard;
+import org.flashcards.collection.Iterator;
+import org.flashcards.collection.TxtFlashcardCollection;
+import org.flashcards.collection.TxtFlashcardIterator;
 import org.flashcards.gui.components.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class FlashCardsMode extends JPanel {
 
     private final Initializer initializer;
-    private JButton cardView = new CardComponent().cardButtonComponent(318, 135, 323, 175, "kocham");
-    private JButton cardReverseView = new CardComponent().cardReverseButtonComponent(318, 135, 323, 175, "jave");
-    private JButton flagButton = new FlashCardComponent().flagButtonComponent(655,135);
-    private JButton redFlagButton = new FlashCardComponent().redFlagButtonComponent(655,135);
+    private JButton cardView;
+    private JButton cardReverseView;
+    private JButton flagButton = new FlashCardComponent().flagButtonComponent(655, 135);
+    private JButton redFlagButton = new FlashCardComponent().redFlagButtonComponent(655, 135);
+
+    private Iterator it;
+
     public FlashCardsMode(Initializer initializer) {
         this.initializer = initializer;
+        cardView = new CardComponent().cardButtonComponent(318, 135, 323, 175, "");
+        cardReverseView = new CardComponent().cardReverseButtonComponent(318, 135, 323, 175, "");
+
         setPreferredSize(new Dimension(960, 560));
         setBackground(GUInitializer.backgroundColor);
         setLayout(null);
@@ -26,7 +39,7 @@ public class FlashCardsMode extends JPanel {
     }
 
     private void getBackButton() {
-        JButton backButton = new ButtonComponents().backButtonComponent(13,12);
+        JButton backButton = new ButtonComponents().backButtonComponent(13, 12);
         backButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.ChooseMode);
         });
@@ -51,17 +64,17 @@ public class FlashCardsMode extends JPanel {
 
 
     private void getLeftArrow() {
-        JButton leftArrow = new FlashCardComponent().leftArrowButtonComponent(318,329);
+        JButton leftArrow = new FlashCardComponent().leftArrowButtonComponent(318, 329);
         leftArrow.addActionListener(e -> {
-
+            prevCard();
         });
         add(leftArrow);
     }
 
     private void getRightArrow() {
-        JButton rightArrow = new FlashCardComponent().rightArrowButtonComponent(611,329);
+        JButton rightArrow = new FlashCardComponent().rightArrowButtonComponent(611, 329);
         rightArrow.addActionListener(e -> {
-
+            nextCard();
         });
         add(rightArrow);
     }
@@ -78,5 +91,29 @@ public class FlashCardsMode extends JPanel {
         });
         add(redFlagButton);
         add(flagButton);
+    }
+
+    public void setCard() {
+        Long id = App.getInstance().getCurrentRepo();
+        TxtFlashcardCollection list = (TxtFlashcardCollection) App.getInstance().getAllCards().getFlashcardList(id, "T");
+        it = new TxtFlashcardIterator(list);
+        TxtCard card;
+        if (!it.isDone()) {
+            card = (TxtCard) it.next();
+            cardView.setText(card.getTextQuestion());
+            cardReverseView.setText(card.getAnswer());
+        }
+    }
+
+    public void nextCard() {
+        if (!it.isDone()) {
+            TxtCard card = (TxtCard) it.next();
+            cardView.setText(card.getTextQuestion());
+            cardReverseView.setText(card.getAnswer());
+        }
+    }
+
+    public void prevCard() {
+
     }
 }

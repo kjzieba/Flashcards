@@ -22,6 +22,6 @@ public class TxtFlashcardIterator implements Iterator {
 
     @Override
     public boolean isDone() {
-        return list.getList().size() <= iterationPosition;
+        return list.getList().size() <= iterationPosition + 1;
     }
 }
