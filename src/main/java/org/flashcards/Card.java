@@ -3,13 +3,15 @@ package org.flashcards;
 import org.flashcards.states.NormalState;
 import org.flashcards.states.State;
 
+import javax.swing.*;
+
 public abstract class Card implements State {
 
     protected Long id;
     protected String answer;
     protected State flashcardState;
 
-    protected Card(Long id, String answer){
+    protected Card(Long id, String answer) {
         this.id = id;
         this.answer = answer;
         this.flashcardState = new NormalState();
@@ -40,8 +42,8 @@ public abstract class Card implements State {
     }
 
     @Override
-    public void action() {
-        this.flashcardState.action();
+    public void action(JButton button) {
+        this.flashcardState.action(button);
     }
 
 

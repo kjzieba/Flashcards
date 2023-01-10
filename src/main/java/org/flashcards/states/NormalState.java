@@ -1,11 +1,14 @@
 package org.flashcards.states;
 
-public class NormalState implements State{
+import javax.swing.*;
+
+public class NormalState implements State {
 
     @Override
-    public void action() {
-        System.out.println("I'm a normal flashcard!");
+    public void action(JButton button) {
+        button.setBorderPainted(false);
     }
+
     @Override
     public String toString() {
         return "normal";

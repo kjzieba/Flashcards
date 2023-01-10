@@ -1,5 +1,7 @@
 package org.flashcards;
 
+import javax.swing.*;
+
 public class TxtCard extends Card {
 
     protected String textQuestion;
@@ -19,8 +21,8 @@ public class TxtCard extends Card {
     }
 
     @Override
-    public void action() {
-        this.flashcardState.action();
+    public void action(JButton button) {
+        this.flashcardState.action(button);
     }
 
     @Override

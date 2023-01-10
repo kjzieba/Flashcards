@@ -100,6 +100,8 @@ public class FlashCardsMode extends JPanel {
         TxtCard card;
         if (!it.isDoneRight()) {
             card = (TxtCard) it.next();
+            card.action(cardView);
+            card.action(cardReverseView);
             cardView.setText(card.getTextQuestion());
             cardReverseView.setText(card.getAnswer());
         }

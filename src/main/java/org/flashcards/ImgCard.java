@@ -1,5 +1,6 @@
 package org.flashcards;
 
+import javax.swing.*;
 import java.util.Arrays;
 
 public class ImgCard extends Card {
@@ -22,8 +23,8 @@ public class ImgCard extends Card {
 
 
     @Override
-    public void action() {
-        this.flashcardState.action();
+    public void action(JButton button) {
+        this.flashcardState.action(button);
     }
 
     @Override
