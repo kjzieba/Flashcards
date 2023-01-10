@@ -49,8 +49,6 @@ public class App {
 
     boolean end = false;
 
-    String title;
-    ArrayList<Integer> optionHistory = new ArrayList<>();
 
     ArrayList<FlashcardCollectionInterface> reposHistory = new ArrayList<>();
 
@@ -60,50 +58,58 @@ public class App {
         return txtCard;
     }
 
+    public ImgCard createEmptyImgCard() {
+        ImgCard imgCard = imgCardCreator.createFlashcard(idCards, "", "","");
+        idCards = idCards + 1;
+        return imgCard;
+    }
+
     public void addTxtRepo() {
         Command command = new AddTxtRepo(comHistory, addedId, idRepo);
         command.execute();
-        this.title = title;
         reposNumber += 1;
-        optionHistory.add(1);
     }
 
-    public void addImgRepo(String title) {
-        Command command = new AddImgRepo(comHistory, title, addedId, idCards);
+    public void addImgRepo() {
+        Command command = new AddImgRepo(comHistory, addedId, idRepo);
         command.execute();
-        this.title = title;
         reposNumber += 1;
-        optionHistory.add(1);
     }
 
     public void addTxtCard(TxtCard card) {
         Command command = new AddTxtCard(idRepo, comHistory, card);
         command.execute();
-        reposNumber += 1;
-        optionHistory.add(1);
     }
 
-    public void editRepo() {
-//        if (dbProxy.getFlashcardList(idRepo).getClass() == TxtFlashcardCollection.class) {
-//            editedId.add(idRepo);
-//            Command editTextRepo = new EditTextRepo((TxtFlashcardCollection) allCards.query(idRepo), comHistory, reposHistory);
-//            editTextRepo.execute();
-//            optionHistory.add(2);
-//        } else if (allCards.query(idRepo).getClass() == ImgFlashcardCollection.class) {
-//            editedId.add(idRepo);
-//            Command editImgRepo = new EditImgRepo((ImgFlashcardCollection) allCards.query(idRepo), comHistory, reposHistory);
-//            editImgRepo.execute();
-//            optionHistory.add(2);
-//        } else {
-//            System.out.println("You entered a wrong id");
-//        }
+    public void addImgCard(ImgCard card) {
+        Command command = new AddImgCard(idRepo, comHistory, card);
+        command.execute();
     }
 
-    public void deleteRepo() {
-//        Command delRepo = new DelRepo(comHistory, idRepo, allCards, deletedRepos, deletedId);
-//        delRepo.execute();
-//        reposNumber -= 1;
-//        optionHistory.add(3);
+    public void changeTxtTitle(String title) {
+        Command command = new ChgTxtTitle(comHistory, idRepo, title);
+        command.execute();
+    }
+
+    public void changeImgTitle(String title) {
+        Command command = new ChgImgTitle(comHistory, idRepo, title);
+        command.execute();
+    }
+
+    public void changeAnswer(Card card, String answer) {
+        Command command = new ChgAns(comHistory, card, answer);
+        command.execute();
+    }
+
+    public void changeQuestion(TxtCard card, String question) {
+        Command command = new ChgQue(comHistory, card, question);
+        command.execute();
+    }
+
+    public void deleteRepo(String type) {
+        Command delRepo = new DelRepo(comHistory, idRepo, deletedRepos, deletedId, type);
+        delRepo.execute();
+        reposNumber -= 1;
     }
 
     public void undo() {
@@ -205,13 +211,6 @@ public class App {
         this.end = end;
     }
 
-    public ArrayList<Integer> getOptionHistory() {
-        return optionHistory;
-    }
-
-    public void setOptionHistory(ArrayList<Integer> optionHistory) {
-        this.optionHistory = optionHistory;
-    }
 
     public ArrayList<FlashcardCollectionInterface> getReposHistory() {
         return reposHistory;
@@ -221,13 +220,6 @@ public class App {
         this.reposHistory = reposHistory;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
 
 }

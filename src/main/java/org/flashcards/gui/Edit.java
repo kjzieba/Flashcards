@@ -24,8 +24,8 @@ public class Edit extends JPanel {
 
     private boolean titleSet = false;
 
-    private ArrayList<Long> idCards = new ArrayList<>();
-    private JPanel content = new JPanel(new GridLayout(0, 2));
+    private final ArrayList<Long> idCards = new ArrayList<>();
+    private final JPanel content = new JPanel(new GridLayout(0, 2));
 
     public Edit(Initializer initializer) {
         this.initializer = initializer;
@@ -43,7 +43,7 @@ public class Edit extends JPanel {
         JButton backButton = new ButtonComponents().backButtonComponent(13, 12);
         backButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Menu);
-            App.getInstance().deleteRepo();
+            App.getInstance().deleteRepo("T");
             content.removeAll();
             content.repaint();
             content.revalidate();
@@ -60,7 +60,6 @@ public class Edit extends JPanel {
             TxtCard txtCard = App.getInstance().createEmptyTxtCard();
             content.add(getTermTextArea(txtCard));
             content.add(getDefinitionTextArea(txtCard));
-
         });
         add(addButton);
     }
@@ -103,9 +102,8 @@ public class Edit extends JPanel {
 
             @Override
             public void focusLost(FocusEvent e) {
-                FlashcardCollectionInterface cardsRepo = App.getInstance().getAllCards().getFlashcardList(App.getInstance().getIdRepo(), "T");
-                TxtFlashcardCollection txtCardRepo = (TxtFlashcardCollection) cardsRepo;
-                txtCardRepo.setTitle(nameTextField.getText());
+                System.out.println(App.getInstance().getIdRepo());
+                App.getInstance().changeTxtTitle(nameTextField.getText());
                 titleSet = true;
             }
         });
@@ -135,9 +133,9 @@ public class Edit extends JPanel {
             @Override
             public void focusLost(FocusEvent e) {
                 if (idCards.contains(card.getId())) {
-                    card.setTextQuestion(termTextArea.getText());
+                    App.getInstance().changeQuestion(card,termTextArea.getText());
                 } else {
-                    card.setTextQuestion(termTextArea.getText());
+                    App.getInstance().changeQuestion(card,termTextArea.getText());
                     idCards.add(card.getId());
                     App.getInstance().addTxtCard(card);
                 }
@@ -170,9 +168,10 @@ public class Edit extends JPanel {
             @Override
             public void focusLost(FocusEvent e) {
                 if (idCards.contains(card.getId())) {
-                    card.setAnswer(definitionTextArea.getText());
+                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
                 } else {
-                    card.setAnswer(definitionTextArea.getText());
+                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
+                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
                     idCards.add(card.getId());
                     App.getInstance().addTxtCard(card);
                 }

@@ -2,12 +2,12 @@ package org.flashcards.commands;
 
 import org.flashcards.TxtCard;
 
-public class ChangeTxt implements Command {
+public class ChgQue implements Command {
     private final ComHistory history;
     private final TxtCard flashcard;
     private final String question;
 
-    public ChangeTxt(ComHistory history, TxtCard flashcard, String question) {
+    public ChgQue(ComHistory history, TxtCard flashcard, String question) {
         this.history = history;
         this.flashcard = flashcard;
         this.question = question;

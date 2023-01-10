@@ -51,6 +51,7 @@ public class Add extends JPanel {
         addTextButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Edit);
             App.getInstance().addTxtRepo();
+            System.out.println(App.getInstance().getAllCards());
         });
         add(addTextButton);
     }
@@ -59,7 +60,7 @@ public class Add extends JPanel {
         JButton addButton = new ButtonComponents().bigButtonComponent("Image", 618, 239);
         addButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.EditImg);
-            App.getInstance().addImgRepo("img");
+            App.getInstance().addImgRepo();
         });
         add(addButton);
     }

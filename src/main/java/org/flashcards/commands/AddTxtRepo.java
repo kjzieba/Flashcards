@@ -7,14 +7,12 @@ import java.util.ArrayList;
 
 public class AddTxtRepo implements Command{
     private final ComHistory comHistory;
-    private final DatabaseProxy dbProxy;
 
     private final ArrayList<Long> addedID;
     private final Long id;
 
     public AddTxtRepo(ComHistory comHistory, ArrayList<Long> addedID, Long id) {
         this.comHistory = comHistory;
-        this.dbProxy = DatabaseProxy.getInstance();
         this.addedID = addedID;
         this.id = id;
     }

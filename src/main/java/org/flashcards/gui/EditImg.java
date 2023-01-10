@@ -44,7 +44,7 @@ public class EditImg extends JPanel {
         JButton backButton = new ButtonComponents().backButtonComponent(13, 12);
         backButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Add);
-            App.getInstance().deleteRepo();
+            App.getInstance().deleteRepo("T");
             content.removeAll();
             content.repaint();
             content.revalidate();

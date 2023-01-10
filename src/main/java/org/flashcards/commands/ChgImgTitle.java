@@ -2,22 +2,26 @@ package org.flashcards.commands;
 
 
 import org.flashcards.collection.ImgFlashcardCollection;
+import org.flashcards.db.DatabaseProxy;
 
 public class ChgImgTitle implements Command{
     private final ComHistory history;
-    private final ImgFlashcardCollection imgFlashcardRepository;
+    private final Long id;
 
+    private final DatabaseProxy dbProxy;
     private final String title;
 
-    public ChgImgTitle(ComHistory history, ImgFlashcardCollection imgFlashcardRepository, String title) {
+    public ChgImgTitle(ComHistory history, Long id, String title) {
         this.history = history;
-        this.imgFlashcardRepository = imgFlashcardRepository;
+        this.id = id;
+        this.dbProxy = DatabaseProxy.getInstance();
         this.title = title;
     }
 
     @Override
     public void execute() {
-        imgFlashcardRepository.setTitle(title);
+        ImgFlashcardCollection imgCardRepo = (ImgFlashcardCollection) dbProxy.getFlashcardList(id, "T");
+        imgCardRepo.setTitle(title);
         history.push(this);
     }
 }
