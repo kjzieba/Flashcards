@@ -142,7 +142,7 @@ public class App {
     }
 
     public void changeStateToNotFlagged(TxtCard txtCard){
-        Command command = new ChgState(txtCard, States.FLAGGED);
+        Command command = new ChgState(txtCard, States.NOTFLAGGED);
         command.execute();
     }
 

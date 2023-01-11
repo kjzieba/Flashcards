@@ -130,10 +130,11 @@ public class GUInitializer extends JFrame implements Initializer {
             }
             case FlashCardsMode -> {
                 chooseMode.setVisible(false);
-                flashCardsMode.setCard();
                 setContentPane(flashCardsMode);
                 pack();
                 flashCardsMode.setVisible(true);
+                flashCardsMode.setRepo();
+                flashCardsMode.setCard();
             }
             case Result -> {
                 chooseMode.setVisible(false);
