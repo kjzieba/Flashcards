@@ -147,6 +147,8 @@ public class GUInitializer extends JFrame implements Initializer {
                 setContentPane(questionsAmount);
                 pack();
                 questionsAmount.setVisible(true);
+                QuestionsAmount.setAmount(1);
+                questionsAmount.updateGuiAmount();
             }
             case EditTxtRepo -> {
                 menu.setVisible(false);

@@ -1,5 +1,7 @@
 package org.flashcards.gui;
 
+import org.flashcards.App;
+import org.flashcards.collection.TxtFlashcardCollection;
 import org.flashcards.gui.components.ButtonComponents;
 
 import javax.swing.*;
@@ -8,8 +10,9 @@ import java.awt.*;
 public class QuestionsAmount extends JPanel {
 
     private final Initializer initializer;
-    public static int amount;
+    public static int amount = 1;
     JLabel questionsAmountTitle = new JLabel();
+
     public QuestionsAmount(Initializer initializer) {
         this.initializer = initializer;
         setPreferredSize(new Dimension(960, 560));
@@ -23,7 +26,7 @@ public class QuestionsAmount extends JPanel {
     }
 
     private void getBackButton() {
-        JButton backButton = new ButtonComponents().backButtonComponent(13,12);
+        JButton backButton = new ButtonComponents().backButtonComponent(13, 12);
         backButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.ChooseMode);
         });
@@ -46,8 +49,12 @@ public class QuestionsAmount extends JPanel {
         plusIcon.setContentAreaFilled(false);
         plusIcon.setFocusPainted(false);
         plusIcon.addActionListener(e -> {
-            amount++;
-            questionsAmountTitle.setText(amount + " questions");
+            TxtFlashcardCollection t = (TxtFlashcardCollection) App.getInstance().getAllCards().getFlashcardList(App.getInstance().getCurrentRepo(), "T");
+            int maxAmount = t.getList().size();
+            if (amount < maxAmount) {
+                amount++;
+                questionsAmountTitle.setText(amount + " questions");
+            }
         });
         add(plusIcon);
     }
@@ -60,7 +67,7 @@ public class QuestionsAmount extends JPanel {
         minusIcon.setContentAreaFilled(false);
         minusIcon.setFocusPainted(false);
         minusIcon.addActionListener(e -> {
-            if (amount > 0) {
+            if (amount > 1) {
                 amount--;
                 questionsAmountTitle.setText(amount + " questions");
             }
@@ -77,8 +84,12 @@ public class QuestionsAmount extends JPanel {
         add(startButton);
     }
 
+    public static void setAmount(int amount) {
+        QuestionsAmount.amount = amount;
+    }
 
-
-
+    public void updateGuiAmount() {
+        questionsAmountTitle.setText(amount + " questions");
+    }
 }
 
