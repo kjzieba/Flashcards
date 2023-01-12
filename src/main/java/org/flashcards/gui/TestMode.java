@@ -58,7 +58,7 @@ public class TestMode extends JPanel {
     }
 
     public void setWordLabel() {
-        cardWord.setText(questions.get(currentQuestion-1).getTextQuestion());
+        cardWord.setText(questions.get(currentQuestion - 1).getTextQuestion());
     }
 
     private void getAnswerTextArea() {
@@ -78,16 +78,15 @@ public class TestMode extends JPanel {
         JButton nextButton = new ButtonComponents().smallButtonComponent("Next", 548, 304);
         nextButton.addActionListener(e -> {
             if (currentQuestion < QuestionsAmount.amount) {
-                if(currentQuestion +1 == QuestionsAmount.amount){
+                if (currentQuestion + 1 == QuestionsAmount.amount) {
                     nextButton.setText("Finish");
                 }
 
                 String answer = answerTextArea.getText().toLowerCase();
-                if(answer.equals(questions.get(currentQuestion-1).getAnswer())) {
+                if (answer.equals(questions.get(currentQuestion - 1).getAnswer())) {
                     rightAnswers += 1;
-                }
-                else {
-                    wrongAnswers +=1;
+                } else {
+                    wrongAnswers += 1;
                 }
 
 
@@ -97,10 +96,9 @@ public class TestMode extends JPanel {
                 setWordLabel();
             } else if (currentQuestion == QuestionsAmount.amount) {
                 String answer = answerTextArea.getText().toLowerCase();
-                if(answer.equals(questions.get(currentQuestion-1).getAnswer())) {
+                if (answer.equals(questions.get(currentQuestion - 1).getAnswer())) {
                     rightAnswers += 1;
-                }
-                else {
+                } else {
                     wrongAnswers += 1;
                 }
 
@@ -116,7 +114,7 @@ public class TestMode extends JPanel {
 
     public void setList() {
         list = (TxtFlashcardCollection) App.getInstance().getAllCards().getFlashcardList(App.getInstance().getCurrentRepo(), "T");
-        questions = list.getList();
+        questions = new ArrayList<>(list.getList());
         Collections.shuffle(questions);
     }
 
