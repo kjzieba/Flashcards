@@ -105,6 +105,7 @@ public class TestMode extends JPanel {
 
                 currentQuestion = 1;
                 answerTextArea.setText("");
+                GUInitializer.flag = true;
                 initializer.update(GUInitializer.Panel.Result);
                 nextButton.setText("Next");
             }

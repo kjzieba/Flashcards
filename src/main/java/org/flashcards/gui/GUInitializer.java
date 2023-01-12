@@ -22,10 +22,9 @@ public class GUInitializer extends JFrame implements Initializer {
     private final Result result;
     private final QuestionsAmount questionsAmount;
     private final AddImg addImg;
-
     private EditTextRepo editTextRepo;
-
     public Long editID = 0L;
+    public static Boolean flag;
 
 
     public static Color backgroundColor = new Color(41, 41, 41);
@@ -124,6 +123,8 @@ public class GUInitializer extends JFrame implements Initializer {
                 setContentPane(learnMode);
                 pack();
                 learnMode.setVisible(true);
+                learnMode.setRepo();
+                learnMode.setCard();
             }
             case TestMode -> {
                 questionsAmount.setVisible(false);
@@ -148,9 +149,16 @@ public class GUInitializer extends JFrame implements Initializer {
                 setContentPane(result);
                 pack();
                 result.setVisible(true);
-                result.setScore(testMode.getRightAnswers(),testMode.getWrongAnswers());
-                testMode.setRightAnswers(0);
-                testMode.setWrongAnswers(0);
+                if (flag) {
+                    result.setScore("Correct", "Incorrect", testMode.getRightAnswers(), testMode.getWrongAnswers());
+                    testMode.setRightAnswers(0);
+                    testMode.setWrongAnswers(0);
+                }
+                else if (!flag) {
+                    result.setScore("Know", "Still Learning", learnMode.getKnowWords(), learnMode.getStillLearningWords());
+                    learnMode.setKnowWords(0);
+                    learnMode.setStillLearningWords(0);
+                }
             }
             case QuestionsAmount -> {
                 chooseMode.setVisible(false);

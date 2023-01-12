@@ -5,6 +5,8 @@ import org.flashcards.gui.components.ButtonComponents;
 import javax.swing.*;
 import java.awt.*;
 
+import static org.flashcards.gui.GUInitializer.flag;
+
 public class Result extends JPanel {
     private final Initializer initializer;
     JLabel correctLabel = new JLabel();
@@ -32,10 +34,10 @@ public class Result extends JPanel {
     private void getPointsText() {
         correctLabel.setFont(new Font("Arbutus", Font.PLAIN, 20));
         correctLabel.setForeground(Color.white);
-        correctLabel.setBounds(286, 231, 210, 120);
+        correctLabel.setBounds(286, 231, 310, 120);
         incorrectLabel.setFont(new Font("Arbutus", Font.PLAIN, 20));
         incorrectLabel.setForeground(Color.white);
-        incorrectLabel.setBounds(286, 284, 210, 120);
+        incorrectLabel.setBounds(286, 284, 310, 120);
         add(correctLabel);
         add(incorrectLabel);
     }
@@ -43,7 +45,12 @@ public class Result extends JPanel {
     private void getTryAgainButton() {
         JButton tryAgainButton = new ButtonComponents().smallButtonComponent("Try again", 757, 406);
         tryAgainButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.TestMode);
+            if(flag) {
+                initializer.update(GUInitializer.Panel.TestMode);
+            } else if (!flag) {
+                initializer.update(GUInitializer.Panel.LearnMode);
+
+            }
         });
         add(tryAgainButton);
     }
@@ -56,8 +63,8 @@ public class Result extends JPanel {
         add(backMenuButton);
     }
 
-    public void setScore(int right, int wrong){
-        correctLabel.setText("Correct       " + right);
-        incorrectLabel.setText("Incorrect    " + wrong);
+    public void setScore(String First, String Second, int right, int wrong){
+        correctLabel.setText(First + "        " + right);
+        incorrectLabel.setText(Second + "    " + wrong);
     }
 }
