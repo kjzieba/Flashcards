@@ -186,6 +186,8 @@ public class LearnMode extends JPanel {
         }
         else {
             knowPoints++;
+            know.setText("Know               " + knowPoints);
+            stillLearning.setText("Still learning   " + stillLearningPoints);
             GUInitializer.flag = false;
             initializer.update(GUInitializer.Panel.Result);
         }
@@ -208,6 +210,8 @@ public class LearnMode extends JPanel {
         }
         else {
             stillLearningPoints++;
+            know.setText("Know               " + knowPoints);
+            stillLearning.setText("Still learning   " + stillLearningPoints);
             GUInitializer.flag = false;
             initializer.update(GUInitializer.Panel.Result);
         }
