@@ -1,5 +1,8 @@
 package org.flashcards.gui;
 
+import org.flashcards.App;
+import org.flashcards.collection.TxtFlashcardCollection;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -127,6 +130,10 @@ public class GUInitializer extends JFrame implements Initializer {
                 setContentPane(testMode);
                 pack();
                 testMode.setVisible(true);
+                testMode.setList();
+                testMode.setWordLabel();
+                TestMode.currentQuestion = 1;
+                testMode.updateLabel();
             }
             case FlashCardsMode -> {
                 chooseMode.setVisible(false);
@@ -141,6 +148,9 @@ public class GUInitializer extends JFrame implements Initializer {
                 setContentPane(result);
                 pack();
                 result.setVisible(true);
+                result.setScore(testMode.getRightAnswers(),testMode.getWrongAnswers());
+                testMode.setRightAnswers(0);
+                testMode.setWrongAnswers(0);
             }
             case QuestionsAmount -> {
                 chooseMode.setVisible(false);

@@ -7,6 +7,8 @@ import java.awt.*;
 
 public class Result extends JPanel {
     private final Initializer initializer;
+    JLabel correctLabel = new JLabel();
+    JLabel incorrectLabel = new JLabel();
 
     public Result(Initializer initializer) {
         this.initializer = initializer;
@@ -14,7 +16,7 @@ public class Result extends JPanel {
         setBackground(GUInitializer.backgroundColor);
         setLayout(null);
         getCustomTitle();
-        getPointsText(1,3);
+        getPointsText();
         getBackMenuButton();
         getTryAgainButton();
     }
@@ -27,9 +29,7 @@ public class Result extends JPanel {
         add(title);
     }
 
-    private void getPointsText(int correctPoints, int incorrectPoints) {
-        JLabel correctLabel = new JLabel("Correct       " + correctPoints);
-        JLabel incorrectLabel = new JLabel("Incorrect    " + incorrectPoints);
+    private void getPointsText() {
         correctLabel.setFont(new Font("Arbutus", Font.PLAIN, 20));
         correctLabel.setForeground(Color.white);
         correctLabel.setBounds(286, 231, 210, 120);
@@ -56,7 +56,8 @@ public class Result extends JPanel {
         add(backMenuButton);
     }
 
-
-
-
+    public void setScore(int right, int wrong){
+        correctLabel.setText("Correct       " + right);
+        incorrectLabel.setText("Incorrect    " + wrong);
+    }
 }

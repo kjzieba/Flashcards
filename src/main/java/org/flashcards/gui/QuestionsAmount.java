@@ -79,7 +79,7 @@ public class QuestionsAmount extends JPanel {
         JButton startButton = new ButtonComponents().smallButtonComponent("Start test", 406, 290);
         startButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.TestMode);
-            TestMode.questionNumber.setText(TestMode.actualWord + "/" + QuestionsAmount.amount);
+            TestMode.questionNumber.setText(TestMode.currentQuestion + "/" + QuestionsAmount.amount);
         });
         add(startButton);
     }
