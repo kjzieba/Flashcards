@@ -30,7 +30,6 @@ public class App {
         this.idRepo = num + 1;
     }
 
-    private ComHistory comHistory = new ComHistory();
 
     private final DatabaseProxy dbProxy = DatabaseProxy.getInstance();
 
@@ -146,6 +145,16 @@ public class App {
         command.execute();
     }
 
+    public void saveTxtToMemento(FlashcardTxtHistory flashcardTxtHistory, TxtCard txtCard){
+        Command command = new DelTxtCard(flashcardTxtHistory, idRepo, txtCard);
+        command.execute();
+    }
+
+    public void saveTxtToMemento(FlashcardImgHistory flashcardImgHistory, ImgCard imgCard){
+        Command command = new DelImgCard(flashcardImgHistory, idRepo, imgCard);
+        command.execute();
+    }
+
     public void undo() {
 //        int option = optionHistory.remove(optionHistory.size() - 1);
 //        System.out.println(option);
@@ -162,14 +171,6 @@ public class App {
 //            comHistory.pop();
 //            reposNumber += 1;
 //        }
-    }
-
-    public ComHistory getComHistory() {
-        return comHistory;
-    }
-
-    public void setComHistory(ComHistory comHistory) {
-        this.comHistory = comHistory;
     }
 
     public DatabaseProxy getAllCards() {

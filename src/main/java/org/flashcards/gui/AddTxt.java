@@ -2,6 +2,7 @@
 package org.flashcards.gui;
 
 import org.flashcards.TxtCard;
+import org.flashcards.commands.FlashcardTxtHistory;
 import org.flashcards.gui.components.ButtonComponents;
 import org.flashcards.App;
 
@@ -17,13 +18,19 @@ public class AddTxt extends JPanel {
     private final JTextField nameTextField = new JTextField("Enter a title");
 
     private JScrollPane scrollPane = new JScrollPane();
+
     private JPopupMenu popupMenu = new JPopupMenu();
+
     private JMenuItem delete = new JMenuItem("Delete");
 
+    private JMenuItem undo = new JMenuItem("Undo");
+
+
+    private FlashcardTxtHistory flashcardTxtHistory = new FlashcardTxtHistory();
     private boolean titleSet = false;
 
     private final ArrayList<Long> idCards = new ArrayList<>();
-    private final JPanel content = new JPanel(new GridLayout(0, 2));
+    private final JPanel content = new JPanel(new GridLayout(0, 3));
 
     public AddTxt(Initializer initializer) {
         this.initializer = initializer;
@@ -52,12 +59,50 @@ public class AddTxt extends JPanel {
         add(backButton);
     }
 
+    private Component getDeleteButton(TxtCard card,Component component, Component component2) {
+        JButton deleteButton = new JButton("delete");
+        deleteButton.setBackground(GUInitializer.buttonColor);
+        deleteButton.setForeground(Color.white);
+        deleteButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        deleteButton.setBounds(254, 192, 210, 35);
+        deleteButton.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+        deleteButton.setBorder(BorderFactory.createCompoundBorder(
+                deleteButton.getBorder(),
+                BorderFactory.createEmptyBorder(10, 3, 10, 0)));
+        deleteButton.addActionListener(e -> {
+            if(idCards.contains(card.getId())){
+                idCards.remove(card.getId());
+                App.getInstance().saveTxtToMemento(flashcardTxtHistory,card);
+                content.remove(component);
+                content.remove(component2);
+                content.remove(deleteButton);
+                content.repaint();
+                content.revalidate();
+            }
+            else{
+                content.remove(component);
+                content.remove(component2);
+                content.remove(deleteButton);
+                content.repaint();
+                content.revalidate();
+            }
+
+        });
+        return add(deleteButton);
+    }
+
+
     private void getAddButton() {
         JButton addButton = new ButtonComponents().addButtonComponent(457, 130);
         addButton.addActionListener(e -> {
             TxtCard txtCard = App.getInstance().createEmptyTxtCard();
-            content.add(getTermTextArea(txtCard));
-            content.add(getDefinitionTextArea(txtCard));
+            Component component = getTermTextArea(txtCard);
+            Component component2 = getDefinitionTextArea(txtCard);
+            content.add(component);
+            content.add(component2);
+            content.add(getDeleteButton(txtCard, component, component2));
+            content.repaint();
+            content.revalidate();
         });
         add(addButton);
     }
@@ -74,8 +119,9 @@ public class AddTxt extends JPanel {
             content.revalidate();
             scrollPane.repaint();
             scrollPane.revalidate();
+            getScrollPane();
             titleSet = false;
-            App.getInstance().getAllCards().saveList(App.getInstance().getIdRepo()-1);
+            App.getInstance().getAllCards().saveList(App.getInstance().getIdRepo() - 1);
 
         });
         add(saveButton);
@@ -108,8 +154,8 @@ public class AddTxt extends JPanel {
     }
 
     private Component getTermTextArea(TxtCard card) {
-        JTextArea termTextArea = new JTextArea("term");
-
+        JTextField termTextArea = new JTextField("term");
+        termTextArea.setHorizontalAlignment(JTextField.CENTER);
         termTextArea.setBackground(GUInitializer.buttonColor);
         termTextArea.setForeground(Color.white);
         termTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
@@ -131,30 +177,12 @@ public class AddTxt extends JPanel {
             @Override
             public void focusLost(FocusEvent e) {
                 if (idCards.contains(card.getId())) {
-                    App.getInstance().changeQuestion(card,termTextArea.getText());
+                    App.getInstance().changeQuestion(card, termTextArea.getText());
                 } else {
-                    App.getInstance().changeQuestion(card,termTextArea.getText());
+                    App.getInstance().changeQuestion(card, termTextArea.getText());
                     idCards.add(card.getId());
                     App.getInstance().addTxtCard(card);
                 }
-            }
-        });
-        termTextArea.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent releasedEvent) {
-                if (SwingUtilities.isRightMouseButton(releasedEvent) && releasedEvent.getClickCount() == 1) {
-                    popupMenu.add(delete);
-                    popupMenu.show(termTextArea, releasedEvent.getX(), releasedEvent.getY());
-                }
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent releasedEvent) {
-                delete.addActionListener(event -> {
-//                    App.getInstance().deleteRepo("T");
-                    initializer.update(GUInitializer.Panel.AddTxt);
-                });
-//                App.getInstance().setCurrentRepo(entry.getKey());
             }
         });
 
@@ -162,7 +190,8 @@ public class AddTxt extends JPanel {
     }
 
     private Component getDefinitionTextArea(TxtCard card) {
-        JTextArea definitionTextArea = new JTextArea("definition");
+        JTextField definitionTextArea = new JTextField("definition");
+        definitionTextArea.setHorizontalAlignment(JTextField.CENTER);
         definitionTextArea.setBackground(GUInitializer.buttonColor);
         definitionTextArea.setForeground(Color.white);
         definitionTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
@@ -184,31 +213,12 @@ public class AddTxt extends JPanel {
             @Override
             public void focusLost(FocusEvent e) {
                 if (idCards.contains(card.getId())) {
-                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
+                    App.getInstance().changeAnswer(card, definitionTextArea.getText());
                 } else {
-                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
-                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
+                    App.getInstance().changeAnswer(card, definitionTextArea.getText());
                     idCards.add(card.getId());
                     App.getInstance().addTxtCard(card);
                 }
-            }
-        });
-        definitionTextArea.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent releasedEvent) {
-                if (SwingUtilities.isRightMouseButton(releasedEvent) && releasedEvent.getClickCount() == 1) {
-                    popupMenu.add(delete);
-                    popupMenu.show(definitionTextArea, releasedEvent.getX(), releasedEvent.getY());
-                }
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent releasedEvent) {
-                delete.addActionListener(event -> {
-//                    App.getInstance().deleteRepo("T");
-                    initializer.update(GUInitializer.Panel.AddTxt);
-                });
-//                App.getInstance().setCurrentRepo(entry.getKey());
             }
         });
         return add(definitionTextArea);
@@ -220,8 +230,11 @@ public class AddTxt extends JPanel {
         scrollPane.setAutoscrolls(true);
         scrollPane.createVerticalScrollBar();
         TxtCard txtCard = App.getInstance().createEmptyTxtCard();
-        content.add(getTermTextArea(txtCard));
-        content.add(getDefinitionTextArea(txtCard));
+        Component component = getTermTextArea(txtCard);
+        Component component2 = getDefinitionTextArea(txtCard);
+        content.add(component);
+        content.add(component2);
+        content.add(getDeleteButton(txtCard, component, component2));
         scrollPane.setViewportView(content);
         add(scrollPane);
     }

@@ -12,6 +12,11 @@ public class ImgCard extends Card {
         this.imageQuestion = imageQuestion;
     }
 
+    public MementoImgCard saveToMemento()
+    {
+        System.out.println("Saving time to Memento");
+        return new MementoImgCard(id, imageQuestion, answer);
+    }
 
     public byte[] getImageQuestion() {
         return imageQuestion;
