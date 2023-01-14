@@ -72,8 +72,9 @@ public class EditTextRepo extends JPanel {
         deleteButton.addActionListener(e -> {
             if (idCards.contains(card.getId())) {
                 App.getInstance().saveTxtToMemento(flashcardTxtHistory, card);
+                ImageIcon trashIcon = new ImageIcon("src/main/resources/img/trashIcon.png");
                 int option = JOptionPane.showConfirmDialog(null, "Are you sure?", "Select an Option...",
-                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.OK_CANCEL_OPTION, trashIcon);
                 if (option == 0) {
                     content.remove(component);
                     content.remove(component2);

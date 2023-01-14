@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,8 +72,9 @@ public class AddImg extends JPanel {
         deleteButton.addActionListener(e -> {
             if (idCards.contains(card.getId())) {
                 App.getInstance().saveImgToMemento(flashcardImgHistory, card);
+                ImageIcon trashIcon = new ImageIcon("src/main/resources/img/trashIcon.png");
                 int option = JOptionPane.showConfirmDialog(null, "Are you sure?", "Select an Option...",
-                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.OK_CANCEL_OPTION, trashIcon);
                 if (option == 0) {
                     content.remove(component);
                     content.remove(component2);
@@ -206,7 +208,7 @@ public class AddImg extends JPanel {
                     System.out.println("!");
                     File filePath = new File(fileChooser.getSelectedFile().getAbsolutePath());
                     App.getInstance().changeImage(card,filePath.toString());
-                    Image backgroundImage;
+                    BufferedImage backgroundImage;
                     try {
                         backgroundImage = ImageIO.read(filePath);
                     } catch (IOException ex) {
