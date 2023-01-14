@@ -22,4 +22,8 @@ public class FlashcardTxtHistory {
     public boolean isEmpty() {
         return history.isEmpty();
     }
+
+    public void clear(){
+        history.removeAllElements();
+    }
 }

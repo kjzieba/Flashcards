@@ -48,6 +48,7 @@ public class AddTxt extends JPanel {
             scrollPane.repaint();
             scrollPane.revalidate();
             getScrollPane();
+            flashcardTxtHistory.clear();
         });
 
         add(backButton);
@@ -65,7 +66,6 @@ public class AddTxt extends JPanel {
                 BorderFactory.createEmptyBorder(10, 3, 10, 0)));
         deleteButton.addActionListener(e -> {
             if (idCards.contains(card.getId())) {
-                App.getInstance().saveTxtToMemento(flashcardTxtHistory, card);
                 ImageIcon trashIcon = new ImageIcon("src/main/resources/img/trashIcon.png");
                 int option = JOptionPane.showConfirmDialog(null, "Are you sure?", "Select an Option...",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.OK_CANCEL_OPTION, trashIcon);
@@ -75,9 +75,10 @@ public class AddTxt extends JPanel {
                     content.remove(deleteButton);
                     content.repaint();
                     content.revalidate();
-                } else {
                     idCards.remove(card.getId());
-                    App.getInstance().addTxtCard(App.getInstance().restoreTxtFromMemento(flashcardTxtHistory));
+                    App.getInstance().saveTxtToMemento(flashcardTxtHistory, card);
+                } else {
+
                 }
             } else {
                 content.remove(component);
@@ -120,6 +121,7 @@ public class AddTxt extends JPanel {
             scrollPane.revalidate();
             getScrollPane();
             titleSet = false;
+            flashcardTxtHistory.clear();
             App.getInstance().getAllCards().saveList(App.getInstance().getIdRepo() - 1);
         });
         add(saveButton);

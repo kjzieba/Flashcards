@@ -4,7 +4,6 @@ package org.flashcards.gui;
 import org.flashcards.TxtCard;
 import org.flashcards.collection.FlashcardCollectionInterface;
 import org.flashcards.collection.TxtFlashcardCollection;
-import org.flashcards.commands.Command;
 import org.flashcards.commands.FlashcardTxtHistory;
 import org.flashcards.gui.components.ButtonComponents;
 import org.flashcards.App;
@@ -23,9 +22,9 @@ public class EditTextRepo extends JPanel {
 
     private final JTextField nameTextField = new JTextField("Enter a title");
 
-    private JScrollPane scrollPane = new JScrollPane();
-    private final JTextArea termTextArea = new JTextArea("term");
-    private final JTextArea definitionTextArea = new JTextArea("definition");
+    private final JScrollPane scrollPane = new JScrollPane();
+    private final JTextField termTextArea = new JTextField("term");
+    private final JTextField definitionTextArea = new JTextField("definition");
 
     private final FlashcardTxtHistory flashcardTxtHistory = new FlashcardTxtHistory();
 
@@ -71,7 +70,6 @@ public class EditTextRepo extends JPanel {
                 BorderFactory.createEmptyBorder(10, 3, 10, 0)));
         deleteButton.addActionListener(e -> {
             if (idCards.contains(card.getId())) {
-                App.getInstance().saveTxtToMemento(flashcardTxtHistory, card);
                 ImageIcon trashIcon = new ImageIcon("src/main/resources/img/trashIcon.png");
                 int option = JOptionPane.showConfirmDialog(null, "Are you sure?", "Select an Option...",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.OK_CANCEL_OPTION, trashIcon);
@@ -81,9 +79,10 @@ public class EditTextRepo extends JPanel {
                     content.remove(deleteButton);
                     content.repaint();
                     content.revalidate();
-                } else {
+                    App.getInstance().saveTxtToMemento(flashcardTxtHistory, card);
                     idCards.remove(card.getId());
-                    App.getInstance().addTxtCard(App.getInstance().restoreTxtFromMemento(flashcardTxtHistory));
+                } else {
+
                 }
             } else {
                 content.remove(component);
@@ -110,6 +109,7 @@ public class EditTextRepo extends JPanel {
             content.revalidate();
             scrollPane.repaint();
             scrollPane.revalidate();
+            flashcardTxtHistory.clear();
         });
         add(backButton);
     }
@@ -128,7 +128,7 @@ public class EditTextRepo extends JPanel {
             App.getInstance().deleteRepo("T");
             App.getInstance().saveEditedTxtRepo(txtFlashcardCollection);
             App.getInstance().getAllCards().saveList(App.getInstance().getCurrentRepo());
-
+            flashcardTxtHistory.clear();
         });
         add(saveButton);
     }
@@ -156,7 +156,8 @@ public class EditTextRepo extends JPanel {
     }
 
     private Component getTermTextArea(TxtCard card) {
-        JTextArea termTextArea = new JTextArea(card.getTextQuestion());
+        JTextField termTextArea = new JTextField(card.getTextQuestion());
+        termTextArea.setHorizontalAlignment(JTextField.CENTER);
         termTextArea.setBackground(GUInitializer.buttonColor);
         termTextArea.setForeground(Color.white);
         termTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
@@ -173,9 +174,9 @@ public class EditTextRepo extends JPanel {
 
             @Override
             public void focusLost(FocusEvent e) {
-                    App.getInstance().changeQuestion(card, termTextArea.getText());
+                App.getInstance().changeQuestion(card, termTextArea.getText());
 
-                }
+            }
 
         });
 
@@ -183,7 +184,8 @@ public class EditTextRepo extends JPanel {
     }
 
     private Component getDefinitionTextArea(TxtCard card) {
-        JTextArea definitionTextArea = new JTextArea(card.getAnswer());
+        JTextField definitionTextArea = new JTextField(card.getAnswer());
+        definitionTextArea.setHorizontalAlignment(JTextField.CENTER);
         definitionTextArea.setBackground(GUInitializer.buttonColor);
         definitionTextArea.setForeground(Color.white);
         definitionTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
@@ -199,7 +201,7 @@ public class EditTextRepo extends JPanel {
 
             @Override
             public void focusLost(FocusEvent e) {
-                    App.getInstance().changeAnswer(card, definitionTextArea.getText());
+                App.getInstance().changeAnswer(card, definitionTextArea.getText());
             }
         });
         return add(definitionTextArea);
@@ -217,13 +219,15 @@ public class EditTextRepo extends JPanel {
             Component component2 = getDefinitionTextArea(card);
             content.add(component);
             content.add(component2);
-            content.add(getDeleteButton(card,component,component2));
+            content.add(getDeleteButton(card, component, component2));
         }
         scrollPane.setViewportView(content);
-       add(scrollPane);
+        add(scrollPane);
     }
 
     private Component getTermTextArea2(TxtCard card) {
+        JTextField termTextArea = new JTextField("term");
+        termTextArea.setHorizontalAlignment(JTextField.CENTER);
         termTextArea.setBackground(GUInitializer.buttonColor);
         termTextArea.setForeground(Color.white);
         termTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
@@ -245,9 +249,9 @@ public class EditTextRepo extends JPanel {
             @Override
             public void focusLost(FocusEvent e) {
                 if (idCards.contains(card.getId())) {
-                    App.getInstance().changeQuestion(card,termTextArea.getText());
+                    App.getInstance().changeQuestion(card, termTextArea.getText());
                 } else {
-                    App.getInstance().changeQuestion(card,termTextArea.getText());
+                    App.getInstance().changeQuestion(card, termTextArea.getText());
                     idCards.add(card.getId());
                     App.getInstance().addTxtCard(card);
 
@@ -258,7 +262,9 @@ public class EditTextRepo extends JPanel {
         return add(termTextArea);
     }
 
-    private Component getDefinitionTextArea2(TxtCard card) {
+    private Component getDefinitionTextArea2(TxtCard card){
+        JTextField definitionTextArea = new JTextField("definition");
+        definitionTextArea.setHorizontalAlignment(JTextField.CENTER);
         definitionTextArea.setBackground(GUInitializer.buttonColor);
         definitionTextArea.setForeground(Color.white);
         definitionTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
@@ -280,9 +286,9 @@ public class EditTextRepo extends JPanel {
             @Override
             public void focusLost(FocusEvent e) {
                 if (idCards.contains(card.getId())) {
-                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
+                    App.getInstance().changeAnswer(card, definitionTextArea.getText());
                 } else {
-                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
+                    App.getInstance().changeAnswer(card, definitionTextArea.getText());
                     idCards.add(card.getId());
                     App.getInstance().addTxtCard(card);
                 }

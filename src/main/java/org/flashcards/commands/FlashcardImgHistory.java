@@ -23,4 +23,8 @@ public class FlashcardImgHistory {
     public boolean isEmpty() {
         return history.isEmpty();
     }
+
+    public void clear(){
+        history.removeAllElements();
+    }
 }

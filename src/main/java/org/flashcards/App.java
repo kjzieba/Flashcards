@@ -146,12 +146,12 @@ public class App {
     }
 
     public void saveTxtToMemento(FlashcardTxtHistory flashcardTxtHistory, TxtCard txtCard){
-        Command command = new DelTxtCard(flashcardTxtHistory, idRepo, txtCard);
+        Command command = new DelTxtCard(flashcardTxtHistory, currentRepo, txtCard);
         command.execute();
     }
 
     public void saveImgToMemento(FlashcardImgHistory flashcardImgHistory, ImgCard imgCard){
-        Command command = new DelImgCard(flashcardImgHistory, idRepo, imgCard);
+        Command command = new DelImgCard(flashcardImgHistory, currentRepo, imgCard);
         command.execute();
     }
 

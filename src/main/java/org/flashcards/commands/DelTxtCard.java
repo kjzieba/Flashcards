@@ -21,6 +21,7 @@ public class DelTxtCard implements Command{
 
     @Override
     public void execute() {
+        System.out.println(id);
         TxtFlashcardCollection txtCardRepo = (TxtFlashcardCollection) dbProxy.getFlashcardList(id, "T");
         txtCardRepo.remove(txtCard);
         history.push(txtCard.saveToMemento());

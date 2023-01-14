@@ -61,8 +61,8 @@ public class Menu extends JPanel {
                     BorderFactory.createEmptyBorder(35, 0, 35, 0)));
             contentMenu.add(cardBoardButton);
             cardBoardButton.addActionListener(e -> {
-                initializer.update(GUInitializer.Panel.ChooseMode);
                 App.getInstance().setCurrentRepo(entry.getKey());
+                initializer.update(GUInitializer.Panel.ChooseMode);
             });
             cardBoardButton.addMouseListener(new MouseAdapter() {
                 @Override
@@ -76,12 +76,12 @@ public class Menu extends JPanel {
 
                 @Override
                 public void mouseReleased(MouseEvent releasedEvent) {
+                    App.getInstance().setCurrentRepo(entry.getKey());
                     edit.addActionListener(event -> initializer.update(GUInitializer.Panel.EditTxtRepo));
                     delete.addActionListener(event -> {
                         App.getInstance().deleteRepo("T");
                         initializer.update(GUInitializer.Panel.Menu);
                     });
-                    App.getInstance().setCurrentRepo(entry.getKey());
                 }
             });
 
