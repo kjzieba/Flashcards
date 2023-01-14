@@ -306,7 +306,8 @@ public class EditTextRepo extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyChar() == KeyEvent.VK_U) {
+        char c = e.getKeyChar();
+        if (c == 'U' || c == 'u') {
             if (!(itemsDeleted == 0)) {
                 TxtCard txtCard = App.getInstance().restoreTxtFromMemento(flashcardTxtHistory);
                 idCards.add(txtCard.getId());
