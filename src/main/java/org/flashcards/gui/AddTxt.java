@@ -17,16 +17,9 @@ public class AddTxt extends JPanel {
 
     private final JTextField nameTextField = new JTextField("Enter a title");
 
-    private JScrollPane scrollPane = new JScrollPane();
+    private final JScrollPane scrollPane = new JScrollPane();
 
-    private JPopupMenu popupMenu = new JPopupMenu();
-
-    private JMenuItem delete = new JMenuItem("Delete");
-
-    private JMenuItem undo = new JMenuItem("Undo");
-
-
-    private FlashcardTxtHistory flashcardTxtHistory = new FlashcardTxtHistory();
+    private final FlashcardTxtHistory flashcardTxtHistory = new FlashcardTxtHistory();
     private boolean titleSet = false;
 
     private final ArrayList<Long> idCards = new ArrayList<>();
@@ -54,12 +47,13 @@ public class AddTxt extends JPanel {
             content.revalidate();
             scrollPane.repaint();
             scrollPane.revalidate();
+            getScrollPane();
         });
 
         add(backButton);
     }
 
-    private Component getDeleteButton(TxtCard card,Component component, Component component2) {
+    private Component getDeleteButton(TxtCard card, Component component, Component component2) {
         JButton deleteButton = new JButton("delete");
         deleteButton.setBackground(GUInitializer.buttonColor);
         deleteButton.setForeground(Color.white);
@@ -70,23 +64,27 @@ public class AddTxt extends JPanel {
                 deleteButton.getBorder(),
                 BorderFactory.createEmptyBorder(10, 3, 10, 0)));
         deleteButton.addActionListener(e -> {
-            if(idCards.contains(card.getId())){
-                idCards.remove(card.getId());
-                App.getInstance().saveTxtToMemento(flashcardTxtHistory,card);
+            if (idCards.contains(card.getId())) {
+                App.getInstance().saveTxtToMemento(flashcardTxtHistory, card);
+                int option = JOptionPane.showConfirmDialog(null, "Are you sure?", "Select an Option...",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (option == 0) {
+                    content.remove(component);
+                    content.remove(component2);
+                    content.remove(deleteButton);
+                    content.repaint();
+                    content.revalidate();
+                } else {
+                    idCards.remove(card.getId());
+                    App.getInstance().addTxtCard(App.getInstance().restoreTxtFromMemento(flashcardTxtHistory));
+                }
+            } else {
                 content.remove(component);
                 content.remove(component2);
                 content.remove(deleteButton);
                 content.repaint();
                 content.revalidate();
             }
-            else{
-                content.remove(component);
-                content.remove(component2);
-                content.remove(deleteButton);
-                content.repaint();
-                content.revalidate();
-            }
-
         });
         return add(deleteButton);
     }
@@ -122,7 +120,6 @@ public class AddTxt extends JPanel {
             getScrollPane();
             titleSet = false;
             App.getInstance().getAllCards().saveList(App.getInstance().getIdRepo() - 1);
-
         });
         add(saveButton);
     }

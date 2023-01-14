@@ -4,6 +4,8 @@ package org.flashcards.gui;
 import org.flashcards.TxtCard;
 import org.flashcards.collection.FlashcardCollectionInterface;
 import org.flashcards.collection.TxtFlashcardCollection;
+import org.flashcards.commands.Command;
+import org.flashcards.commands.FlashcardTxtHistory;
 import org.flashcards.gui.components.ButtonComponents;
 import org.flashcards.App;
 
@@ -11,8 +13,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -24,14 +24,14 @@ public class EditTextRepo extends JPanel {
     private final JTextField nameTextField = new JTextField("Enter a title");
 
     JScrollPane scrollPane = new JScrollPane();
-    private JPopupMenu popupMenu = new JPopupMenu();
-    private JMenuItem delete = new JMenuItem("Delete");
-    private JTextArea termTextArea = new JTextArea("term");
-    private JTextArea definitionTextArea = new JTextArea("definition");
+    private final JTextArea termTextArea = new JTextArea("term");
+    private final JTextArea definitionTextArea = new JTextArea("definition");
+
+    private final FlashcardTxtHistory flashcardTxtHistory = new FlashcardTxtHistory();
 
     private TxtFlashcardCollection txtFlashcardCollection = new TxtFlashcardCollection("", new ArrayList<>(), 0L);
 
-    private final JPanel content = new JPanel(new GridLayout(0, 2));
+    private final JPanel content = new JPanel(new GridLayout(0, 3));
 
 
     public EditTextRepo(Initializer initializer) {
@@ -48,10 +48,51 @@ public class EditTextRepo extends JPanel {
         JButton addButton = new ButtonComponents().addButtonComponent(457, 130);
         addButton.addActionListener(e -> {
             TxtCard txtCard = App.getInstance().createEmptyTxtCard();
-            content.add(getTermTextArea2(txtCard));
-            content.add(getDefinitionTextArea2(txtCard));
+            Component component = getTermTextArea2(txtCard);
+            Component component2 = getDefinitionTextArea2(txtCard);
+            content.add(component);
+            content.add(component2);
+            content.add(getDeleteButton(txtCard, component, component2));
+            content.repaint();
+            content.revalidate();
         });
         add(addButton);
+    }
+
+    private Component getDeleteButton(TxtCard card, Component component, Component component2) {
+        JButton deleteButton = new JButton("delete");
+        deleteButton.setBackground(GUInitializer.buttonColor);
+        deleteButton.setForeground(Color.white);
+        deleteButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        deleteButton.setBounds(254, 192, 210, 35);
+        deleteButton.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+        deleteButton.setBorder(BorderFactory.createCompoundBorder(
+                deleteButton.getBorder(),
+                BorderFactory.createEmptyBorder(10, 3, 10, 0)));
+        deleteButton.addActionListener(e -> {
+            if (idCards.contains(card.getId())) {
+                App.getInstance().saveTxtToMemento(flashcardTxtHistory, card);
+                int option = JOptionPane.showConfirmDialog(null, "Are you sure?", "Select an Option...",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (option == 0) {
+                    content.remove(component);
+                    content.remove(component2);
+                    content.remove(deleteButton);
+                    content.repaint();
+                    content.revalidate();
+                } else {
+                    idCards.remove(card.getId());
+                    App.getInstance().addTxtCard(App.getInstance().restoreTxtFromMemento(flashcardTxtHistory));
+                }
+            } else {
+                content.remove(component);
+                content.remove(component2);
+                content.remove(deleteButton);
+                content.repaint();
+                content.revalidate();
+            }
+        });
+        return add(deleteButton);
     }
 
     public void setRepo() {
@@ -69,7 +110,6 @@ public class EditTextRepo extends JPanel {
             scrollPane.repaint();
             scrollPane.revalidate();
         });
-
         add(backButton);
     }
 
@@ -170,44 +210,12 @@ public class EditTextRepo extends JPanel {
         scrollPane.setAutoscrolls(true);
         scrollPane.createVerticalScrollBar();
         for (TxtCard card : txtFlashcardCollection.getList()) {
-            content.add(getTermTextArea(card));
-            content.add(getDefinitionTextArea(card));
-            termTextArea.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent releasedEvent) {
-                    if (SwingUtilities.isRightMouseButton(releasedEvent) && releasedEvent.getClickCount() == 1) {
-                        popupMenu.add(delete);
-                        popupMenu.show(termTextArea, releasedEvent.getX(), releasedEvent.getY());
-                    }
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent releasedEvent) {
-                    delete.addActionListener(event -> {
-                        App.getInstance().deleteRepo("T");
-                        initializer.update(GUInitializer.Panel.AddTxt);
-                    });
-//                App.getInstance().setCurrentRepo(entry.getKey());
-                }
-            });
-            definitionTextArea.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent releasedEvent) {
-                    if (SwingUtilities.isRightMouseButton(releasedEvent) && releasedEvent.getClickCount() == 1) {
-                        popupMenu.add(delete);
-                        popupMenu.show(definitionTextArea, releasedEvent.getX(), releasedEvent.getY());
-                    }
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent releasedEvent) {
-                    delete.addActionListener(event -> {
-//                    App.getInstance().deleteRepo("T");
-                        initializer.update(GUInitializer.Panel.AddTxt);
-                    });
-//                App.getInstance().setCurrentRepo(entry.getKey());
-                }
-            });
+            idCards.add(card.getId());
+            Component component = getTermTextArea(card);
+            Component component2 = getDefinitionTextArea(card);
+            content.add(component);
+            content.add(component2);
+            content.add(getDeleteButton(card,component,component2));
         }
         scrollPane.setViewportView(content);
        add(scrollPane);

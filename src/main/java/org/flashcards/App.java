@@ -150,28 +150,21 @@ public class App {
         command.execute();
     }
 
-    public void saveTxtToMemento(FlashcardImgHistory flashcardImgHistory, ImgCard imgCard){
+    public void saveImgToMemento(FlashcardImgHistory flashcardImgHistory, ImgCard imgCard){
         Command command = new DelImgCard(flashcardImgHistory, idRepo, imgCard);
         command.execute();
     }
 
-    public void undo() {
-//        int option = optionHistory.remove(optionHistory.size() - 1);
-//        System.out.println(option);
-//        if (option == 1) {
-//            allCards.deleteFromAll(addedId.remove(addedId.size() - 1));
-//            comHistory.pop();
-//            reposNumber -= 1;
-//        } else if (option == 2) {
-//            allCards.deleteFromAll(editedId.get(editedId.size() - 1));
-//            allCards.addToAll(editedId.remove(editedId.size() - 1), reposHistory.remove(reposHistory.size() - 1));
-//            comHistory.pop();
-//        } else if (option == 3) {
-//            allCards.addToAll(deletedId.remove(deletedId.size() - 1), deletedRepos.remove(deletedRepos.size() - 1));
-//            comHistory.pop();
-//            reposNumber += 1;
-//        }
+    public TxtCard restoreTxtFromMemento(FlashcardTxtHistory flashcardTxtHistory){
+        MementoTxtCard mementoTxtCard = flashcardTxtHistory.pop();
+        return new TxtCard(mementoTxtCard.getId(), mementoTxtCard.getTextQuestion(), mementoTxtCard.getAnswer());
     }
+
+    public ImgCard restoreImgFromMemento(FlashcardImgHistory flashcardImgHistory){
+        MementoImgCard mementoImgCard = flashcardImgHistory.pop();
+        return new ImgCard(mementoImgCard.getId(), mementoImgCard.getAnswer(), mementoImgCard.getImage());
+    }
+
 
     public DatabaseProxy getAllCards() {
         return dbProxy;
