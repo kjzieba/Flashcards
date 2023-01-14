@@ -12,10 +12,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class EditTextRepo extends JPanel {
+public class EditTextRepo extends JPanel implements KeyListener {
     private final Initializer initializer;
 
     private final ArrayList<Long> idCards = new ArrayList<>();
@@ -23,14 +25,14 @@ public class EditTextRepo extends JPanel {
     private final JTextField nameTextField = new JTextField("Enter a title");
 
     private final JScrollPane scrollPane = new JScrollPane();
-    private final JTextField termTextArea = new JTextField("term");
-    private final JTextField definitionTextArea = new JTextField("definition");
 
     private final FlashcardTxtHistory flashcardTxtHistory = new FlashcardTxtHistory();
 
     private TxtFlashcardCollection txtFlashcardCollection = new TxtFlashcardCollection("", new ArrayList<>(), 0L);
 
     private final JPanel content = new JPanel(new GridLayout(0, 3));
+
+    private int itemsDeleted = 0;
 
 
     public EditTextRepo(Initializer initializer) {
@@ -41,6 +43,9 @@ public class EditTextRepo extends JPanel {
         getBackButton();
         getSaveButton();
         getAddButton();
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+        addKeyListener(this);
     }
 
     private void getAddButton() {
@@ -79,10 +84,9 @@ public class EditTextRepo extends JPanel {
                     content.remove(deleteButton);
                     content.repaint();
                     content.revalidate();
-                    App.getInstance().saveTxtToMemento(flashcardTxtHistory, card);
                     idCards.remove(card.getId());
-                } else {
-
+                    App.getInstance().saveTxtToMemento(flashcardTxtHistory, card);
+                    itemsDeleted = itemsDeleted + 1;
                 }
             } else {
                 content.remove(component);
@@ -110,6 +114,7 @@ public class EditTextRepo extends JPanel {
             scrollPane.repaint();
             scrollPane.revalidate();
             flashcardTxtHistory.clear();
+            itemsDeleted = 0;
         });
         add(backButton);
     }
@@ -129,6 +134,7 @@ public class EditTextRepo extends JPanel {
             App.getInstance().saveEditedTxtRepo(txtFlashcardCollection);
             App.getInstance().getAllCards().saveList(App.getInstance().getCurrentRepo());
             flashcardTxtHistory.clear();
+            itemsDeleted = 0;
         });
         add(saveButton);
     }
@@ -239,9 +245,7 @@ public class EditTextRepo extends JPanel {
         termTextArea.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (idCards.contains(card.getId()) && !Objects.equals(termTextArea.getText(), "term")) {
-
-                } else {
+                if (!(idCards.contains(card.getId()) && !Objects.equals(termTextArea.getText(), "term"))) {
                     termTextArea.setText("");
                 }
             }
@@ -276,9 +280,7 @@ public class EditTextRepo extends JPanel {
         definitionTextArea.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (idCards.contains(card.getId()) && !Objects.equals(definitionTextArea.getText(), "definition")) {
-
-                } else {
+                if (!(idCards.contains(card.getId()) && !Objects.equals(definitionTextArea.getText(), "definition"))) {
                     definitionTextArea.setText("");
                 }
             }
@@ -297,4 +299,33 @@ public class EditTextRepo extends JPanel {
         return add(definitionTextArea);
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyChar() == KeyEvent.VK_U) {
+            if (!(itemsDeleted == 0)) {
+                TxtCard txtCard = App.getInstance().restoreTxtFromMemento(flashcardTxtHistory);
+                idCards.add(txtCard.getId());
+                App.getInstance().addTxtCard(txtCard);
+                Component component = getTermTextArea(txtCard);
+                Component component2 = getDefinitionTextArea(txtCard);
+                content.add(component);
+                content.add(component2);
+                content.add(getDeleteButton(txtCard, component, component2));
+                content.repaint();
+                content.revalidate();
+                itemsDeleted = itemsDeleted - 1;
+            }
+        }
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 }

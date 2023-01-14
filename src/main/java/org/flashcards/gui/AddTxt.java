@@ -12,7 +12,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class AddTxt extends JPanel {
+public class AddTxt extends JPanel implements KeyListener {
     private final Initializer initializer;
 
     private final JTextField nameTextField = new JTextField("Enter a title");
@@ -25,6 +25,8 @@ public class AddTxt extends JPanel {
     private final ArrayList<Long> idCards = new ArrayList<>();
     private final JPanel content = new JPanel(new GridLayout(0, 3));
 
+    private int itemsDeleted = 0;
+
     public AddTxt(Initializer initializer) {
         this.initializer = initializer;
         setPreferredSize(new Dimension(960, 560));
@@ -35,6 +37,9 @@ public class AddTxt extends JPanel {
         getAddButton();
         getNameRepository();
         getScrollPane();
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+        addKeyListener(this);
     }
 
     private void getBackButton() {
@@ -53,6 +58,8 @@ public class AddTxt extends JPanel {
 
         add(backButton);
     }
+
+
 
     private Component getDeleteButton(TxtCard card, Component component, Component component2) {
         JButton deleteButton = new JButton("delete");
@@ -77,8 +84,7 @@ public class AddTxt extends JPanel {
                     content.revalidate();
                     idCards.remove(card.getId());
                     App.getInstance().saveTxtToMemento(flashcardTxtHistory, card);
-                } else {
-
+                    itemsDeleted = itemsDeleted + 1;
                 }
             } else {
                 content.remove(component);
@@ -112,7 +118,6 @@ public class AddTxt extends JPanel {
         saveButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.ChooseMode);
             nameTextField.setText("Enter a title");
-            System.out.println(App.getInstance().getAllCards());
             App.getInstance().setIdRepo(App.getInstance().getIdRepo() + 1);
             content.removeAll();
             content.repaint();
@@ -137,9 +142,7 @@ public class AddTxt extends JPanel {
         nameTextField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (titleSet) {
-
-                } else {
+                if (!titleSet) {
                     nameTextField.setText("");
                 }
             }
@@ -167,9 +170,7 @@ public class AddTxt extends JPanel {
         termTextArea.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (idCards.contains(card.getId()) && !Objects.equals(termTextArea.getText(), "term")) {
-
-                } else {
+                if (!(idCards.contains(card.getId()) && !Objects.equals(termTextArea.getText(), "term"))) {
                     termTextArea.setText("");
                 }
             }
@@ -203,9 +204,7 @@ public class AddTxt extends JPanel {
         definitionTextArea.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (idCards.contains(card.getId()) && !Objects.equals(definitionTextArea.getText(), "definition")) {
-
-                } else {
+                if (!(idCards.contains(card.getId()) && !Objects.equals(definitionTextArea.getText(), "definition"))) {
                     definitionTextArea.setText("");
                 }
             }
@@ -238,5 +237,86 @@ public class AddTxt extends JPanel {
         content.add(getDeleteButton(txtCard, component, component2));
         scrollPane.setViewportView(content);
         add(scrollPane);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyChar() == KeyEvent.VK_U) {
+            if (!(itemsDeleted == 0)) {
+                TxtCard txtCard = App.getInstance().restoreTxtFromMemento(flashcardTxtHistory);
+                idCards.add(txtCard.getId());
+                App.getInstance().addTxtCard(txtCard);
+                Component component = getTermTextArea2(txtCard);
+                Component component2 = getDefinitionTextArea2(txtCard);
+                content.add(component);
+                content.add(component2);
+                content.add(getDeleteButton(txtCard, component, component2));
+                content.repaint();
+                content.revalidate();
+                itemsDeleted = itemsDeleted - 1;
+            }
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
+    private Component getTermTextArea2(TxtCard card) {
+        JTextField termTextArea = new JTextField(card.getTextQuestion());
+        termTextArea.setHorizontalAlignment(JTextField.CENTER);
+        termTextArea.setBackground(GUInitializer.buttonColor);
+        termTextArea.setForeground(Color.white);
+        termTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        termTextArea.setBounds(254, 192, 210, 35);
+        termTextArea.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+        termTextArea.setBorder(BorderFactory.createCompoundBorder(
+                termTextArea.getBorder(),
+                BorderFactory.createEmptyBorder(10, 3, 10, 0)));
+        termTextArea.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+            }
+
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                App.getInstance().changeQuestion(card, termTextArea.getText());
+
+            }
+
+        });
+
+        return add(termTextArea);
+    }
+
+    private Component getDefinitionTextArea2(TxtCard card) {
+        JTextField definitionTextArea = new JTextField(card.getAnswer());
+        definitionTextArea.setHorizontalAlignment(JTextField.CENTER);
+        definitionTextArea.setBackground(GUInitializer.buttonColor);
+        definitionTextArea.setForeground(Color.white);
+        definitionTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        definitionTextArea.setBounds(496, 192, 210, 85);
+        definitionTextArea.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+        definitionTextArea.setBorder(BorderFactory.createCompoundBorder(
+                definitionTextArea.getBorder(),
+                BorderFactory.createEmptyBorder(10, 3, 10, 0)));
+        definitionTextArea.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                App.getInstance().changeAnswer(card, definitionTextArea.getText());
+            }
+        });
+        return add(definitionTextArea);
     }
 }

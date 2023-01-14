@@ -33,13 +33,11 @@ public class App {
 
     private final DatabaseProxy dbProxy = DatabaseProxy.getInstance();
 
-    private ArrayList<Long> addedId = new ArrayList<>();
+    private final ArrayList<Long> addedId = new ArrayList<>();
 
-    private ArrayList<FlashcardCollectionInterface> deletedRepos = new ArrayList<>();
+    private final ArrayList<FlashcardCollectionInterface> deletedRepos = new ArrayList<>();
 
-    private ArrayList<Long> deletedId = new ArrayList<>();
-
-    private ArrayList<Long> editedId = new ArrayList<>();
+    private final ArrayList<Long> deletedId = new ArrayList<>();
 
     private final TxtCardCreator txtCardCreator = new TxtCardCreator();
 
@@ -56,10 +54,6 @@ public class App {
 
     private int reposNumber = 0;
 
-    boolean end = false;
-
-
-    ArrayList<FlashcardCollectionInterface> reposHistory = new ArrayList<>();
 
     public TxtCard createEmptyTxtCard() {
         TxtCard txtCard = txtCardCreator.createFlashcard(idTxtCards, "", "");
@@ -170,42 +164,6 @@ public class App {
         return dbProxy;
     }
 
-    public ArrayList<Long> getAddedId() {
-        return addedId;
-    }
-
-    public void setAddedId(ArrayList<Long> addedId) {
-        this.addedId = addedId;
-    }
-
-    public ArrayList<FlashcardCollectionInterface> getDeletedRepos() {
-        return deletedRepos;
-    }
-
-    public void setDeletedRepos(ArrayList<FlashcardCollectionInterface> deletedRepos) {
-        this.deletedRepos = deletedRepos;
-    }
-
-    public ArrayList<Long> getDeletedId() {
-        return deletedId;
-    }
-
-    public void setDeletedId(ArrayList<Long> deletedId) {
-        this.deletedId = deletedId;
-    }
-
-    public ArrayList<Long> getEditedId() {
-        return editedId;
-    }
-
-    public void setEditedId(ArrayList<Long> editedId) {
-        this.editedId = editedId;
-    }
-
-    public static void setInstance(App instance) {
-        App.instance = instance;
-    }
-
 
     public Long getIdRepo() {
         return idRepo;
@@ -215,46 +173,6 @@ public class App {
         this.idRepo = idRepo;
     }
 
-    public Long getIdTxtCards() {
-        return idTxtCards;
-    }
-
-    public void setIdTxtCards(Long idTxtCards) {
-        this.idTxtCards = idTxtCards;
-    }
-
-    public Long getIdImgCards() {
-        return idImgCards;
-    }
-
-    public void setIdImgCards(Long idImgCards) {
-        this.idImgCards = idImgCards;
-    }
-
-    public int getReposNumber() {
-        return reposNumber;
-    }
-
-    public void setReposNumber(int reposNumber) {
-        this.reposNumber = reposNumber;
-    }
-
-    public boolean isEnd() {
-        return end;
-    }
-
-    public void setEnd(boolean end) {
-        this.end = end;
-    }
-
-
-    public ArrayList<FlashcardCollectionInterface> getReposHistory() {
-        return reposHistory;
-    }
-
-    public void setReposHistory(ArrayList<FlashcardCollectionInterface> reposHistory) {
-        this.reposHistory = reposHistory;
-    }
 
     public Long getCurrentRepo() {
         return currentRepo;
