@@ -6,14 +6,12 @@ import org.flashcards.ImgCard;
 import org.flashcards.commands.FlashcardImgHistory;
 import org.flashcards.gui.components.ButtonComponents;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -205,18 +203,10 @@ public class AddImg extends JPanel {
                 fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
                 int res = fileChooser.showOpenDialog(null);
                 if(res == JFileChooser.APPROVE_OPTION) {
-                    System.out.println("!");
                     File filePath = new File(fileChooser.getSelectedFile().getAbsolutePath());
+                    Path fileName = filePath.toPath().getFileName();
                     App.getInstance().changeImage(card,filePath.toString());
-                    BufferedImage backgroundImage;
-                    try {
-                        backgroundImage = ImageIO.read(filePath);
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    imgButton.setBorder(BorderFactory.createEmptyBorder());
-                    imgButton.setContentAreaFilled(false);
-                    imgButton.setSelectedIcon(new ImageIcon(backgroundImage));
+                    imgButton.setText(String.valueOf(fileName));
                 }
             }
         });

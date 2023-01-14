@@ -31,4 +31,15 @@ public class CardComponent {
         return cardReverseButton;
     }
 
+    public JButton cardButtonImgComponent(int x, int y, int width, int height, String imgPath) {
+        JButton cardImgButton = new JButton();
+        cardImgButton.setIcon(new ImageIcon(imgPath));
+        cardImgButton.setBounds(x, y, width, height);
+        cardImgButton.setBackground(GUInitializer.buttonColor);
+        cardImgButton.setOpaque(true);
+        cardImgButton.setBorderPainted(false);
+        cardImgButton.setFocusPainted(false);
+        return cardImgButton;
+    }
+
 }

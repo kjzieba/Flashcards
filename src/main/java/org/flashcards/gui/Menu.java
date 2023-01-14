@@ -41,7 +41,6 @@ public class Menu extends JPanel {
 
     private void getAddButton() {
         JButton addButton = new ButtonComponents().addButtonComponent(833, 6);
-        getAddDescription();
         addButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Add);
         });
@@ -53,6 +52,7 @@ public class Menu extends JPanel {
         JPopupMenu popupMenu = new JPopupMenu();
         JMenuItem delete = new JMenuItem("Delete");
         JMenuItem edit = new JMenuItem("Edit");
+        getAddDescription();
 
         for (var entry : cards.entrySet()) {
             JButton cardBoardButton = new ButtonComponents().cardTitleButtonComponent(entry.getValue(), 126, 110);

@@ -19,11 +19,11 @@ public class FlashCardsMode extends JPanel {
     private final Initializer initializer;
     private JButton cardView;
     private JButton cardReverseView;
+    private JButton cardImg;
     private JButton flagButton = new FlashCardComponent().flagButtonComponent(655, 135);
     private JButton redFlagButton = new FlashCardComponent().redFlagButtonComponent(655, 135);
 
-    TxtCard txtCard = App.getInstance().createEmptyTxtCard();
-
+    private TxtCard txtCard = App.getInstance().createEmptyTxtCard();
     private TxtFlashcardCollection txtFlashcardCollection = new TxtFlashcardCollection("", new ArrayList<>(), 0L);
     private Iterator it;
 
@@ -31,6 +31,7 @@ public class FlashCardsMode extends JPanel {
         this.initializer = initializer;
         cardView = new CardComponent().cardButtonComponent(318, 135, 323, 175, "");
         cardReverseView = new CardComponent().cardReverseButtonComponent(318, 135, 323, 175, "");
+        cardImg = new CardComponent().cardButtonImgComponent(318, 135, 323, 175, "src/main/resources/img/panini.jpg");
 
         setPreferredSize(new Dimension(960, 560));
         setBackground(GUInitializer.backgroundColor);
@@ -57,21 +58,26 @@ public class FlashCardsMode extends JPanel {
     }
 
     private void getCardView() {
-        cardView.addActionListener(e -> {
-            cardView.setVisible(false);
+//        cardView.addActionListener(e -> {
+//            cardView.setVisible(false);
+//            cardReverseView.setVisible(true);
+//        });
+//        add(cardView);
+        cardImg.addActionListener(e -> {
+            cardImg.setVisible(false);
             cardReverseView.setVisible(true);
         });
-        add(cardView);
+        add(cardImg);
     }
 
     private void getCardViewReverse() {
         cardReverseView.addActionListener(e -> {
             cardReverseView.setVisible(false);
             cardView.setVisible(true);
+            cardImg.setVisible(true);
         });
         add(cardReverseView);
     }
-
 
 
     private void getLeftArrow() {
