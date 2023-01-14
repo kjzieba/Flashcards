@@ -17,15 +17,10 @@ import java.util.Objects;
 
 public class AddImg extends JPanel {
     private final Initializer initializer;
-
     private final JTextField nameTextField = new JTextField("Enter a title");
-
     private final JScrollPane scrollPane = new JScrollPane();
-
     private final FlashcardImgHistory flashcardImgHistory = new FlashcardImgHistory();
-
     private boolean titleSet = false;
-
     private final ArrayList<Long> idCards = new ArrayList<>();
     private final JPanel content = new JPanel(new GridLayout(0, 3));
 
@@ -59,7 +54,7 @@ public class AddImg extends JPanel {
 
     private Component getDeleteButton(ImgCard card, Component component, Component component2) {
         JButton deleteButton = new JButton("delete");
-        deleteButton.setBackground(GUInitializer.buttonColor);
+        deleteButton.setBackground(Color.gray);
         deleteButton.setForeground(Color.white);
         deleteButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
         deleteButton.setBounds(254, 192, 210, 35);
@@ -72,7 +67,7 @@ public class AddImg extends JPanel {
                 App.getInstance().saveImgToMemento(flashcardImgHistory, card);
                 ImageIcon trashIcon = new ImageIcon("src/main/resources/img/trashIcon.png");
                 int option = JOptionPane.showConfirmDialog(null, "Are you sure?", "Select an Option...",
-                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.OK_CANCEL_OPTION, trashIcon);
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, trashIcon);
                 if (option == 0) {
                     content.remove(component);
                     content.remove(component2);

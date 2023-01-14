@@ -56,7 +56,7 @@ public class AddTxt extends JPanel {
 
     private Component getDeleteButton(TxtCard card, Component component, Component component2) {
         JButton deleteButton = new JButton("delete");
-        deleteButton.setBackground(GUInitializer.buttonColor);
+        deleteButton.setBackground(Color.gray);
         deleteButton.setForeground(Color.white);
         deleteButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
         deleteButton.setBounds(254, 192, 210, 35);
@@ -68,7 +68,7 @@ public class AddTxt extends JPanel {
             if (idCards.contains(card.getId())) {
                 ImageIcon trashIcon = new ImageIcon("src/main/resources/img/trashIcon.png");
                 int option = JOptionPane.showConfirmDialog(null, "Are you sure?", "Select an Option...",
-                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.OK_CANCEL_OPTION, trashIcon);
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, trashIcon);
                 if (option == 0) {
                     content.remove(component);
                     content.remove(component2);

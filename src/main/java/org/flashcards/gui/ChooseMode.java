@@ -28,7 +28,7 @@ public class ChooseMode extends JPanel {
     }
 
     private void getFlashCardsButton() {
-        JButton flashcardsButton = new ButtonComponents().bigButtonComponent("flashcards", 149, 47);
+        JButton flashcardsButton = new ButtonComponents().bigButtonComponent("flashcards", 149, 239);
         flashcardsButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.FlashCardsMode);
         });
@@ -36,7 +36,7 @@ public class ChooseMode extends JPanel {
     }
 
     private void getLearnButton() {
-        JButton learnButton = new ButtonComponents().bigButtonComponent("learn", 392, 47);
+        JButton learnButton = new ButtonComponents().bigButtonComponent("learn", 392, 239);
         learnButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.LearnMode);
         });
@@ -44,7 +44,7 @@ public class ChooseMode extends JPanel {
     }
 
     private void getTestButton() {
-        JButton testButton = new ButtonComponents().bigButtonComponent("test", 635, 47);
+        JButton testButton = new ButtonComponents().bigButtonComponent("test", 635, 239);
         testButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.QuestionsAmount);
         });

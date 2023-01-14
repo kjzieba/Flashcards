@@ -37,7 +37,7 @@ public class QuestionsAmount extends JPanel {
         questionsAmountTitle.setText(amount + " questions");
         questionsAmountTitle.setFont(new Font("Arbutus", Font.PLAIN, 17));
         questionsAmountTitle.setForeground(Color.white);
-        questionsAmountTitle.setBounds(423, 190, 700, 50);
+        questionsAmountTitle.setBounds(428, 190, 700, 50);
         add(questionsAmountTitle);
     }
 
@@ -76,7 +76,7 @@ public class QuestionsAmount extends JPanel {
     }
 
     private void getStartButton() {
-        JButton startButton = new ButtonComponents().smallButtonComponent("Start test", 406, 290);
+        JButton startButton = new ButtonComponents().smallButtonComponent("Start test", 412, 290);
         startButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.TestMode);
             TestMode.questionNumber.setText(TestMode.currentQuestion + "/" + QuestionsAmount.amount);

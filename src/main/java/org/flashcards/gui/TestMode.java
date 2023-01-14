@@ -13,12 +13,12 @@ import java.util.Collections;
 public class TestMode extends JPanel {
 
     private final Initializer initializer;
-    static JLabel questionNumber = new JLabel();
-    JTextArea answerTextArea = new JTextArea();
-    JLabel cardWord = new JLabel();
-    static int currentQuestion = 1;
-    TxtFlashcardCollection list;
-    ArrayList<TxtCard> questions;
+    public static JLabel questionNumber = new JLabel();
+    private JTextArea answerTextArea = new JTextArea();
+    private JLabel cardWord = new JLabel();
+    public static int currentQuestion = 1;
+    private TxtFlashcardCollection list;
+    private ArrayList<TxtCard> questions;
 
     private int rightAnswers = 0;
     private int wrongAnswers = 0;
@@ -53,16 +53,17 @@ public class TestMode extends JPanel {
     private void getWordLabel() {
         cardWord.setFont(new Font("Arbutus", Font.PLAIN, 25));
         cardWord.setForeground(Color.white);
-        cardWord.setBounds(388, 157, 700, 50);
+        cardWord.setBounds(275, 157, 409, 50);
         add(cardWord);
     }
 
     public void setWordLabel() {
         cardWord.setText(questions.get(currentQuestion - 1).getTextQuestion());
+        cardWord.setHorizontalAlignment(SwingConstants.CENTER);
+        cardWord.setVerticalAlignment(SwingConstants.CENTER);
     }
 
     private void getAnswerTextArea() {
-
         answerTextArea.setBackground(GUInitializer.buttonColor);
         answerTextArea.setForeground(Color.white);
         answerTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
