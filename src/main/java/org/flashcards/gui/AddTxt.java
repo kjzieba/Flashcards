@@ -66,8 +66,9 @@ public class AddTxt extends JPanel {
         deleteButton.addActionListener(e -> {
             if (idCards.contains(card.getId())) {
                 App.getInstance().saveTxtToMemento(flashcardTxtHistory, card);
+                ImageIcon trashIcon = new ImageIcon("src/main/resources/img/trashIcon.png");
                 int option = JOptionPane.showConfirmDialog(null, "Are you sure?", "Select an Option...",
-                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.OK_CANCEL_OPTION, trashIcon);
                 if (option == 0) {
                     content.remove(component);
                     content.remove(component2);
@@ -226,6 +227,7 @@ public class AddTxt extends JPanel {
         scrollPane.setBounds(193, 176, 570, 350);
         scrollPane.setAutoscrolls(true);
         scrollPane.createVerticalScrollBar();
+        scrollPane.getVerticalScrollBar().setUI(null);
         TxtCard txtCard = App.getInstance().createEmptyTxtCard();
         Component component = getTermTextArea(txtCard);
         Component component2 = getDefinitionTextArea(txtCard);

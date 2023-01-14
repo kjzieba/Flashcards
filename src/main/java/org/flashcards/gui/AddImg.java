@@ -99,8 +99,8 @@ public class AddImg extends JPanel {
         JButton addButton = new ButtonComponents().addButtonComponent(457, 130);
         addButton.addActionListener(e -> {
             ImgCard imgCard = App.getInstance().createEmptyImgCard();
-            Component component = getAnswer(imgCard);
-            Component component2 = getImg(imgCard);
+            Component component = getImg(imgCard);
+            Component component2 = getAnswer(imgCard);
             content.add(component);
             content.add(component2);
             content.add(getDeleteButton(imgCard, component, component2));
@@ -226,6 +226,7 @@ public class AddImg extends JPanel {
         scrollPane.setBounds(193, 176, 570, 350);
         scrollPane.setAutoscrolls(true);
         scrollPane.createVerticalScrollBar();
+        scrollPane.getVerticalScrollBar().setUI(null);
         ImgCard imgCard = App.getInstance().createEmptyImgCard();
         Component component = getImg(imgCard);
         Component component2 = getAnswer(imgCard);

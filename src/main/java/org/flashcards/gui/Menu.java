@@ -12,10 +12,10 @@ import java.util.Map;
 
 public class Menu extends JPanel {
     private final Initializer initializer;
-    JScrollPane scrollPane = new JScrollPane();
-    JPanel contentMenu = new JPanel(new GridLayout(0, 3));
+    private JScrollPane scrollPane = new JScrollPane();
+    private JPanel contentMenu = new JPanel(new GridLayout(0, 3));
 
-    Map<Long, String> cards;
+    private Map<Long, String> cards;
 
     public Menu(Initializer initializer) {
         this.initializer = initializer;
@@ -41,6 +41,7 @@ public class Menu extends JPanel {
 
     private void getAddButton() {
         JButton addButton = new ButtonComponents().addButtonComponent(833, 6);
+        getAddDescription();
         addButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Add);
         });
@@ -90,7 +91,7 @@ public class Menu extends JPanel {
         scrollPane.setBounds(126, 110, 717, 403);
         scrollPane.setAutoscrolls(true);
         scrollPane.createVerticalScrollBar();
-
+        scrollPane.getVerticalScrollBar().setUI(null);
         scrollPane.setViewportView(contentMenu);
         add(scrollPane);
     }
@@ -109,5 +110,13 @@ public class Menu extends JPanel {
             getCardBoardPane();
         }
         getAddButton();
+    }
+
+    public void getAddDescription() {
+        JLabel addNewCard = new JLabel("Add new repo");
+        addNewCard.setFont(new Font("Arbutus", Font.PLAIN, 13));
+        addNewCard.setForeground(Color.white);
+        addNewCard.setBounds(710, 7, 210, 40);
+        add(addNewCard);
     }
 }

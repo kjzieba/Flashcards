@@ -23,7 +23,7 @@ public class EditTextRepo extends JPanel {
 
     private final JTextField nameTextField = new JTextField("Enter a title");
 
-    JScrollPane scrollPane = new JScrollPane();
+    private JScrollPane scrollPane = new JScrollPane();
     private final JTextArea termTextArea = new JTextArea("term");
     private final JTextArea definitionTextArea = new JTextArea("definition");
 
@@ -209,6 +209,7 @@ public class EditTextRepo extends JPanel {
         scrollPane.setBounds(193, 176, 570, 350);
         scrollPane.setAutoscrolls(true);
         scrollPane.createVerticalScrollBar();
+        scrollPane.getVerticalScrollBar().setUI(null);
         for (TxtCard card : txtFlashcardCollection.getList()) {
             idCards.add(card.getId());
             Component component = getTermTextArea(card);
