@@ -11,7 +11,7 @@ public class QuestionsAmount extends JPanel {
 
     private final Initializer initializer;
     public static int amount = 1;
-    JLabel questionsAmountTitle = new JLabel();
+    private JLabel questionsAmountTitle = new JLabel();
 
     public QuestionsAmount(Initializer initializer) {
         this.initializer = initializer;

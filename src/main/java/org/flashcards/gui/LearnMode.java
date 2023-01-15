@@ -17,14 +17,14 @@ import java.util.Objects;
 
 public class LearnMode extends JPanel {
     private final Initializer initializer;
-    private JButton cardView;
-    private JButton cardReverseView;
-    private JButton flagButton = new FlashCardComponent().flagButtonComponent(655,135);
-    private JButton redFlagButton = new FlashCardComponent().redFlagButtonComponent(655,135);
+    private final JButton cardView;
+    private final JButton cardReverseView;
+    private final JButton flagButton = new FlashCardComponent().flagButtonComponent(655,135);
+    private final JButton redFlagButton = new FlashCardComponent().redFlagButtonComponent(655,135);
     private int knowPoints = 0;
     private int stillLearningPoints = 0;
-    private JLabel know = new JLabel();
-    private JLabel stillLearning = new JLabel();
+    private final JLabel know = new JLabel();
+    private final JLabel stillLearning = new JLabel();
     private TxtCard txtCard = App.getInstance().createEmptyTxtCard();
     private TxtFlashcardCollection txtFlashcardCollection = new TxtFlashcardCollection("", new ArrayList<>(), 0L);
     private Iterator it;

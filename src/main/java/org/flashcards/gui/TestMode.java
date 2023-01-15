@@ -14,8 +14,8 @@ public class TestMode extends JPanel {
 
     private final Initializer initializer;
     public static JLabel questionNumber = new JLabel();
-    private JTextArea answerTextArea = new JTextArea();
-    private JLabel cardWord = new JLabel();
+    private final JTextArea answerTextArea = new JTextArea();
+    private final JLabel cardWord = new JLabel();
     public static int currentQuestion = 1;
     private TxtFlashcardCollection list;
     private ArrayList<TxtCard> questions;

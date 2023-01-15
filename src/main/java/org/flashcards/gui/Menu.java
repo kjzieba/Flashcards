@@ -11,9 +11,10 @@ import java.util.Map;
 
 
 public class Menu extends JPanel {
+
     private final Initializer initializer;
-    private JScrollPane scrollPane = new JScrollPane();
-    private JPanel contentMenu = new JPanel(new GridLayout(0, 3));
+    private final JScrollPane scrollPane = new JScrollPane();
+    private final JPanel contentMenu = new JPanel(new GridLayout(0, 3));
 
     private Map<Long, String> cards;
 

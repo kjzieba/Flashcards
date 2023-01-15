@@ -9,8 +9,8 @@ import static org.flashcards.gui.GUInitializer.flag;
 
 public class Result extends JPanel {
     private final Initializer initializer;
-    JLabel correctLabel = new JLabel();
-    JLabel incorrectLabel = new JLabel();
+    private JLabel correctLabel = new JLabel();
+    private JLabel incorrectLabel = new JLabel();
 
     public Result(Initializer initializer) {
         this.initializer = initializer;

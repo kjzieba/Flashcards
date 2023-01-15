@@ -22,7 +22,7 @@ public class GUInitializer extends JFrame implements Initializer {
     private final Result result;
     private final QuestionsAmount questionsAmount;
     private final AddImg addImg;
-    private EditTextRepo editTextRepo;
+    private final EditTextRepo editTextRepo;
     public Long editID = 0L;
     public static Boolean flag;
 

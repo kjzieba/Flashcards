@@ -18,20 +18,15 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class EditTextRepo extends JPanel implements KeyListener {
+
     private final Initializer initializer;
-
     private final ArrayList<Long> idCards = new ArrayList<>();
-
     private final JTextField nameTextField = new JTextField("Enter a title");
-
+    private final JLabel undoLabel = new JLabel("Press U to undo changes");
     private final JScrollPane scrollPane = new JScrollPane();
-
     private final FlashcardTxtHistory flashcardTxtHistory = new FlashcardTxtHistory();
-
     private TxtFlashcardCollection txtFlashcardCollection = new TxtFlashcardCollection("", new ArrayList<>(), 0L);
-
     private final JPanel content = new JPanel(new GridLayout(0, 3));
-
     private int itemsDeleted = 0;
 
 
@@ -43,6 +38,8 @@ public class EditTextRepo extends JPanel implements KeyListener {
         getBackButton();
         getSaveButton();
         getAddButton();
+        getUndoLabel();
+        undoLabel.setVisible(false);
         this.setFocusable(true);
         this.requestFocusInWindow();
         addKeyListener(this);
@@ -79,6 +76,7 @@ public class EditTextRepo extends JPanel implements KeyListener {
                 int option = JOptionPane.showConfirmDialog(null, "Are you sure?", "Select an Option...",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, trashIcon);
                 if (option == 0) {
+                    undoLabel.setVisible(true);
                     content.remove(component);
                     content.remove(component2);
                     content.remove(deleteButton);
@@ -327,6 +325,15 @@ public class EditTextRepo extends JPanel implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if (itemsDeleted == 0) {
+            undoLabel.setVisible(false);
+        }
+    }
 
+    private void getUndoLabel() {
+        undoLabel.setFont(new Font("Arbutus", Font.PLAIN, 15));
+        undoLabel.setForeground(Color.red);
+        undoLabel.setBounds(369, 12, 229, 37);
+        add(undoLabel);
     }
 }
