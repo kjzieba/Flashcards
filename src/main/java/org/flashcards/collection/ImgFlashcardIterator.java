@@ -36,6 +36,6 @@ public class ImgFlashcardIterator implements Iterator {
 
     @Override
     public boolean isDoneLeft() {
-        return list.getList().size() >= iterationPosition + 1;
+        return iterationPosition <= 0;
     }
 }
