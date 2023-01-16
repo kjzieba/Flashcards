@@ -264,7 +264,7 @@ public class EditTextRepo extends JPanel implements KeyListener {
         return add(termTextArea);
     }
 
-    private Component getDefinitionTextArea2(TxtCard card){
+    private Component getDefinitionTextArea2(TxtCard card) {
         JTextField definitionTextArea = new JTextField("definition");
         definitionTextArea.setHorizontalAlignment(JTextField.CENTER);
         definitionTextArea.setBackground(GUInitializer.buttonColor);

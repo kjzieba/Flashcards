@@ -19,8 +19,8 @@ public class LearnMode extends JPanel {
     private final Initializer initializer;
     private final JButton cardView;
     private final JButton cardReverseView;
-    private final JButton flagButton = new FlashCardComponent().flagButtonComponent(655,135);
-    private final JButton redFlagButton = new FlashCardComponent().redFlagButtonComponent(655,135);
+    private final JButton flagButton = new FlashCardComponent().flagButtonComponent(655, 135);
+    private final JButton redFlagButton = new FlashCardComponent().redFlagButtonComponent(655, 135);
     public static int knowPoints = 0;
     public static int stillLearningPoints = 0;
     public static final JLabel know = new JLabel();
@@ -117,16 +117,16 @@ public class LearnMode extends JPanel {
         }
     }
 
-    private void getStillLearningButtonComponent(){
-        JButton learningButton = new FlashCardComponent().learningButtonComponent(262,335, "Still learning");
+    private void getStillLearningButtonComponent() {
+        JButton learningButton = new FlashCardComponent().learningButtonComponent(262, 335, "Still learning");
         learningButton.addActionListener(e -> {
             stillLearningThat();
         });
         add(learningButton);
     }
 
-    private void getKnowButtonComponent(){
-        JButton learningButton = new FlashCardComponent().learningButtonComponent(548,335, "Know");
+    private void getKnowButtonComponent() {
+        JButton learningButton = new FlashCardComponent().learningButtonComponent(548, 335, "Know");
         learningButton.addActionListener(e -> {
             knowThat();
         });
@@ -183,8 +183,7 @@ public class LearnMode extends JPanel {
             knowPoints++;
             know.setText("Know               " + knowPoints);
             stillLearning.setText("Still learning   " + stillLearningPoints);
-        }
-        else {
+        } else {
             knowPoints++;
             know.setText("Know               " + knowPoints);
             stillLearning.setText("Still learning   " + stillLearningPoints);
@@ -207,8 +206,7 @@ public class LearnMode extends JPanel {
             stillLearningPoints++;
             know.setText("Know               " + knowPoints);
             stillLearning.setText("Still learning   " + stillLearningPoints);
-        }
-        else {
+        } else {
             stillLearningPoints++;
             know.setText("Know               " + knowPoints);
             stillLearning.setText("Still learning   " + stillLearningPoints);

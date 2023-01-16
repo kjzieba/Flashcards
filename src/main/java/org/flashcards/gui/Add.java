@@ -33,18 +33,18 @@ public class Add extends JPanel {
     private void getBackButton() {
         JButton backButton = new ButtonComponents().backButtonComponent(13, 12);
         backButton.addActionListener(e -> {
-                initializer.update(GUInitializer.Panel.Menu);
+            initializer.update(GUInitializer.Panel.Menu);
         });
         add(backButton);
     }
 
-    private void getSoundButton() {
-        JButton soundButton = new ButtonComponents().bigButtonComponent("Sound", 375, 239);
-        soundButton.setBorderPainted(true);
-        soundButton.addActionListener(e -> {
-        });
-        add(soundButton);
-    }
+//    private void getSoundButton() {
+//        JButton soundButton = new ButtonComponents().bigButtonComponent("Sound", 375, 239);
+//        soundButton.setBorderPainted(true);
+//        soundButton.addActionListener(e -> {
+//        });
+//        add(soundButton);
+//    }
 
     private void getTextButton() {
         JButton addTextButton = new ButtonComponents().bigButtonComponent("Text", 206, 239);
@@ -52,7 +52,6 @@ public class Add extends JPanel {
             initializer.update(GUInitializer.Panel.AddTxt);
             App.getInstance().addTxtRepo();
             App.getInstance().setCurrentRepo(App.getInstance().getIdRepo());
-            System.out.println(App.getInstance().getAllCards());
         });
         add(addTextButton);
     }

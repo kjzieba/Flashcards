@@ -18,8 +18,8 @@ public class LearnModeImg extends JPanel {
     private final Initializer initializer;
     private final JButton cardImgView;
     private final JButton cardReverseView;
-    private final JButton flagButton = new FlashCardComponent().flagButtonComponent(655,135);
-    private final JButton redFlagButton = new FlashCardComponent().redFlagButtonComponent(655,135);
+    private final JButton flagButton = new FlashCardComponent().flagButtonComponent(655, 135);
+    private final JButton redFlagButton = new FlashCardComponent().redFlagButtonComponent(655, 135);
     public static final JLabel knowImg = new JLabel();
     public static final JLabel stillLearningImg = new JLabel();
     private ImgCard imgCard = App.getInstance().createEmptyImgCard();
@@ -114,16 +114,16 @@ public class LearnModeImg extends JPanel {
         }
     }
 
-    private void getStillLearningButtonComponent(){
-        JButton learningButton = new FlashCardComponent().learningButtonComponent(262,335, "Still learning");
+    private void getStillLearningButtonComponent() {
+        JButton learningButton = new FlashCardComponent().learningButtonComponent(262, 335, "Still learning");
         learningButton.addActionListener(e -> {
             stillLearningThat();
         });
         add(learningButton);
     }
 
-    private void getKnowButtonComponent(){
-        JButton learningButton = new FlashCardComponent().learningButtonComponent(548,335, "Know");
+    private void getKnowButtonComponent() {
+        JButton learningButton = new FlashCardComponent().learningButtonComponent(548, 335, "Know");
         learningButton.addActionListener(e -> {
             knowThat();
         });
@@ -180,8 +180,7 @@ public class LearnModeImg extends JPanel {
             LearnMode.knowPoints++;
             knowImg.setText("Know               " + LearnMode.knowPoints);
             stillLearningImg.setText("Still learning   " + LearnMode.stillLearningPoints);
-        }
-        else {
+        } else {
             LearnMode.knowPoints++;
             knowImg.setText("Know               " + LearnMode.knowPoints);
             stillLearningImg.setText("Still learning   " + LearnMode.stillLearningPoints);
@@ -204,8 +203,7 @@ public class LearnModeImg extends JPanel {
             LearnMode.stillLearningPoints++;
             knowImg.setText("Know               " + LearnMode.knowPoints);
             stillLearningImg.setText("Still learning   " + LearnMode.stillLearningPoints);
-        }
-        else {
+        } else {
             LearnMode.stillLearningPoints++;
             knowImg.setText("Know               " + LearnMode.knowPoints);
             stillLearningImg.setText("Still learning   " + LearnMode.stillLearningPoints);

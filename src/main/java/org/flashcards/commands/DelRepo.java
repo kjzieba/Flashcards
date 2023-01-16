@@ -26,7 +26,7 @@ public class DelRepo implements Command {
     @Override
     public void execute() {
         deletedId.add(id);
-        deletedRepos.add(dbProxy.getFlashcardList(id,type));
+        deletedRepos.add(dbProxy.getFlashcardList(id, type));
         dbProxy.deleteFlashcardList(id);
     }
 }

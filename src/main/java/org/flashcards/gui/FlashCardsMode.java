@@ -11,7 +11,6 @@ import org.flashcards.gui.components.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Objects;
 
 public class FlashCardsMode extends JPanel {
@@ -138,7 +137,7 @@ public class FlashCardsMode extends JPanel {
     public void setCard() {
         Long id = App.getInstance().getCurrentRepo();
         TxtFlashcardCollection list = (TxtFlashcardCollection) App.getInstance().getAllCards().getFlashcardList(id, "T");
-        it = new TxtFlashcardIterator(list);
+        it = list.createIterator();
         TxtCard card;
         if (!it.isDoneRight()) {
             card = (TxtCard) it.next();

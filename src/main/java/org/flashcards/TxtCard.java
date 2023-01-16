@@ -11,9 +11,7 @@ public class TxtCard extends Card {
         this.textQuestion = textQuestion;
     }
 
-    public MementoTxtCard saveToMemento()
-    {
-        System.out.println("Saving time to Memento");
+    public MementoTxtCard saveToMemento() {
         return new MementoTxtCard(id, textQuestion, answer);
     }
 

@@ -5,7 +5,7 @@ import org.flashcards.TxtCard;
 import org.flashcards.collection.TxtFlashcardCollection;
 import org.flashcards.db.DatabaseProxy;
 
-public class DelTxtCard implements Command{
+public class DelTxtCard implements Command {
     private final FlashcardTxtHistory history;
     private final DatabaseProxy dbProxy;
     private final Long id;
@@ -21,7 +21,6 @@ public class DelTxtCard implements Command{
 
     @Override
     public void execute() {
-        System.out.println(id);
         TxtFlashcardCollection txtCardRepo = (TxtFlashcardCollection) dbProxy.getFlashcardList(id, "T");
         txtCardRepo.remove(txtCard);
         history.push(txtCard.saveToMemento());

@@ -1,7 +1,6 @@
 package org.flashcards.commands;
 
 import org.flashcards.MementoImgCard;
-import org.flashcards.MementoTxtCard;
 
 import java.util.Stack;
 
@@ -24,7 +23,7 @@ public class FlashcardImgHistory {
         return history.isEmpty();
     }
 
-    public void clear(){
+    public void clear() {
         history.removeAllElements();
     }
 }

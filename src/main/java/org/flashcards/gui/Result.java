@@ -48,16 +48,16 @@ public class Result extends JPanel {
     private void getTryAgainButton() {
         JButton tryAgainButton = new ButtonComponents().smallButtonComponent("Try again", 757, 406);
         tryAgainButton.addActionListener(e -> {
-            if(flag) {
+            if (flag) {
                 String currentType = App.getInstance().getAllCards().getTypeByID(App.getInstance().getCurrentRepo());
-                if (currentType.equals("T")){
+                if (currentType.equals("T")) {
                     initializer.update(GUInitializer.Panel.TestMode);
                 } else if (currentType.equals("I")) {
                     initializer.update(GUInitializer.Panel.TestModeImg);
                 }
             } else if (!flag) {
                 String currentType = App.getInstance().getAllCards().getTypeByID(App.getInstance().getCurrentRepo());
-                if (currentType.equals("T")){
+                if (currentType.equals("T")) {
                     know.setText("Know               " + knowPoints);
                     stillLearning.setText("Still learning   " + stillLearningPoints);
                     initializer.update(GUInitializer.Panel.LearnMode);
@@ -79,7 +79,7 @@ public class Result extends JPanel {
         add(backMenuButton);
     }
 
-    public void setScore(String First, String Second, int right, int wrong){
+    public void setScore(String First, String Second, int right, int wrong) {
         correctLabel.setText(First + "        " + right);
         incorrectLabel.setText(Second + "    " + wrong);
     }
