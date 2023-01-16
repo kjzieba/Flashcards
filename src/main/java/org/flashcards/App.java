@@ -1,6 +1,5 @@
 package org.flashcards;
 
-import org.flashcards.collection.FlashcardCollectionInterface;
 import org.flashcards.collection.ImgFlashcardCollection;
 import org.flashcards.collection.TxtFlashcardCollection;
 import org.flashcards.commands.*;
@@ -8,8 +7,6 @@ import org.flashcards.creators.ImgCardCreator;
 import org.flashcards.creators.TxtCardCreator;
 import org.flashcards.db.DatabaseProxy;
 import org.flashcards.enums.States;
-
-import java.util.ArrayList;
 
 public class App {
     private static volatile App instance;
@@ -33,12 +30,6 @@ public class App {
 
     private final DatabaseProxy dbProxy = DatabaseProxy.getInstance();
 
-    private final ArrayList<Long> addedId = new ArrayList<>();
-
-    private final ArrayList<FlashcardCollectionInterface> deletedRepos = new ArrayList<>();
-
-    private final ArrayList<Long> deletedId = new ArrayList<>();
-
     private final TxtCardCreator txtCardCreator = new TxtCardCreator();
 
     private final ImgCardCreator imgCardCreator = new ImgCardCreator();
@@ -51,9 +42,6 @@ public class App {
     private Long idTxtCards = 1L;
 
     private Long idImgCards = 1L;
-
-    private int reposNumber = 0;
-
 
     public TxtCard createEmptyTxtCard() {
         TxtCard txtCard = txtCardCreator.createFlashcard(idTxtCards, "", "");
@@ -68,15 +56,13 @@ public class App {
     }
 
     public void addTxtRepo() {
-        Command command = new AddTxtRepo(addedId, idRepo);
+        Command command = new AddTxtRepo(idRepo);
         command.execute();
-        reposNumber += 1;
     }
 
     public void addImgRepo() {
-        Command command = new AddImgRepo(addedId, idRepo);
+        Command command = new AddImgRepo(idRepo);
         command.execute();
-        reposNumber += 1;
     }
 
     public void addTxtCard(TxtCard card) {
@@ -125,9 +111,8 @@ public class App {
     }
 
     public void deleteRepo(String type) {
-        Command delRepo = new DelRepo(currentRepo, deletedRepos, deletedId, type);
+        Command delRepo = new DelRepo(currentRepo, type);
         delRepo.execute();
-        reposNumber -= 1;
     }
 
     public void changeStateToFlagged(TxtCard txtCard) {
@@ -191,5 +176,21 @@ public class App {
 
     public void setCurrentRepo(Long currentRepo) {
         this.currentRepo = currentRepo;
+    }
+
+    public Long getIdTxtCards() {
+        return idTxtCards;
+    }
+
+    public void setIdTxtCards(Long idTxtCards) {
+        this.idTxtCards = idTxtCards;
+    }
+
+    public Long getIdImgCards() {
+        return idImgCards;
+    }
+
+    public void setIdImgCards(Long idImgCards) {
+        this.idImgCards = idImgCards;
     }
 }

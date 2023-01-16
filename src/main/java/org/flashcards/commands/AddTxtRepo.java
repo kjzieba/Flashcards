@@ -4,20 +4,17 @@ import org.flashcards.collection.TxtFlashcardCollection;
 
 import java.util.ArrayList;
 
-public class AddTxtRepo implements Command {
-    private final ArrayList<Long> addedID;
+public class AddTxtRepo implements Command{
     private final Long id;
 
-    public AddTxtRepo(ArrayList<Long> addedID, Long id) {
-        this.addedID = addedID;
+    public AddTxtRepo(Long id) {
         this.id = id;
     }
 
     @Override
     public void execute() {
-        TxtFlashcardCollection txtCardRepo = new TxtFlashcardCollection("", new ArrayList<>(), id);
-        addedID.add(id);
-        Command saveTxtRepo = new SaveTxtRepo(txtCardRepo, id);
-        saveTxtRepo.execute();
+            TxtFlashcardCollection txtCardRepo = new TxtFlashcardCollection("", new ArrayList<>(), id);
+            Command saveTxtRepo = new SaveTxtRepo(txtCardRepo, id);
+            saveTxtRepo.execute();
     }
 }

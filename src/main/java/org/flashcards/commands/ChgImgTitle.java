@@ -1,6 +1,5 @@
 package org.flashcards.commands;
 
-
 import org.flashcards.collection.ImgFlashcardCollection;
 import org.flashcards.db.DatabaseProxy;
 
@@ -18,7 +17,7 @@ public class ChgImgTitle implements Command {
 
     @Override
     public void execute() {
-        ImgFlashcardCollection imgCardRepo = (ImgFlashcardCollection) dbProxy.getFlashcardList(id, "T");
+        ImgFlashcardCollection imgCardRepo = (ImgFlashcardCollection) dbProxy.getFlashcardList(id, "I");
         imgCardRepo.setTitle(title);
     }
 }
