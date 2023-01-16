@@ -13,8 +13,11 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class AddImg extends JPanel implements KeyListener {
@@ -26,6 +29,8 @@ public class AddImg extends JPanel implements KeyListener {
     private boolean titleSet = false;
     private final ArrayList<Long> idCards = new ArrayList<>();
     private final JPanel content = new JPanel(new GridLayout(0, 3));
+
+    private ArrayList<String> historyOfNames = new ArrayList<>();
 
     private int itemsDeleted = 0;
 
@@ -210,6 +215,13 @@ public class AddImg extends JPanel implements KeyListener {
                     Path fileName = filePath.toPath().getFileName();
                     App.getInstance().changeImage(card,filePath.toString());
                     imgButton.setText(String.valueOf(fileName));
+                    if (idCards.contains(card.getId())) {
+                        App.getInstance().changeImage(card, filePath.toString());
+                    } else {
+                        App.getInstance().changeImage(card, filePath.toString());
+                        idCards.add(card.getId());
+                        App.getInstance().addImgCard(card);
+                    }
                 }
             }
         });
@@ -289,7 +301,7 @@ public class AddImg extends JPanel implements KeyListener {
     }
 
     private Component getImg2(ImgCard card) {
-        JButton imgButton = new JButton("Upload Image");
+        JButton imgButton = new JButton();
         imgButton.setBackground(GUInitializer.buttonColor);
         imgButton.setForeground(Color.white);
         imgButton.setOpaque(true);
@@ -305,6 +317,7 @@ public class AddImg extends JPanel implements KeyListener {
                     Path fileName = filePath.toPath().getFileName();
                     App.getInstance().changeImage(card,filePath.toString());
                     imgButton.setText(String.valueOf(fileName));
+                    App.getInstance().changeImage(card, filePath.toString());
                 }
             }
         });
