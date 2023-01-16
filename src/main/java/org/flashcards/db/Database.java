@@ -143,4 +143,22 @@ public class Database implements DatabaseInterface {
         }
         return map;
     }
+
+    @Override
+    public String getTypeByID(Long id) {
+        try {
+            Scanner sc = new Scanner(db);
+            while (sc.hasNextLine()) {
+                String str = sc.nextLine();
+                String[] strings = str.split(" ");
+                if (strings[1].equals(id.toString())) {
+                    return strings[0];
+                }
+            }
+            sc.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 }

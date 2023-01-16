@@ -12,4 +12,6 @@ public interface DatabaseInterface {
     void deleteFlashcardList(Long id);
 
     Map<Long, String> getAllLists();
+
+    String getTypeByID(Long id);
 }

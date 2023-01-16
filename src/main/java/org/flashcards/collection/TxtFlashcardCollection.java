@@ -61,6 +61,11 @@ public class TxtFlashcardCollection implements FlashcardCollectionInterface {
     }
 
     @Override
+    public String getType() {
+        return "T";
+    }
+
+    @Override
     public String toString() {
         String lst = list.toString();
         String[] l = lst.split(", ");

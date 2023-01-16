@@ -62,6 +62,16 @@ public class DatabaseProxy implements DatabaseInterface {
     }
 
     @Override
+    public String getTypeByID(Long id) {
+        for (FlashcardCollectionInterface list : memory) {
+            if (list.getId().equals(id)) {
+                return list.getType();
+            }
+        }
+        return db.getTypeByID(id);
+    }
+
+    @Override
     public String toString() {
         return "DatabaseProxy{" +
                 "memory=" + memory +
