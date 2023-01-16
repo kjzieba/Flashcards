@@ -1,6 +1,7 @@
 package org.flashcards.gui;
 
 import org.flashcards.App;
+import org.flashcards.collection.ImgFlashcardCollection;
 import org.flashcards.collection.TxtFlashcardCollection;
 import org.flashcards.gui.components.ButtonComponents;
 
@@ -49,11 +50,21 @@ public class QuestionsAmount extends JPanel {
         plusIcon.setContentAreaFilled(false);
         plusIcon.setFocusPainted(false);
         plusIcon.addActionListener(e -> {
-            TxtFlashcardCollection t = (TxtFlashcardCollection) App.getInstance().getAllCards().getFlashcardList(App.getInstance().getCurrentRepo(), "T");
-            int maxAmount = t.getList().size();
-            if (amount < maxAmount) {
-                amount++;
-                questionsAmountTitle.setText(amount + " questions");
+            String currentType = App.getInstance().getAllCards().getTypeByID(App.getInstance().getCurrentRepo());
+            if (currentType.equals("T")){
+                TxtFlashcardCollection t = (TxtFlashcardCollection) App.getInstance().getAllCards().getFlashcardList(App.getInstance().getCurrentRepo(), "T");
+                int maxAmount = t.getList().size();
+                if (amount < maxAmount) {
+                    amount++;
+                    questionsAmountTitle.setText(amount + " questions");
+                }
+            } else if (currentType.equals("I")) {
+                ImgFlashcardCollection i = (ImgFlashcardCollection) App.getInstance().getAllCards().getFlashcardList(App.getInstance().getCurrentRepo(), "I");
+                int maxAmount = i.getList().size();
+                if (amount < maxAmount) {
+                    amount++;
+                    questionsAmountTitle.setText(amount + " questions");
+                }
             }
         });
         add(plusIcon);
@@ -78,8 +89,14 @@ public class QuestionsAmount extends JPanel {
     private void getStartButton() {
         JButton startButton = new ButtonComponents().smallButtonComponent("Start test", 412, 290);
         startButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.TestMode);
-            TestMode.questionNumber.setText(TestMode.currentQuestion + "/" + QuestionsAmount.amount);
+            String currentType = App.getInstance().getAllCards().getTypeByID(App.getInstance().getCurrentRepo());
+            if (currentType.equals("T")){
+                initializer.update(GUInitializer.Panel.TestMode);
+                TestMode.questionNumber.setText(TestMode.currentQuestion + "/" + QuestionsAmount.amount);
+            } else if (currentType.equals("I")) {
+                initializer.update(GUInitializer.Panel.TestModeImg);
+                TestModeImg.questionNumber.setText(TestMode.currentQuestion + "/" + QuestionsAmount.amount);
+            }
         });
         add(startButton);
     }

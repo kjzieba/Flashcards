@@ -1,5 +1,6 @@
 package org.flashcards.gui;
 
+import org.flashcards.App;
 import org.flashcards.gui.components.ButtonComponents;
 
 import javax.swing.*;
@@ -9,8 +10,8 @@ import static org.flashcards.gui.GUInitializer.flag;
 
 public class Result extends JPanel {
     private final Initializer initializer;
-    private JLabel correctLabel = new JLabel();
-    private JLabel incorrectLabel = new JLabel();
+    private final JLabel correctLabel = new JLabel();
+    private final JLabel incorrectLabel = new JLabel();
 
     public Result(Initializer initializer) {
         this.initializer = initializer;
@@ -46,9 +47,19 @@ public class Result extends JPanel {
         JButton tryAgainButton = new ButtonComponents().smallButtonComponent("Try again", 757, 406);
         tryAgainButton.addActionListener(e -> {
             if(flag) {
-                initializer.update(GUInitializer.Panel.TestMode);
+                String currentType = App.getInstance().getAllCards().getTypeByID(App.getInstance().getCurrentRepo());
+                if (currentType.equals("T")){
+                    initializer.update(GUInitializer.Panel.TestMode);
+                } else if (currentType.equals("I")) {
+                    initializer.update(GUInitializer.Panel.TestModeImg);
+                }
             } else if (!flag) {
-                initializer.update(GUInitializer.Panel.LearnMode);
+                String currentType = App.getInstance().getAllCards().getTypeByID(App.getInstance().getCurrentRepo());
+                if (currentType.equals("T")){
+                    initializer.update(GUInitializer.Panel.LearnMode);
+                } else if (currentType.equals("I")) {
+                    initializer.update(GUInitializer.Panel.LearnModeImg);
+                }
             }
         });
         add(tryAgainButton);

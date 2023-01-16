@@ -1,36 +1,36 @@
 package org.flashcards.gui;
 
 import org.flashcards.App;
-import org.flashcards.TxtCard;
-import org.flashcards.collection.TxtFlashcardCollection;
+import org.flashcards.ImgCard;
+import org.flashcards.collection.ImgFlashcardCollection;
 import org.flashcards.gui.components.ButtonComponents;
+import org.flashcards.gui.components.CardComponent;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class TestMode extends JPanel {
+public class TestModeImg extends JPanel {
 
     private final Initializer initializer;
     public static JLabel questionNumber = new JLabel();
     private final JTextArea answerTextArea = new JTextArea();
-    private final JLabel cardWord = new JLabel();
+    private JButton cardImg;
     public static int currentQuestion = 1;
-    private TxtFlashcardCollection list;
-    private ArrayList<TxtCard> questions;
+    private ImgFlashcardCollection list;
+    private ArrayList<ImgCard> questions;
 
-    public static int rightAnswers = 0;
-    public static int wrongAnswers = 0;
 
-    public TestMode(Initializer initializer) {
+    public TestModeImg(Initializer initializer) {
         this.initializer = initializer;
+
         setPreferredSize(new Dimension(960, 560));
         setBackground(GUInitializer.backgroundColor);
         setLayout(null);
         getBackButton();
         getAnswerTextArea();
-        getWordLabel();
+        getImageTest();
         getQuestionNumber();
         getNextButton();
     }
@@ -43,6 +43,12 @@ public class TestMode extends JPanel {
         add(backButton);
     }
 
+    private void getImageTest() {
+        cardImg = new CardComponent().cardButtonImgComponent(318, 45, 323, 175, "");
+        cardImg.setVisible(true);
+        add(cardImg);
+    }
+
     private void getQuestionNumber() {
         questionNumber.setFont(new Font("Arbutus", Font.PLAIN, 15));
         questionNumber.setForeground(Color.white);
@@ -50,17 +56,8 @@ public class TestMode extends JPanel {
         add(questionNumber);
     }
 
-    private void getWordLabel() {
-        cardWord.setFont(new Font("Arbutus", Font.PLAIN, 25));
-        cardWord.setForeground(Color.white);
-        cardWord.setBounds(275, 157, 409, 50);
-        add(cardWord);
-    }
-
-    public void setWordLabel() {
-        cardWord.setText(questions.get(currentQuestion - 1).getTextQuestion());
-        cardWord.setHorizontalAlignment(SwingConstants.CENTER);
-        cardWord.setVerticalAlignment(SwingConstants.CENTER);
+    public void setImgLabel() {
+        cardImg.setIcon(FlashCardsImgMode.ByteArrayToImage(questions.get(currentQuestion - 1).getImageQuestion()));
     }
 
     private void getAnswerTextArea() {
@@ -85,24 +82,22 @@ public class TestMode extends JPanel {
 
                 String answer = answerTextArea.getText().toLowerCase();
                 if (answer.equals(questions.get(currentQuestion - 1).getAnswer())) {
-                    rightAnswers += 1;
+                    TestMode.rightAnswers += 1;
                 } else {
-                    wrongAnswers += 1;
+                    TestMode.wrongAnswers += 1;
                 }
-
 
                 answerTextArea.setText("");
                 currentQuestion++;
                 questionNumber.setText(currentQuestion + "/" + QuestionsAmount.amount);
-                setWordLabel();
+                setImgLabel();
             } else if (currentQuestion == QuestionsAmount.amount) {
                 String answer = answerTextArea.getText().toLowerCase();
                 if (answer.equals(questions.get(currentQuestion - 1).getAnswer())) {
-                    rightAnswers += 1;
+                    TestMode.rightAnswers += 1;
                 } else {
-                    wrongAnswers += 1;
+                    TestMode.wrongAnswers += 1;
                 }
-
 
                 currentQuestion = 1;
                 answerTextArea.setText("");
@@ -114,29 +109,14 @@ public class TestMode extends JPanel {
         add(nextButton);
     }
 
-    public void setList() {
-        list = (TxtFlashcardCollection) App.getInstance().getAllCards().getFlashcardList(App.getInstance().getCurrentRepo(), "T");
+    public void setListImg() {
+        list = (ImgFlashcardCollection) App.getInstance().getAllCards().getFlashcardList(App.getInstance().getCurrentRepo(), "I");
         questions = new ArrayList<>(list.getList());
         Collections.shuffle(questions);
-    }
-
-    public int getRightAnswers() {
-        return rightAnswers;
-    }
-
-    public int getWrongAnswers() {
-        return wrongAnswers;
-    }
-
-    public void setRightAnswers(int rightAnswers) {
-        this.rightAnswers = rightAnswers;
-    }
-
-    public void setWrongAnswers(int wrongAnswers) {
-        this.wrongAnswers = wrongAnswers;
     }
 
     public void updateLabel() {
         questionNumber.setText(currentQuestion + "/" + QuestionsAmount.amount);
     }
+
 }

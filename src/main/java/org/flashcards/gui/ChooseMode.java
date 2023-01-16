@@ -44,7 +44,12 @@ public class ChooseMode extends JPanel {
     private void getLearnButton() {
         JButton learnButton = new ButtonComponents().bigButtonComponent("learn", 392, 239);
         learnButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.LearnModeImg);
+            String currentType = App.getInstance().getAllCards().getTypeByID(App.getInstance().getCurrentRepo());
+            if (currentType.equals("T")){
+                initializer.update(GUInitializer.Panel.LearnMode);
+            } else if (currentType.equals("I")) {
+                initializer.update(GUInitializer.Panel.LearnModeImg);
+            }
         });
         add(learnButton);
     }
