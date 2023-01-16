@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 
 import static org.flashcards.gui.GUInitializer.flag;
+import static org.flashcards.gui.LearnMode.*;
+import static org.flashcards.gui.LearnModeImg.*;
 
 public class Result extends JPanel {
     private final Initializer initializer;
@@ -56,8 +58,12 @@ public class Result extends JPanel {
             } else if (!flag) {
                 String currentType = App.getInstance().getAllCards().getTypeByID(App.getInstance().getCurrentRepo());
                 if (currentType.equals("T")){
+                    know.setText("Know               " + knowPoints);
+                    stillLearning.setText("Still learning   " + stillLearningPoints);
                     initializer.update(GUInitializer.Panel.LearnMode);
                 } else if (currentType.equals("I")) {
+                    knowImg.setText("Know               " + knowPoints);
+                    stillLearningImg.setText("Still learning   " + stillLearningPoints);
                     initializer.update(GUInitializer.Panel.LearnModeImg);
                 }
             }

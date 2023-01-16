@@ -2,7 +2,6 @@ package org.flashcards.gui;
 
 import org.flashcards.App;
 import org.flashcards.ImgCard;
-import org.flashcards.TxtCard;
 import org.flashcards.collection.*;
 import org.flashcards.gui.components.ButtonComponents;
 import org.flashcards.gui.components.CardComponent;
@@ -21,8 +20,8 @@ public class LearnModeImg extends JPanel {
     private final JButton cardReverseView;
     private final JButton flagButton = new FlashCardComponent().flagButtonComponent(655,135);
     private final JButton redFlagButton = new FlashCardComponent().redFlagButtonComponent(655,135);
-    private final JLabel know = new JLabel();
-    private final JLabel stillLearning = new JLabel();
+    public static final JLabel knowImg = new JLabel();
+    public static final JLabel stillLearningImg = new JLabel();
     private ImgCard imgCard = App.getInstance().createEmptyImgCard();
     private ImgFlashcardCollection imgFlashcardCollection = new ImgFlashcardCollection("", new ArrayList<>(), 0L);
     private Iterator it;
@@ -132,16 +131,16 @@ public class LearnModeImg extends JPanel {
     }
 
     public void getCustomPointBoard() {
-        know.setText("Know               " + LearnMode.knowPoints);
-        stillLearning.setText("Still learning   " + LearnMode.stillLearningPoints);
-        know.setFont(new Font("Arbutus", Font.PLAIN, 15));
-        know.setForeground(Color.white);
-        know.setBounds(36, 427, 210, 120);
-        stillLearning.setFont(new Font("Arbutus", Font.PLAIN, 15));
-        stillLearning.setForeground(Color.white);
-        stillLearning.setBounds(36, 462, 210, 120);
-        add(know);
-        add(stillLearning);
+        knowImg.setText("Know               " + LearnMode.knowPoints);
+        stillLearningImg.setText("Still learning   " + LearnMode.stillLearningPoints);
+        knowImg.setFont(new Font("Arbutus", Font.PLAIN, 15));
+        knowImg.setForeground(Color.white);
+        knowImg.setBounds(36, 427, 210, 120);
+        stillLearningImg.setFont(new Font("Arbutus", Font.PLAIN, 15));
+        stillLearningImg.setForeground(Color.white);
+        stillLearningImg.setBounds(36, 462, 210, 120);
+        add(knowImg);
+        add(stillLearningImg);
     }
 
     public void setRepoImg() {
@@ -179,13 +178,13 @@ public class LearnModeImg extends JPanel {
             cardReverseView.setVisible(false);
             cardImgView.setVisible(true);
             LearnMode.knowPoints++;
-            know.setText("Know               " + LearnMode.knowPoints);
-            stillLearning.setText("Still learning   " + LearnMode.stillLearningPoints);
+            knowImg.setText("Know               " + LearnMode.knowPoints);
+            stillLearningImg.setText("Still learning   " + LearnMode.stillLearningPoints);
         }
         else {
             LearnMode.knowPoints++;
-            know.setText("Know               " + LearnMode.knowPoints);
-            stillLearning.setText("Still learning   " + LearnMode.stillLearningPoints);
+            knowImg.setText("Know               " + LearnMode.knowPoints);
+            stillLearningImg.setText("Still learning   " + LearnMode.stillLearningPoints);
             GUInitializer.flag = false;
             initializer.update(GUInitializer.Panel.Result);
         }
@@ -203,17 +202,17 @@ public class LearnModeImg extends JPanel {
             cardReverseView.setVisible(false);
             cardImgView.setVisible(true);
             LearnMode.stillLearningPoints++;
-            know.setText("Know               " + LearnMode.knowPoints);
-            stillLearning.setText("Still learning   " + LearnMode.stillLearningPoints);
+            knowImg.setText("Know               " + LearnMode.knowPoints);
+            stillLearningImg.setText("Still learning   " + LearnMode.stillLearningPoints);
         }
         else {
             LearnMode.stillLearningPoints++;
-            know.setText("Know               " + LearnMode.knowPoints);
-            stillLearning.setText("Still learning   " + LearnMode.stillLearningPoints);
+            knowImg.setText("Know               " + LearnMode.knowPoints);
+            stillLearningImg.setText("Still learning   " + LearnMode.stillLearningPoints);
             GUInitializer.flag = false;
             initializer.update(GUInitializer.Panel.Result);
         }
     }
-    
+
 
 }

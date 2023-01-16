@@ -23,8 +23,8 @@ public class LearnMode extends JPanel {
     private final JButton redFlagButton = new FlashCardComponent().redFlagButtonComponent(655,135);
     public static int knowPoints = 0;
     public static int stillLearningPoints = 0;
-    private final JLabel know = new JLabel();
-    private final JLabel stillLearning = new JLabel();
+    public static final JLabel know = new JLabel();
+    public static final JLabel stillLearning = new JLabel();
     private TxtCard txtCard = App.getInstance().createEmptyTxtCard();
     private TxtFlashcardCollection txtFlashcardCollection = new TxtFlashcardCollection("", new ArrayList<>(), 0L);
     private Iterator it;
@@ -169,7 +169,7 @@ public class LearnMode extends JPanel {
         }
     }
 
-    private void knowThat() {
+    public void knowThat() {
         if (!it.isDoneRight()) {
             TxtCard card = (TxtCard) it.next();
             card.action(cardReverseView);
@@ -193,7 +193,7 @@ public class LearnMode extends JPanel {
         }
     }
 
-    private void stillLearningThat() {
+    public void stillLearningThat() {
         if (!it.isDoneRight()) {
             TxtCard card = (TxtCard) it.next();
             card.action(cardReverseView);
@@ -225,12 +225,12 @@ public class LearnMode extends JPanel {
         return stillLearningPoints;
     }
 
-    public void setKnowWords(int knowPoints) {
-        this.knowPoints = knowPoints;
+    public static void setKnowWords(int knowPoints) {
+        LearnMode.knowPoints = knowPoints;
     }
 
-    public void setStillLearningWords(int stillLearningPoints) {
-        this.stillLearningPoints = stillLearningPoints;
+    public static void setStillLearningWords(int stillLearningPoints) {
+        LearnMode.stillLearningPoints = stillLearningPoints;
     }
 
 }
