@@ -22,7 +22,7 @@ public class AddImgCard implements Command{
 
     @Override
     public void execute() {
-        ImgFlashcardCollection imgCardRepo = (ImgFlashcardCollection) dbProxy.getFlashcardList(id, "T");
+        ImgFlashcardCollection imgCardRepo = (ImgFlashcardCollection) dbProxy.getFlashcardList(id, "I");
         imgCardRepo.add(imgCard);
     }
 }
