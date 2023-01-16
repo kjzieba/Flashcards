@@ -16,9 +16,7 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
 public class AddImg extends JPanel implements KeyListener {
     private final Initializer initializer;
@@ -30,7 +28,7 @@ public class AddImg extends JPanel implements KeyListener {
     private final ArrayList<Long> idCards = new ArrayList<>();
     private final JPanel content = new JPanel(new GridLayout(0, 3));
 
-    private ArrayList<String> historyOfNames = new ArrayList<>();
+    private Map<Long, String> Names = new HashMap<>();
 
     private int itemsDeleted = 0;
 
@@ -217,10 +215,13 @@ public class AddImg extends JPanel implements KeyListener {
                     imgButton.setText(String.valueOf(fileName));
                     if (idCards.contains(card.getId())) {
                         App.getInstance().changeImage(card, filePath.toString());
+                        Names.remove(card.getId());
+                        Names.put(card.getId(), String.valueOf(fileName));
                     } else {
                         App.getInstance().changeImage(card, filePath.toString());
                         idCards.add(card.getId());
                         App.getInstance().addImgCard(card);
+                        Names.put(card.getId(), String.valueOf(fileName));
                     }
                 }
             }
@@ -301,7 +302,7 @@ public class AddImg extends JPanel implements KeyListener {
     }
 
     private Component getImg2(ImgCard card) {
-        JButton imgButton = new JButton();
+        JButton imgButton = new JButton(Names.get(card.getId()));
         imgButton.setBackground(GUInitializer.buttonColor);
         imgButton.setForeground(Color.white);
         imgButton.setOpaque(true);
