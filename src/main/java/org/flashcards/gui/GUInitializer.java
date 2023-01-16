@@ -188,8 +188,8 @@ public class GUInitializer extends JFrame implements Initializer {
                 }
                 else if (!flag) {
                     result.setScore("Know", "Still Learning", learnMode.getKnowWords(), learnMode.getStillLearningWords());
-                    learnMode.setKnowWords(0);
-                    learnMode.setStillLearningWords(0);
+                    LearnMode.setKnowWords(0);
+                    LearnMode.setStillLearningWords(0);
                 }
             }
             case QuestionsAmount -> {

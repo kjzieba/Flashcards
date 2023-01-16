@@ -129,11 +129,11 @@ public class TestMode extends JPanel {
     }
 
     public void setRightAnswers(int rightAnswers) {
-        this.rightAnswers = rightAnswers;
+        TestMode.rightAnswers = rightAnswers;
     }
 
     public void setWrongAnswers(int wrongAnswers) {
-        this.wrongAnswers = wrongAnswers;
+        TestMode.wrongAnswers = wrongAnswers;
     }
 
     public void updateLabel() {

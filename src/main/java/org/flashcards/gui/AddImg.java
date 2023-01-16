@@ -28,7 +28,7 @@ public class AddImg extends JPanel implements KeyListener {
     private final ArrayList<Long> idCards = new ArrayList<>();
     private final JPanel content = new JPanel(new GridLayout(0, 3));
 
-    private Map<Long, String> Names = new HashMap<>();
+    private final Map<Long, String> Names = new HashMap<>();
 
     private int itemsDeleted = 0;
 
