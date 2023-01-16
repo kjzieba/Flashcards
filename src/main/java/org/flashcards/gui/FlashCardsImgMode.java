@@ -137,7 +137,7 @@ public class FlashCardsImgMode extends JPanel {
 
     public void setCardImg() {
         Long id = App.getInstance().getCurrentRepo();
-        ImgFlashcardCollection list = (ImgFlashcardCollection) App.getInstance().getAllCards().getFlashcardList(id, "T");
+        ImgFlashcardCollection list = (ImgFlashcardCollection) App.getInstance().getAllCards().getFlashcardList(id, "I");
         it = new ImgFlashcardIterator(list);
         ImgCard card;
         if (!it.isDoneRight()) {
