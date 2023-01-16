@@ -1,7 +1,9 @@
 package org.flashcards.db;
 
+import org.flashcards.ImgCard;
 import org.flashcards.TxtCard;
 import org.flashcards.collection.FlashcardCollectionInterface;
+import org.flashcards.collection.ImgFlashcardCollection;
 import org.flashcards.collection.TxtFlashcardCollection;
 import org.flashcards.states.FlaggedState;
 
@@ -56,8 +58,8 @@ public class Database implements DatabaseInterface {
 
                             for (var card : cards) {
                                 String[] sides = card.split("\\|");
-                                TxtCard c = new TxtCard(Long.parseLong(sides[0]),sides[1], sides[2]);
-                                if (sides[3].equals("flagged")){
+                                TxtCard c = new TxtCard(Long.parseLong(sides[0]), sides[1], sides[2]);
+                                if (sides[3].equals("flagged")) {
                                     c.setFlashcardState(new FlaggedState());
                                 }
                                 list.add(c);
@@ -65,7 +67,28 @@ public class Database implements DatabaseInterface {
                             sc.close();
                             return new TxtFlashcardCollection(title, list, id);
                         } else if (type.equals("I")) {
-//                            return new TxtFlashcardCollection();
+                            String title = strings[2];
+                            String[] cards = strings[3].replace("[", "").replace("]", "").split(",");
+
+                            ArrayList<ImgCard> list = new ArrayList<>();
+
+                            for (var card : cards) {
+                                String[] sides = card.split("\\|");
+
+                                String[] imgParts = sides[1].split("\\.");
+
+                                byte[] img = new byte[imgParts.length];
+                                for (int i = 0; i < imgParts.length; i++) {
+                                    img[i] = (byte) Integer.parseInt(imgParts[i]);
+                                }
+                                ImgCard c = new ImgCard(Long.parseLong(sides[0]), sides[2], img);
+                                if (sides[3].equals("flagged")) {
+                                    c.setFlashcardState(new FlaggedState());
+                                }
+                                list.add(c);
+                            }
+                            sc.close();
+                            return new ImgFlashcardCollection(title, list, id);
                         }
                     }
                 }
