@@ -10,19 +10,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class AddImg extends JPanel {
+public class AddImg extends JPanel implements KeyListener {
     private final Initializer initializer;
     private final JTextField nameTextField = new JTextField("Enter a title");
+    private final JLabel undoLabel = new JLabel("Press U to undo changes");
     private final JScrollPane scrollPane = new JScrollPane();
     private final FlashcardImgHistory flashcardImgHistory = new FlashcardImgHistory();
     private boolean titleSet = false;
     private final ArrayList<Long> idCards = new ArrayList<>();
     private final JPanel content = new JPanel(new GridLayout(0, 3));
+
+    private int itemsDeleted = 0;
 
     public AddImg(Initializer initializer) {
         this.initializer = initializer;
@@ -34,23 +39,30 @@ public class AddImg extends JPanel {
         getAddButton();
         getNameRepository();
         getScrollPane();
+        getUndoLabel();
+        undoLabel.setVisible(false);
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+        addKeyListener(this);
     }
 
     private void getBackButton() {
         JButton backButton = new ButtonComponents().backButtonComponent(13, 12);
         backButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Menu);
-            App.getInstance().deleteRepo("I");
+            App.getInstance().deleteRepo("T");
             content.removeAll();
             content.repaint();
             content.revalidate();
             scrollPane.repaint();
             scrollPane.revalidate();
             getScrollPane();
+            flashcardImgHistory.clear();
         });
 
         add(backButton);
     }
+
 
     private Component getDeleteButton(ImgCard card, Component component, Component component2) {
         JButton deleteButton = new JButton("delete");
@@ -64,19 +76,19 @@ public class AddImg extends JPanel {
                 BorderFactory.createEmptyBorder(10, 3, 10, 0)));
         deleteButton.addActionListener(e -> {
             if (idCards.contains(card.getId())) {
-                App.getInstance().saveImgToMemento(flashcardImgHistory, card);
                 ImageIcon trashIcon = new ImageIcon("src/main/resources/img/trashIcon.png");
                 int option = JOptionPane.showConfirmDialog(null, "Are you sure?", "Select an Option...",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, trashIcon);
                 if (option == 0) {
+                    undoLabel.setVisible(true);
                     content.remove(component);
                     content.remove(component2);
                     content.remove(deleteButton);
                     content.repaint();
                     content.revalidate();
-                } else {
                     idCards.remove(card.getId());
-                    App.getInstance().addImgCard(App.getInstance().restoreImgFromMemento(flashcardImgHistory));
+                    App.getInstance().saveImgToMemento(flashcardImgHistory, card);
+                    itemsDeleted = itemsDeleted + 1;
                 }
             } else {
                 content.remove(component);
@@ -90,12 +102,13 @@ public class AddImg extends JPanel {
     }
 
 
+
     private void getAddButton() {
         JButton addButton = new ButtonComponents().addButtonComponent(457, 130);
         addButton.addActionListener(e -> {
             ImgCard imgCard = App.getInstance().createEmptyImgCard();
             Component component = getImg(imgCard);
-            Component component2 = getAnswer(imgCard);
+            Component component2 = getDefinitionTextArea(imgCard);
             content.add(component);
             content.add(component2);
             content.add(getDeleteButton(imgCard, component, component2));
@@ -110,7 +123,6 @@ public class AddImg extends JPanel {
         saveButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.ChooseMode);
             nameTextField.setText("Enter a title");
-            System.out.println(App.getInstance().getAllCards());
             App.getInstance().setIdRepo(App.getInstance().getIdRepo() + 1);
             content.removeAll();
             content.repaint();
@@ -119,6 +131,7 @@ public class AddImg extends JPanel {
             scrollPane.revalidate();
             getScrollPane();
             titleSet = false;
+            flashcardImgHistory.clear();
             App.getInstance().getAllCards().saveList(App.getInstance().getIdRepo() - 1);
         });
         add(saveButton);
@@ -133,9 +146,7 @@ public class AddImg extends JPanel {
         nameTextField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (titleSet) {
-
-                } else {
+                if (!titleSet) {
                     nameTextField.setText("");
                 }
             }
@@ -149,12 +160,13 @@ public class AddImg extends JPanel {
         add(nameTextField);
     }
 
-    private Component getAnswer(ImgCard card) {
-        JTextArea definitionTextArea = new JTextArea("definition");
+    private Component getDefinitionTextArea(ImgCard card) {
+        JTextField definitionTextArea = new JTextField("definition");
+        definitionTextArea.setHorizontalAlignment(JTextField.CENTER);
         definitionTextArea.setBackground(GUInitializer.buttonColor);
         definitionTextArea.setForeground(Color.white);
         definitionTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
-        definitionTextArea.setBounds(254, 192, 210, 35);
+        definitionTextArea.setBounds(496, 192, 210, 85);
         definitionTextArea.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         definitionTextArea.setBorder(BorderFactory.createCompoundBorder(
                 definitionTextArea.getBorder(),
@@ -162,9 +174,7 @@ public class AddImg extends JPanel {
         definitionTextArea.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (idCards.contains(card.getId()) && !Objects.equals(definitionTextArea.getText(), "definition")) {
-
-                } else {
+                if (!(idCards.contains(card.getId()) && !Objects.equals(definitionTextArea.getText(), "definition"))) {
                     definitionTextArea.setText("");
                 }
             }
@@ -172,16 +182,14 @@ public class AddImg extends JPanel {
             @Override
             public void focusLost(FocusEvent e) {
                 if (idCards.contains(card.getId())) {
-                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
+                    App.getInstance().changeAnswer(card, definitionTextArea.getText());
                 } else {
-                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
-                    App.getInstance().changeAnswer(card,definitionTextArea.getText());
+                    App.getInstance().changeAnswer(card, definitionTextArea.getText());
                     idCards.add(card.getId());
                     App.getInstance().addImgCard(card);
                 }
             }
         });
-
         return add(definitionTextArea);
     }
 
@@ -216,12 +224,99 @@ public class AddImg extends JPanel {
         scrollPane.getVerticalScrollBar().setUI(null);
         ImgCard imgCard = App.getInstance().createEmptyImgCard();
         Component component = getImg(imgCard);
-        Component component2 = getAnswer(imgCard);
+        Component component2 = getDefinitionTextArea(imgCard);
         content.add(component);
         content.add(component2);
         content.add(getDeleteButton(imgCard, component, component2));
         scrollPane.setViewportView(content);
         add(scrollPane);
     }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        char c = e.getKeyChar();
+        if (c == 'U' || c == 'u') {
+            if (!(itemsDeleted == 0)) {
+                ImgCard imgCard = App.getInstance().restoreImgFromMemento(flashcardImgHistory);
+                idCards.add(imgCard.getId());
+                App.getInstance().addImgCard(imgCard);
+                Component component = getImg2(imgCard);
+                Component component2 = getDefinitionTextArea2(imgCard);
+                content.add(component);
+                content.add(component2);
+                content.add(getDeleteButton(imgCard, component, component2));
+                content.repaint();
+                content.revalidate();
+                itemsDeleted = itemsDeleted - 1;
+            }
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (itemsDeleted == 0) {
+            undoLabel.setVisible(false);
+        }
+    }
+
+    private Component getDefinitionTextArea2(ImgCard card) {
+        JTextField definitionTextArea = new JTextField(card.getAnswer());
+        definitionTextArea.setHorizontalAlignment(JTextField.CENTER);
+        definitionTextArea.setBackground(GUInitializer.buttonColor);
+        definitionTextArea.setForeground(Color.white);
+        definitionTextArea.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        definitionTextArea.setBounds(496, 192, 210, 85);
+        definitionTextArea.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+        definitionTextArea.setBorder(BorderFactory.createCompoundBorder(
+                definitionTextArea.getBorder(),
+                BorderFactory.createEmptyBorder(10, 3, 10, 0)));
+        definitionTextArea.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                App.getInstance().changeAnswer(card, definitionTextArea.getText());
+            }
+        });
+        return add(definitionTextArea);
+    }
+
+    private Component getImg2(ImgCard card) {
+        JButton imgButton = new JButton("Upload Image");
+        imgButton.setBackground(GUInitializer.buttonColor);
+        imgButton.setForeground(Color.white);
+        imgButton.setOpaque(true);
+        imgButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
+        imgButton.setBounds(496, 192, 210, 65);
+        imgButton.addActionListener(e -> {
+            if(e.getSource() == imgButton) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+                int res = fileChooser.showOpenDialog(null);
+                if(res == JFileChooser.APPROVE_OPTION) {
+                    File filePath = new File(fileChooser.getSelectedFile().getAbsolutePath());
+                    Path fileName = filePath.toPath().getFileName();
+                    App.getInstance().changeImage(card,filePath.toString());
+                    imgButton.setText(String.valueOf(fileName));
+                }
+            }
+        });
+        return add(imgButton);
+    }
+
+    private void getUndoLabel() {
+        undoLabel.setFont(new Font("Arbutus", Font.PLAIN, 15));
+        undoLabel.setForeground(Color.red);
+        undoLabel.setBounds(369, 12, 229, 37);
+        add(undoLabel);
+    }
+
 
 }
