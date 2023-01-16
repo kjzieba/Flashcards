@@ -11,12 +11,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class DatabaseTests {
     private static DatabaseProxy db;
@@ -26,13 +27,15 @@ public class DatabaseTests {
     @BeforeAll
     static void setup() {
         db = DatabaseProxy.getInstance();
-        ArrayList<TxtCard> txtCards = new ArrayList<>();
-        txtCards.add(new TxtCard(1L, "question", "answer"));
-        txtList = new TxtFlashcardCollection("title", txtCards, 1L);
-        ArrayList<ImgCard> imgCards = new ArrayList<>();
-        byte[] bytes = new byte[1];
-        imgCards.add(new ImgCard(1L, "answer", bytes));
-        imgList = new ImgFlashcardCollection("title", imgCards, 1L);
+
+        txtList = mock(TxtFlashcardCollection.class);
+        when(txtList.getId()).thenReturn(1L);
+        when(txtList.toString()).thenReturn("T 1 title [1|question|answer|normal]");
+        when(txtList.getType()).thenReturn("T");
+        imgList = mock(ImgFlashcardCollection.class);
+        when(imgList.getId()).thenReturn(1L);
+        when(imgList.toString()).thenReturn("I 1 title [1|[0]|answer|normal]");
+        when(imgList.getType()).thenReturn("I");
     }
 
     @AfterAll
@@ -51,7 +54,7 @@ public class DatabaseTests {
 
         TxtFlashcardCollection returnList = (TxtFlashcardCollection) db.getFlashcardList(1L, "T");
 
-        Assertions.assertEquals(txtList.toString(), returnList.toString());
+        Assertions.assertEquals(txtList, returnList);
     }
 
     @Test
@@ -60,7 +63,7 @@ public class DatabaseTests {
 
         ImgFlashcardCollection returnList = (ImgFlashcardCollection) db.getFlashcardList(1L, "I");
 
-        Assertions.assertEquals(imgList.toString(), returnList.toString());
+        Assertions.assertEquals(imgList, returnList);
     }
 
     @Test
