@@ -1,11 +1,10 @@
 package org.flashcards.commands;
 
 import org.flashcards.collection.TxtFlashcardCollection;
-import org.flashcards.db.DatabaseProxy;
 
 import java.util.ArrayList;
 
-public class AddTxtRepo implements Command{
+public class AddTxtRepo implements Command {
     private final ArrayList<Long> addedID;
     private final Long id;
 
@@ -16,9 +15,9 @@ public class AddTxtRepo implements Command{
 
     @Override
     public void execute() {
-            TxtFlashcardCollection txtCardRepo = new TxtFlashcardCollection("", new ArrayList<>(), id);
-            addedID.add(id);
-            Command saveTxtRepo = new SaveTxtRepo(txtCardRepo, id);
-            saveTxtRepo.execute();
+        TxtFlashcardCollection txtCardRepo = new TxtFlashcardCollection("", new ArrayList<>(), id);
+        addedID.add(id);
+        Command saveTxtRepo = new SaveTxtRepo(txtCardRepo, id);
+        saveTxtRepo.execute();
     }
 }

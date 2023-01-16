@@ -3,7 +3,6 @@ package org.flashcards.collection;
 import org.flashcards.TxtCard;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class TxtFlashcardCollection implements FlashcardCollectionInterface {

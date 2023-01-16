@@ -51,7 +51,7 @@ public class QuestionsAmount extends JPanel {
         plusIcon.setFocusPainted(false);
         plusIcon.addActionListener(e -> {
             String currentType = App.getInstance().getAllCards().getTypeByID(App.getInstance().getCurrentRepo());
-            if (currentType.equals("T")){
+            if (currentType.equals("T")) {
                 TxtFlashcardCollection t = (TxtFlashcardCollection) App.getInstance().getAllCards().getFlashcardList(App.getInstance().getCurrentRepo(), "T");
                 int maxAmount = t.getList().size();
                 if (amount < maxAmount) {
@@ -90,7 +90,7 @@ public class QuestionsAmount extends JPanel {
         JButton startButton = new ButtonComponents().smallButtonComponent("Start test", 412, 290);
         startButton.addActionListener(e -> {
             String currentType = App.getInstance().getAllCards().getTypeByID(App.getInstance().getCurrentRepo());
-            if (currentType.equals("T")){
+            if (currentType.equals("T")) {
                 initializer.update(GUInitializer.Panel.TestMode);
                 TestMode.questionNumber.setText(TestMode.currentQuestion + "/" + QuestionsAmount.amount);
             } else if (currentType.equals("I")) {

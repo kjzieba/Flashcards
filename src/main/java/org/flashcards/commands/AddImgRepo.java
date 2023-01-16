@@ -1,12 +1,10 @@
 package org.flashcards.commands;
 
 import org.flashcards.collection.ImgFlashcardCollection;
-import org.flashcards.collection.TxtFlashcardCollection;
-import org.flashcards.db.DatabaseProxy;
 
 import java.util.ArrayList;
 
-public class AddImgRepo implements Command{
+public class AddImgRepo implements Command {
     private final ArrayList<Long> addedID;
     private final Long id;
 

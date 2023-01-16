@@ -59,7 +59,6 @@ public class AddTxt extends JPanel implements KeyListener {
     }
 
 
-
     private Component getDeleteButton(TxtCard card, Component component, Component component2) {
         JButton deleteButton = new JButton("delete");
         deleteButton.setBackground(Color.gray);

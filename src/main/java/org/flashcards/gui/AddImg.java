@@ -13,8 +13,6 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
@@ -103,7 +101,6 @@ public class AddImg extends JPanel implements KeyListener {
         });
         return add(deleteButton);
     }
-
 
 
     private void getAddButton() {
@@ -204,14 +201,14 @@ public class AddImg extends JPanel implements KeyListener {
         imgButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
         imgButton.setBounds(496, 192, 210, 65);
         imgButton.addActionListener(e -> {
-            if(e.getSource() == imgButton) {
+            if (e.getSource() == imgButton) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
                 int res = fileChooser.showOpenDialog(null);
-                if(res == JFileChooser.APPROVE_OPTION) {
+                if (res == JFileChooser.APPROVE_OPTION) {
                     File filePath = new File(fileChooser.getSelectedFile().getAbsolutePath());
                     Path fileName = filePath.toPath().getFileName();
-                    App.getInstance().changeImage(card,filePath.toString());
+                    App.getInstance().changeImage(card, filePath.toString());
                     imgButton.setText(String.valueOf(fileName));
                     if (idCards.contains(card.getId())) {
                         App.getInstance().changeImage(card, filePath.toString());
@@ -309,14 +306,14 @@ public class AddImg extends JPanel implements KeyListener {
         imgButton.setFont(new Font("Arbutus", Font.PLAIN, 16));
         imgButton.setBounds(496, 192, 210, 65);
         imgButton.addActionListener(e -> {
-            if(e.getSource() == imgButton) {
+            if (e.getSource() == imgButton) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
                 int res = fileChooser.showOpenDialog(null);
-                if(res == JFileChooser.APPROVE_OPTION) {
+                if (res == JFileChooser.APPROVE_OPTION) {
                     File filePath = new File(fileChooser.getSelectedFile().getAbsolutePath());
                     Path fileName = filePath.toPath().getFileName();
-                    App.getInstance().changeImage(card,filePath.toString());
+                    App.getInstance().changeImage(card, filePath.toString());
                     imgButton.setText(String.valueOf(fileName));
                     App.getInstance().changeImage(card, filePath.toString());
                 }

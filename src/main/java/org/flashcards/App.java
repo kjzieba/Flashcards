@@ -114,57 +114,58 @@ public class App {
         command.execute();
     }
 
-    public void saveEditedTxtRepo(TxtFlashcardCollection txtFlashcardCollection){
+    public void saveEditedTxtRepo(TxtFlashcardCollection txtFlashcardCollection) {
         Command command = new SaveTxtRepo(txtFlashcardCollection, currentRepo);
         command.execute();
     }
 
-    public void saveEditedImgRepo(ImgFlashcardCollection imgFlashcardCollection){
+    public void saveEditedImgRepo(ImgFlashcardCollection imgFlashcardCollection) {
         Command command = new SaveImgRepo(imgFlashcardCollection, currentRepo);
         command.execute();
     }
+
     public void deleteRepo(String type) {
         Command delRepo = new DelRepo(currentRepo, deletedRepos, deletedId, type);
         delRepo.execute();
         reposNumber -= 1;
     }
 
-    public void changeStateToFlagged(TxtCard txtCard){
-        Command command = new ChgState(txtCard,States.FLAGGED);
+    public void changeStateToFlagged(TxtCard txtCard) {
+        Command command = new ChgState(txtCard, States.FLAGGED);
         command.execute();
     }
 
-    public void changeStateToNotFlagged(TxtCard txtCard){
-        Command command = new ChgState(txtCard, States.NOTFLAGGED);
+    public void changeStateToNotFlagged(TxtCard txtCard) {
+        Command command = new ChgState(txtCard, States.NOT_FLAGGED);
         command.execute();
     }
 
-    public void changeStateToFlaggedImg(ImgCard imgCard){
-        Command command = new ChgState(imgCard,States.FLAGGED);
+    public void changeStateToFlaggedImg(ImgCard imgCard) {
+        Command command = new ChgState(imgCard, States.FLAGGED);
         command.execute();
     }
 
-    public void changeStateToNotFlaggedImg(ImgCard imgCard){
-        Command command = new ChgState(imgCard, States.NOTFLAGGED);
+    public void changeStateToNotFlaggedImg(ImgCard imgCard) {
+        Command command = new ChgState(imgCard, States.NOT_FLAGGED);
         command.execute();
     }
 
-    public void saveTxtToMemento(FlashcardTxtHistory flashcardTxtHistory, TxtCard txtCard){
+    public void saveTxtToMemento(FlashcardTxtHistory flashcardTxtHistory, TxtCard txtCard) {
         Command command = new DelTxtCard(flashcardTxtHistory, currentRepo, txtCard);
         command.execute();
     }
 
-    public void saveImgToMemento(FlashcardImgHistory flashcardImgHistory, ImgCard imgCard){
+    public void saveImgToMemento(FlashcardImgHistory flashcardImgHistory, ImgCard imgCard) {
         Command command = new DelImgCard(flashcardImgHistory, currentRepo, imgCard);
         command.execute();
     }
 
-    public TxtCard restoreTxtFromMemento(FlashcardTxtHistory flashcardTxtHistory){
+    public TxtCard restoreTxtFromMemento(FlashcardTxtHistory flashcardTxtHistory) {
         MementoTxtCard mementoTxtCard = flashcardTxtHistory.pop();
         return new TxtCard(mementoTxtCard.getId(), mementoTxtCard.getTextQuestion(), mementoTxtCard.getAnswer());
     }
 
-    public ImgCard restoreImgFromMemento(FlashcardImgHistory flashcardImgHistory){
+    public ImgCard restoreImgFromMemento(FlashcardImgHistory flashcardImgHistory) {
         MementoImgCard mementoImgCard = flashcardImgHistory.pop();
         return new ImgCard(mementoImgCard.getId(), mementoImgCard.getAnswer(), mementoImgCard.getImage());
     }

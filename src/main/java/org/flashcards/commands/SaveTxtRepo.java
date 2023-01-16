@@ -3,7 +3,7 @@ package org.flashcards.commands;
 import org.flashcards.collection.TxtFlashcardCollection;
 import org.flashcards.db.DatabaseProxy;
 
-public class SaveTxtRepo implements Command{
+public class SaveTxtRepo implements Command {
     private final TxtFlashcardCollection txtCardRepo;
     private final DatabaseProxy dbProxy;
 

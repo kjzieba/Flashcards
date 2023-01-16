@@ -5,7 +5,6 @@ import org.flashcards.ImgCard;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Arrays;
 
 public class ImgCardCreator implements CardCreator {
 
@@ -16,7 +15,6 @@ public class ImgCardCreator implements CardCreator {
 
     public byte[] imageToBytesArray(String image) {
         File imgPath = new File(image);
-        System.out.println();
         try {
             return Files.readAllBytes(imgPath.toPath());
         } catch (IOException e) {

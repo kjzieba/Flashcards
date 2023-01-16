@@ -12,6 +12,7 @@ import static org.flashcards.gui.LearnModeImg.*;
 public class ChooseMode extends JPanel {
 
     private final Initializer initializer;
+
     ChooseMode(Initializer initializer) {
         this.initializer = initializer;
         setPreferredSize(new Dimension(960, 560));
@@ -24,7 +25,7 @@ public class ChooseMode extends JPanel {
     }
 
     private void getBackButton() {
-        JButton backButton = new ButtonComponents().backButtonComponent(13,12);
+        JButton backButton = new ButtonComponents().backButtonComponent(13, 12);
         backButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.Menu);
         });
@@ -35,7 +36,7 @@ public class ChooseMode extends JPanel {
         JButton flashcardsButton = new ButtonComponents().bigButtonComponent("flashcards", 149, 239);
         flashcardsButton.addActionListener(e -> {
             String currentType = App.getInstance().getAllCards().getTypeByID(App.getInstance().getCurrentRepo());
-            if (currentType.equals("T")){
+            if (currentType.equals("T")) {
                 initializer.update(GUInitializer.Panel.FlashCardsMode);
             } else if (currentType.equals("I")) {
                 initializer.update(GUInitializer.Panel.FlashCardsImgMode);
@@ -48,7 +49,7 @@ public class ChooseMode extends JPanel {
         JButton learnButton = new ButtonComponents().bigButtonComponent("learn", 392, 239);
         learnButton.addActionListener(e -> {
             String currentType = App.getInstance().getAllCards().getTypeByID(App.getInstance().getCurrentRepo());
-            if (currentType.equals("T")){
+            if (currentType.equals("T")) {
                 know.setText("Know               " + knowPoints);
                 stillLearning.setText("Still learning   " + stillLearningPoints);
                 initializer.update(GUInitializer.Panel.LearnMode);

@@ -1,8 +1,5 @@
 package org.flashcards.gui;
 
-import org.flashcards.App;
-import org.flashcards.collection.TxtFlashcardCollection;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +23,6 @@ public class GUInitializer extends JFrame implements Initializer {
     private final FlashCardsImgMode flashCardsImgMode;
     private final LearnModeImg learnModeImg;
     private final TestModeImg testModeImg;
-    public Long editID = 0L;
     public static Boolean flag;
 
 
@@ -185,8 +181,7 @@ public class GUInitializer extends JFrame implements Initializer {
                     result.setScore("Correct", "Incorrect", testMode.getRightAnswers(), testMode.getWrongAnswers());
                     testMode.setRightAnswers(0);
                     testMode.setWrongAnswers(0);
-                }
-                else if (!flag) {
+                } else if (!flag) {
                     result.setScore("Know", "Still Learning", learnMode.getKnowWords(), learnMode.getStillLearningWords());
                     LearnMode.setKnowWords(0);
                     LearnMode.setStillLearningWords(0);

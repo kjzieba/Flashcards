@@ -2,7 +2,7 @@ package org.flashcards.commands;
 
 import org.flashcards.Card;
 
-public class ChgAns implements Command{
+public class ChgAns implements Command {
     private final Card card;
 
     private final String answer;

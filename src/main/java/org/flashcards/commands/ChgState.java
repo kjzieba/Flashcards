@@ -16,10 +16,9 @@ public class ChgState implements Command {
 
     @Override
     public void execute() {
-        if(state == States.NOTFLAGGED){
+        if (state == States.NOT_FLAGGED) {
             card.setFlashcardState(new NormalState());
-        }
-        else{
+        } else {
             card.setFlashcardState(new FlaggedState());
         }
     }

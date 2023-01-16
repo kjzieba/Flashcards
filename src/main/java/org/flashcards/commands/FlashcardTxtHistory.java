@@ -23,7 +23,7 @@ public class FlashcardTxtHistory {
         return history.isEmpty();
     }
 
-    public void clear(){
+    public void clear() {
         history.removeAllElements();
     }
 }

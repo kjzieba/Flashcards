@@ -1,6 +1,6 @@
 package org.flashcards.enums;
 
 public enum States {
-    NOTFLAGGED,
+    NOT_FLAGGED,
     FLAGGED
 }

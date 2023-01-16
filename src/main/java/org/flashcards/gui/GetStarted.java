@@ -36,20 +36,19 @@ public class GetStarted extends JPanel {
         getStartedButton.setBounds(398, 321, 152, 47);
         add(getStartedButton);
         getStartedButton.addActionListener(e -> {
-                initializer.update(GUInitializer.Panel.Menu);
+            initializer.update(GUInitializer.Panel.Menu);
         });
     }
 
-    private void addSettingsButton() {
-        JButton settingsButton = new JButton("Settings");
-        settingsButton.setBackground(GUInitializer.getStartedButtonsColor);
-        settingsButton.setOpaque(true);
-        settingsButton.setFont(new Font("Arbutus", Font.PLAIN, 14));
-        settingsButton.setBounds(398, 404, 152, 47);
-        add(settingsButton);
-        settingsButton.addActionListener(e -> {
-
-        });
-    }
-
+//    private void addSettingsButton() {
+//        JButton settingsButton = new JButton("Settings");
+//        settingsButton.setBackground(GUInitializer.getStartedButtonsColor);
+//        settingsButton.setOpaque(true);
+//        settingsButton.setFont(new Font("Arbutus", Font.PLAIN, 14));
+//        settingsButton.setBounds(398, 404, 152, 47);
+//        add(settingsButton);
+//        settingsButton.addActionListener(e -> {
+//
+//        });
+//    }
 }

@@ -12,9 +12,7 @@ public class ImgCard extends Card {
         this.imageQuestion = imageQuestion;
     }
 
-    public MementoImgCard saveToMemento()
-    {
-        System.out.println("Saving time to Memento");
+    public MementoImgCard saveToMemento() {
         return new MementoImgCard(id, imageQuestion, answer);
     }
 
@@ -34,6 +32,6 @@ public class ImgCard extends Card {
 
     @Override
     public String toString() {
-        return id + "|" + Arrays.toString(imageQuestion).replace(", ",".") + "|"+ answer + "|" + flashcardState;
+        return id + "|" + Arrays.toString(imageQuestion).replace(", ", ".") + "|" + answer + "|" + flashcardState;
     }
 }
