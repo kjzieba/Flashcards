@@ -19,7 +19,6 @@ public class FlashCardsMode extends JPanel {
     private final Initializer initializer;
     private final JButton cardView;
     private final JButton cardReverseView;
-    private final JButton cardImg;
     private final JButton flagButton = new FlashCardComponent().flagButtonComponent(655, 135);
     private final JButton redFlagButton = new FlashCardComponent().redFlagButtonComponent(655, 135);
 
@@ -31,7 +30,6 @@ public class FlashCardsMode extends JPanel {
         this.initializer = initializer;
         cardView = new CardComponent().cardButtonComponent(318, 135, 323, 175, "");
         cardReverseView = new CardComponent().cardReverseButtonComponent(318, 135, 323, 175, "");
-        cardImg = new CardComponent().cardButtonImgComponent(318, 135, 323, 175, "src/main/resources/img/panini.jpg");
 
         setPreferredSize(new Dimension(960, 560));
         setBackground(GUInitializer.backgroundColor);
@@ -58,23 +56,17 @@ public class FlashCardsMode extends JPanel {
     }
 
     private void getCardView() {
-//        cardView.addActionListener(e -> {
-//            cardView.setVisible(false);
-//            cardReverseView.setVisible(true);
-//        });
-//        add(cardView);
-        cardImg.addActionListener(e -> {
-            cardImg.setVisible(false);
+        cardView.addActionListener(e -> {
+            cardView.setVisible(false);
             cardReverseView.setVisible(true);
         });
-        add(cardImg);
+        add(cardView);
     }
 
     private void getCardViewReverse() {
         cardReverseView.addActionListener(e -> {
             cardReverseView.setVisible(false);
             cardView.setVisible(true);
-            cardImg.setVisible(true);
         });
         add(cardReverseView);
     }

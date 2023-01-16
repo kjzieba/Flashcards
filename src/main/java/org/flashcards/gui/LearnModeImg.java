@@ -1,11 +1,9 @@
 package org.flashcards.gui;
 
 import org.flashcards.App;
+import org.flashcards.ImgCard;
 import org.flashcards.TxtCard;
-import org.flashcards.collection.FlashcardCollectionInterface;
-import org.flashcards.collection.Iterator;
-import org.flashcards.collection.TxtFlashcardCollection;
-import org.flashcards.collection.TxtFlashcardIterator;
+import org.flashcards.collection.*;
 import org.flashcards.gui.components.ButtonComponents;
 import org.flashcards.gui.components.CardComponent;
 import org.flashcards.gui.components.FlashCardComponent;
@@ -15,24 +13,24 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class LearnMode extends JPanel {
+import static org.flashcards.gui.FlashCardsImgMode.ByteArrayToImage;
+
+public class LearnModeImg extends JPanel {
     private final Initializer initializer;
-    private final JButton cardView;
+    private final JButton cardImgView;
     private final JButton cardReverseView;
     private final JButton flagButton = new FlashCardComponent().flagButtonComponent(655,135);
     private final JButton redFlagButton = new FlashCardComponent().redFlagButtonComponent(655,135);
-    public static int knowPoints = 0;
-    public static int stillLearningPoints = 0;
     private final JLabel know = new JLabel();
     private final JLabel stillLearning = new JLabel();
-    private TxtCard txtCard = App.getInstance().createEmptyTxtCard();
-    private TxtFlashcardCollection txtFlashcardCollection = new TxtFlashcardCollection("", new ArrayList<>(), 0L);
+    private ImgCard imgCard = App.getInstance().createEmptyImgCard();
+    private ImgFlashcardCollection imgFlashcardCollection = new ImgFlashcardCollection("", new ArrayList<>(), 0L);
     private Iterator it;
 
-    public LearnMode(Initializer initializer) {
+    public LearnModeImg(Initializer initializer) {
         this.initializer = initializer;
-        cardView = new CardComponent().cardButtonComponent(318, 135, 323, 175, "");
         cardReverseView = new CardComponent().cardReverseButtonComponent(318, 135, 323, 175, "");
+        cardImgView = new CardComponent().cardButtonImgComponent(318, 135, 323, 175, "");
 
         setPreferredSize(new Dimension(960, 560));
         setBackground(GUInitializer.backgroundColor);
@@ -51,7 +49,7 @@ public class LearnMode extends JPanel {
         backButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.ChooseMode);
             App.getInstance().deleteRepo("T");
-            App.getInstance().saveEditedTxtRepo(txtFlashcardCollection);
+            App.getInstance().saveEditedImgRepo(imgFlashcardCollection);
             App.getInstance().getAllCards().saveList(App.getInstance().getCurrentRepo());
             remove(redFlagButton);
             remove(flagButton);
@@ -60,38 +58,38 @@ public class LearnMode extends JPanel {
     }
 
     private void getCardView() {
-        cardView.addActionListener(e -> {
-            cardView.setVisible(false);
+        cardImgView.addActionListener(e -> {
+            cardImgView.setVisible(false);
             cardReverseView.setVisible(true);
         });
-        add(cardView);
+        add(cardImgView);
     }
 
     private void getCardViewReverse() {
         cardReverseView.addActionListener(e -> {
             cardReverseView.setVisible(false);
-            cardView.setVisible(true);
+            cardImgView.setVisible(true);
         });
         add(cardReverseView);
     }
 
     private void getFlagButtonComponent() {
-        if (Objects.equals(txtCard.getFlashcardState().toString(), "normal")) {
+        if (Objects.equals(imgCard.getFlashcardState().toString(), "normal")) {
             redFlagButton.setVisible(false);
             flagButton.setVisible(true);
             flagButton.addActionListener(e -> {
                 flagButton.setVisible(false);
                 redFlagButton.setVisible(true);
-                App.getInstance().changeStateToFlagged(txtCard);
-                txtCard.action(cardReverseView);
-                txtCard.action(cardView);
+                App.getInstance().changeStateToFlaggedImg(imgCard);
+                imgCard.action(cardReverseView);
+                imgCard.action(cardImgView);
             });
             redFlagButton.addActionListener(e1 -> {
                 redFlagButton.setVisible(false);
                 flagButton.setVisible(true);
-                App.getInstance().changeStateToNotFlagged(txtCard);
-                txtCard.action(cardReverseView);
-                txtCard.action(cardView);
+                App.getInstance().changeStateToNotFlaggedImg(imgCard);
+                imgCard.action(cardReverseView);
+                imgCard.action(cardImgView);
             });
             add(flagButton);
             add(redFlagButton);
@@ -101,16 +99,16 @@ public class LearnMode extends JPanel {
             redFlagButton.addActionListener(e2 -> {
                 flagButton.setVisible(true);
                 redFlagButton.setVisible(false);
-                App.getInstance().changeStateToNotFlagged(txtCard);
-                txtCard.action(cardView);
-                txtCard.action(cardReverseView);
+                App.getInstance().changeStateToNotFlaggedImg(imgCard);
+                imgCard.action(cardImgView);
+                imgCard.action(cardReverseView);
             });
             flagButton.addActionListener(e3 -> {
                 flagButton.setVisible(false);
                 redFlagButton.setVisible(true);
-                App.getInstance().changeStateToFlagged(txtCard);
-                txtCard.action(cardView);
-                txtCard.action(cardReverseView);
+                App.getInstance().changeStateToFlaggedImg(imgCard);
+                imgCard.action(cardImgView);
+                imgCard.action(cardReverseView);
             });
             add(flagButton);
             add(redFlagButton);
@@ -134,8 +132,8 @@ public class LearnMode extends JPanel {
     }
 
     public void getCustomPointBoard() {
-        know.setText("Know               " + knowPoints);
-        stillLearning.setText("Still learning   " + stillLearningPoints);
+        know.setText("Know               " + LearnMode.knowPoints);
+        stillLearning.setText("Still learning   " + LearnMode.stillLearningPoints);
         know.setFont(new Font("Arbutus", Font.PLAIN, 15));
         know.setForeground(Color.white);
         know.setBounds(36, 427, 210, 120);
@@ -146,48 +144,48 @@ public class LearnMode extends JPanel {
         add(stillLearning);
     }
 
-    public void setRepo() {
+    public void setRepoImg() {
         FlashcardCollectionInterface flashcardCollectionInterface = App.getInstance().getAllCards().getFlashcardList(App.getInstance().getCurrentRepo(), "T");
-        txtFlashcardCollection = (TxtFlashcardCollection) flashcardCollectionInterface;
+        imgFlashcardCollection = (ImgFlashcardCollection) flashcardCollectionInterface;
     }
 
-    public void setCard() {
+    public void setCardImg() {
         Long id = App.getInstance().getCurrentRepo();
-        TxtFlashcardCollection list = (TxtFlashcardCollection) App.getInstance().getAllCards().getFlashcardList(id, "T");
-        it = new TxtFlashcardIterator(list);
-        TxtCard card;
+        ImgFlashcardCollection list = (ImgFlashcardCollection) App.getInstance().getAllCards().getFlashcardList(id, "I");
+        it = new ImgFlashcardIterator(list);
+        ImgCard card;
         if (!it.isDoneRight()) {
-            card = (TxtCard) it.next();
-            txtCard = card;
+            card = (ImgCard) it.next();
+            imgCard = card;
             getFlagButtonComponent();
-            card.action(cardView);
+            card.action(cardImgView);
             card.action(cardReverseView);
-            cardView.setText(card.getTextQuestion());
+            cardImgView.setIcon((ByteArrayToImage(card.getImageQuestion())));
             cardReverseView.setText(card.getAnswer());
             cardReverseView.setVisible(false);
-            cardView.setVisible(true);
+            cardImgView.setVisible(true);
         }
     }
 
     private void knowThat() {
         if (!it.isDoneRight()) {
-            TxtCard card = (TxtCard) it.next();
+            ImgCard card = (ImgCard) it.next();
             card.action(cardReverseView);
-            card.action(cardView);
-            txtCard = card;
+            card.action(cardImgView);
+            imgCard = card;
             getFlagButtonComponent();
-            cardView.setText(card.getTextQuestion());
+            cardImgView.setIcon((ByteArrayToImage(card.getImageQuestion())));
             cardReverseView.setText(card.getAnswer());
             cardReverseView.setVisible(false);
-            cardView.setVisible(true);
-            knowPoints++;
-            know.setText("Know               " + knowPoints);
-            stillLearning.setText("Still learning   " + stillLearningPoints);
+            cardImgView.setVisible(true);
+            LearnMode.knowPoints++;
+            know.setText("Know               " + LearnMode.knowPoints);
+            stillLearning.setText("Still learning   " + LearnMode.stillLearningPoints);
         }
         else {
-            knowPoints++;
-            know.setText("Know               " + knowPoints);
-            stillLearning.setText("Still learning   " + stillLearningPoints);
+            LearnMode.knowPoints++;
+            know.setText("Know               " + LearnMode.knowPoints);
+            stillLearning.setText("Still learning   " + LearnMode.stillLearningPoints);
             GUInitializer.flag = false;
             initializer.update(GUInitializer.Panel.Result);
         }
@@ -195,42 +193,27 @@ public class LearnMode extends JPanel {
 
     private void stillLearningThat() {
         if (!it.isDoneRight()) {
-            TxtCard card = (TxtCard) it.next();
+            ImgCard card = (ImgCard) it.next();
             card.action(cardReverseView);
-            card.action(cardView);
-            txtCard = card;
+            card.action(cardImgView);
+            imgCard = card;
             getFlagButtonComponent();
-            cardView.setText(card.getTextQuestion());
+            cardImgView.setIcon((ByteArrayToImage(card.getImageQuestion())));
             cardReverseView.setText(card.getAnswer());
             cardReverseView.setVisible(false);
-            cardView.setVisible(true);
-            stillLearningPoints++;
-            know.setText("Know               " + knowPoints);
-            stillLearning.setText("Still learning   " + stillLearningPoints);
+            cardImgView.setVisible(true);
+            LearnMode.stillLearningPoints++;
+            know.setText("Know               " + LearnMode.knowPoints);
+            stillLearning.setText("Still learning   " + LearnMode.stillLearningPoints);
         }
         else {
-            stillLearningPoints++;
-            know.setText("Know               " + knowPoints);
-            stillLearning.setText("Still learning   " + stillLearningPoints);
+            LearnMode.stillLearningPoints++;
+            know.setText("Know               " + LearnMode.knowPoints);
+            stillLearning.setText("Still learning   " + LearnMode.stillLearningPoints);
             GUInitializer.flag = false;
             initializer.update(GUInitializer.Panel.Result);
         }
     }
-
-    public int getKnowWords() {
-        return knowPoints;
-    }
-
-    public int getStillLearningWords() {
-        return stillLearningPoints;
-    }
-
-    public void setKnowWords(int knowPoints) {
-        this.knowPoints = knowPoints;
-    }
-
-    public void setStillLearningWords(int stillLearningPoints) {
-        this.stillLearningPoints = stillLearningPoints;
-    }
+    
 
 }

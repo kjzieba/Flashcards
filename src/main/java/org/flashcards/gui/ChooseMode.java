@@ -38,7 +38,7 @@ public class ChooseMode extends JPanel {
     private void getLearnButton() {
         JButton learnButton = new ButtonComponents().bigButtonComponent("learn", 392, 239);
         learnButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.LearnMode);
+            initializer.update(GUInitializer.Panel.LearnModeImg);
         });
         add(learnButton);
     }

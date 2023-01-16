@@ -49,7 +49,6 @@ public class Result extends JPanel {
                 initializer.update(GUInitializer.Panel.TestMode);
             } else if (!flag) {
                 initializer.update(GUInitializer.Panel.LearnMode);
-
             }
         });
         add(tryAgainButton);
