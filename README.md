@@ -10,6 +10,17 @@
 ![build](https://img.shields.io/badge/build-passed-success)
 ![tests](https://img.shields.io/badge/tests-passed-success)
 
+### Setup
+
+1. Make sure you have `Java 17` and `Maven` installed on your machine.
+2. Clone the repository.
+```bash
+git clone https://github.com/kjzieba/Flashcards.git
+```
+3. Open terminal in the project directory and run the following command:
+```bash
+./exec.sh
+```
 
 Desktopowa aplikacja do nauki z wykorzystaniem fiszek, oferująca 3 tryby:
  - nauka z wykorzystaniem fiszek
