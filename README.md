@@ -1,9 +1,20 @@
-# Flashcards
+<p align="center">
+   <a href="https://github.com/kjzieba/Flashcards">
+     <img alt="FlashCards" src="src/main/resources/img/logo.svg"/>
+   </a>
+ </p>
+
+![java](https://img.shields.io/badge/java-17-important)
+![swing](https://img.shields.io/badge/swing-gui-blue)
+![junit](https://img.shields.io/badge/jUnit-5.9.2-blue)
+![build](https://img.shields.io/badge/build-passed-success)
+![tests](https://img.shields.io/badge/tests-passed-success)
+
 
 Desktopowa aplikacja do nauki z wykorzystaniem fiszek, oferująca 3 tryby:
  - nauka z wykorzystaniem fiszek
- - test sprawdzający wiedzę
- - tryb nauki, w którym użytkownik ręcznie wpisuje odpowiedź
+ - tryb nauki, w którym użytkownik zaznacza czy umie czy nie
+ - test sprawdzający wiedzę, użytkownik ręcznie wpisuje odpowiedź
 
 Projekt będzie korzystał z następujących wzorców projektowych:
 

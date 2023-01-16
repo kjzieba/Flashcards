@@ -7,7 +7,6 @@ import java.awt.*;
 
 public class GetStarted extends JPanel {
 
-    private JButton getStartedButton, settingsButton;
     private final Initializer initializer;
 
     public GetStarted(Initializer initializer) {
@@ -17,7 +16,7 @@ public class GetStarted extends JPanel {
         setLayout(null);
         getCustomTitle();
         addGetStartedButton();
-        addSettingsButton();
+//        addSettingsButton();
     }
 
     private void getCustomTitle() {
@@ -30,7 +29,7 @@ public class GetStarted extends JPanel {
     }
 
     private void addGetStartedButton() {
-        getStartedButton = new JButton("Get started");
+        JButton getStartedButton = new JButton("Get started");
         getStartedButton.setBackground(GUInitializer.getStartedButtonsColor);
         getStartedButton.setOpaque(true);
         getStartedButton.setFont(new Font("Arbutus", Font.PLAIN, 14));
@@ -42,7 +41,7 @@ public class GetStarted extends JPanel {
     }
 
     private void addSettingsButton() {
-        settingsButton = new JButton("Settings");
+        JButton settingsButton = new JButton("Settings");
         settingsButton.setBackground(GUInitializer.getStartedButtonsColor);
         settingsButton.setOpaque(true);
         settingsButton.setFont(new Font("Arbutus", Font.PLAIN, 14));
