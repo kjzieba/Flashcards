@@ -46,7 +46,7 @@ public class FlashCardsImgMode extends JPanel {
         JButton backButton = new ButtonComponents().backButtonComponent(13, 12);
         backButton.addActionListener(e -> {
             initializer.update(GUInitializer.Panel.ChooseMode);
-            App.getInstance().deleteRepo("T");
+            App.getInstance().deleteRepo("I");
             App.getInstance().saveEditedImgRepo(imgFlashcardCollection);
             App.getInstance().getAllCards().saveList(App.getInstance().getCurrentRepo());
             remove(redFlagButton);
@@ -89,7 +89,7 @@ public class FlashCardsImgMode extends JPanel {
     }
 
     public void setRepoImg() {
-        FlashcardCollectionInterface flashcardCollectionInterface = App.getInstance().getAllCards().getFlashcardList(App.getInstance().getCurrentRepo(), "T");
+        FlashcardCollectionInterface flashcardCollectionInterface = App.getInstance().getAllCards().getFlashcardList(App.getInstance().getCurrentRepo(), "I");
         imgFlashcardCollection = (ImgFlashcardCollection) flashcardCollectionInterface;
     }
 
@@ -181,12 +181,12 @@ public class FlashCardsImgMode extends JPanel {
         }
     }
 
-    public static ImageIcon ByteArrayToImage(byte[] bytes){
+    public static ImageIcon ByteArrayToImage(byte[] bytes) {
         try {
             BufferedImage img = ImageIO.read(new ByteArrayInputStream(bytes));
             ImageIcon icon = new ImageIcon(img);
             Image image = icon.getImage();
-            Image newimg = image.getScaledInstance(323, 175,  Image.SCALE_DEFAULT);
+            Image newimg = image.getScaledInstance(323, 175, Image.SCALE_DEFAULT);
             icon = new ImageIcon(newimg);
             return icon;
         } catch (IOException e) {
