@@ -23,6 +23,7 @@ public class GUInitializer extends JFrame implements Initializer {
     private final QuestionsAmount questionsAmount;
     private final AddImg addImg;
     private final EditTextRepo editTextRepo;
+    private final FlashCardsImgMode flashCardsImgMode;
     public Long editID = 0L;
     public static Boolean flag;
 
@@ -62,6 +63,7 @@ public class GUInitializer extends JFrame implements Initializer {
         questionsAmount = new QuestionsAmount(this);
         addImg = new AddImg(this);
         editTextRepo = new EditTextRepo(this);
+        flashCardsImgMode = new FlashCardsImgMode(this);
 
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -144,6 +146,14 @@ public class GUInitializer extends JFrame implements Initializer {
                 flashCardsMode.setRepo();
                 flashCardsMode.setCard();
             }
+            case FlashCardsImgMode -> {
+                chooseMode.setVisible(false);
+                setContentPane(flashCardsImgMode);
+                pack();
+                flashCardsImgMode.setVisible(true);
+                flashCardsImgMode.setRepoImg();
+                flashCardsImgMode.setCardImg();
+            }
             case Result -> {
                 chooseMode.setVisible(false);
                 setContentPane(result);
@@ -197,7 +207,8 @@ public class GUInitializer extends JFrame implements Initializer {
         AddTxt,
         AddImg,
         QuestionsAmount,
-        EditTxtRepo
+        EditTxtRepo,
+        FlashCardsImgMode
     }
 
     public static void changeFont(String path) {

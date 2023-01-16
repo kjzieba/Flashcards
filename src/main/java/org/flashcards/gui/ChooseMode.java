@@ -30,7 +30,7 @@ public class ChooseMode extends JPanel {
     private void getFlashCardsButton() {
         JButton flashcardsButton = new ButtonComponents().bigButtonComponent("flashcards", 149, 239);
         flashcardsButton.addActionListener(e -> {
-            initializer.update(GUInitializer.Panel.FlashCardsMode);
+            initializer.update(GUInitializer.Panel.FlashCardsImgMode);
         });
         add(flashcardsButton);
     }

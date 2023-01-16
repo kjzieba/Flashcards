@@ -139,6 +139,16 @@ public class App {
         command.execute();
     }
 
+    public void changeStateToFlaggedImg(ImgCard imgCard){
+        Command command = new ChgState(imgCard,States.FLAGGED);
+        command.execute();
+    }
+
+    public void changeStateToNotFlaggedImg(ImgCard imgCard){
+        Command command = new ChgState(imgCard, States.NOTFLAGGED);
+        command.execute();
+    }
+
     public void saveTxtToMemento(FlashcardTxtHistory flashcardTxtHistory, TxtCard txtCard){
         Command command = new DelTxtCard(flashcardTxtHistory, currentRepo, txtCard);
         command.execute();
