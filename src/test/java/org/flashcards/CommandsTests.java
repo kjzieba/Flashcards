@@ -38,7 +38,10 @@ public class CommandsTests {
     private static ImgCard imgCardMockFlaggedState;
 
     @BeforeAll
-    static void setup() {
+    static void setup() throws IOException {
+        File db = new File("db.txt");
+        db.createNewFile();
+
         emptyDb = mock(DatabaseProxy.getInstance().getClass());
         when(emptyDb.toString()).thenReturn("DatabaseProxy{memory=[]}");
 
